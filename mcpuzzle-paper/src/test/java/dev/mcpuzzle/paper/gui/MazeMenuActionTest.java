@@ -1,7 +1,9 @@
 package dev.mcpuzzle.paper.gui;
 
+import dev.mcpuzzle.core.domain.SessionState;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,5 +54,22 @@ class MazeMenuActionTest {
         assertEquals(requested, confirmation.confirmedAction().orElseThrow());
         assertTrue(MazeMenuAction.of(MazeMenuAction.Type.CONFIRM).confirmedAction().isEmpty());
         assertTrue(MazeMenuAction.of(MazeMenuAction.Type.CONFIRM, "NOT_A_TYPE").confirmedAction().isEmpty());
+    }
+
+    @Test
+    void refusesToSubstituteAMinimumForMalformedNumbers() {
+        MazeMenuAction malformed = MazeMenuAction.of(MazeMenuAction.Type.SAVE_DELETE, "not-a-slot");
+
+        assertThrows(IllegalArgumentException.class, () -> malformed.requireInteger(0, 1, 3));
+    }
+
+    @Test
+    void exposesRunActionsOnlyInStatesThatCanExecuteThem() {
+        assertEquals(List.of(MazeMenuAction.Type.QUEUE_CANCEL), MazeMenu.dashboardActions(SessionState.QUEUED));
+        assertEquals(List.of(MazeMenuAction.Type.ANSWER_PROMPT, MazeMenuAction.Type.RUN_LEAVE),
+                MazeMenu.dashboardActions(SessionState.ACTIVE));
+        assertEquals(List.of(MazeMenuAction.Type.RUN_LEAVE), MazeMenu.dashboardActions(SessionState.SUSPENDED));
+        assertTrue(MazeMenu.dashboardActions(SessionState.PROVISIONING).isEmpty());
+        assertTrue(MazeMenu.dashboardActions(SessionState.CLEANUP).isEmpty());
     }
 }
