@@ -18,6 +18,7 @@
 - Modify `mcpuzzle-core/src/main/java/dev/mcpuzzle/core/application/party/PartyService.java`: read-only received-invitation query.
 - Modify `mcpuzzle-paper/src/main/java/dev/mcpuzzle/paper/runtime/MazeRuntimeService.java`: menu-facing immutable data queries and richer run view.
 - Modify `mcpuzzle-paper/src/main/java/dev/mcpuzzle/paper/MCPuzzlePlugin.java`: pass admin actions and authoring service into the menu.
+- Modify `mcpuzzle-paper/build.gradle.kts`: select PowerShell 7 or Windows PowerShell for resource-pack generation.
 - Create `mcpuzzle-paper/src/test/java/dev/mcpuzzle/paper/gui/MazeMenuActionTest.java`: action protocol coverage.
 - Modify `mcpuzzle-core/src/test/java/dev/mcpuzzle/core/application/party/PartyServiceTest.java`: received invitation lifecycle coverage.
 - Modify `.gitignore`: ignore visual-companion scratch state created during approved design work.
@@ -358,6 +359,7 @@ git commit -m "feat: add maze admin and answer gui flows"
 
 **Files:**
 - Modify: `.gitignore`
+- Modify: `mcpuzzle-paper/build.gradle.kts`
 - Verify only: `mcpuzzle-paper/src/main/resources/plugin.yml`
 - Verify only: `server/verify-startup.ps1`
 
@@ -371,31 +373,42 @@ Add exactly these entries without changing existing patterns:
 .visual-companion.err
 ```
 
-- [ ] **Step 2: Run all unit tests and the full build**
+- [ ] **Step 2: Make resource-pack generation portable across installed PowerShell variants**
+
+The baseline full build fails when `pwsh.exe` is absent even though Windows PowerShell is available. Resolve the executable once at configuration time:
+
+```kotlin
+val powerShellExecutable = if (System.getenv("PATH").orEmpty().split(File.pathSeparator)
+        .map(::File).any { it.resolve("pwsh.exe").isFile }) "pwsh.exe" else "powershell.exe"
+```
+
+Use `powerShellExecutable` in `buildPuzzleResourcePack.commandLine` and preserve the existing `-NoProfile`, `-ExecutionPolicy Bypass`, and `-File` arguments.
+
+- [ ] **Step 3: Run all unit tests and the full build**
 
 Run: `.\gradlew.bat clean test build`
 
 Expected: `BUILD SUCCESSFUL`, zero failed tests, and a shaded plugin JAR at `mcpuzzle-paper/build/libs/mcpuzzle-paper-0.1.0-SNAPSHOT.jar`.
 
-- [ ] **Step 3: Run Paper startup verification**
+- [ ] **Step 4: Run Paper startup verification**
 
 Run: `pwsh -NoProfile -ExecutionPolicy Bypass -File .\server\verify-startup.ps1`
 
 Expected: plugin reaches `MCPuzzle READY`, validates 20 rooms, and the temporary verification server exits cleanly.
 
-- [ ] **Step 4: Inspect source and user-owned diffs**
+- [ ] **Step 5: Inspect source and user-owned diffs**
 
 Run: `git status --short` and `git diff --check`.
 
 Expected: only intentional source, test, documentation, and `.gitignore` changes are present in commits; pre-existing `server/**` configuration and world modifications remain unstaged and unchanged by this work.
 
-- [ ] **Step 5: Commit repository hygiene only**
+- [ ] **Step 6: Commit repository hygiene and build portability**
 
 ```powershell
-git add -- .gitignore
-git commit -m "chore: ignore gui design scratch files"
+git add -- .gitignore mcpuzzle-paper/build.gradle.kts
+git commit -m "build: support available PowerShell runtime"
 ```
 
-- [ ] **Step 6: Perform the completion checklist**
+- [ ] **Step 7: Perform the completion checklist**
 
 Confirm main dashboard, party and invitation flow, saves, hints, leaderboard, answer prompt, run actions, admin permission checks, command compatibility, async main-thread handoff, and server startup evidence against `docs/superpowers/specs/2026-08-06-maze-gui-overhaul-design.md`.
