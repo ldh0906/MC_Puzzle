@@ -12,10 +12,12 @@ import java.nio.file.Path;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.concurrent.CompletionException;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SaveSlotWorkflowTest {
@@ -47,6 +49,11 @@ class SaveSlotWorkflowTest {
                     "같은 슬롯 번호라도 현재 소유자가 다르면 리더 목록에서 합치면 안 된다");
 
             UUID outsider = UUID.randomUUID();
+            assertThrows(CompletionException.class,
+                    () -> workflow.listForViewer(outsider, false, leader).toCompletableFuture().join(),
+                    "일반 플레이어는 다른 소유자의 세이브 목록을 조회할 수 없다");
+            assertEquals(1, workflow.listForViewer(outsider, true, leader).toCompletableFuture().join().size(),
+                    "운영자는 지정한 소유자의 세이브만 조회한다");
             assertFalse(workflow.deleteAuthorized(member, 1, outsider, false).toCompletableFuture().join(),
                     "명단 외 플레이어는 이전된 저장을 삭제할 수 없다");
             assertTrue(workflow.deleteAuthorized(member, 1, leader, false).toCompletableFuture().join(),
