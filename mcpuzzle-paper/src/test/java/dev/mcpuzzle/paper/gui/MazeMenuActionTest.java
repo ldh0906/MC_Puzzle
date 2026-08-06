@@ -41,4 +41,16 @@ class MazeMenuActionTest {
         assertTrue(MazeMenuAction.of(MazeMenuAction.Type.PARTY_INVITE, "not-a-uuid").uuid(0).isEmpty());
         assertTrue(MazeMenuAction.of(MazeMenuAction.Type.PAGE).uuid(0).isEmpty());
     }
+
+    @Test
+    void preservesTheRequestedActionInsideAConfirmation() {
+        UUID owner = UUID.randomUUID();
+        MazeMenuAction requested = MazeMenuAction.of(MazeMenuAction.Type.SAVE_DELETE, "2", owner.toString());
+
+        MazeMenuAction confirmation = MazeMenuAction.confirmation(requested);
+
+        assertEquals(requested, confirmation.confirmedAction().orElseThrow());
+        assertTrue(MazeMenuAction.of(MazeMenuAction.Type.CONFIRM).confirmedAction().isEmpty());
+        assertTrue(MazeMenuAction.of(MazeMenuAction.Type.CONFIRM, "NOT_A_TYPE").confirmedAction().isEmpty());
+    }
 }
