@@ -1,0 +1,32 @@
+{
+  // MCPuzzle에서 사용하는 기본 메인 로비 월드입니다.
+  "id": "zertan",
+  "default": true,
+  "worldFolder": "world",
+  "source": {
+    "projectUrl": "https://www.curseforge.com/minecraft/worlds/zertan",
+    "projectId": 874445,
+    "fileId": 4623072,
+    "fileName": "ZERTAN.zip",
+    "archiveSha256": "5E0FBC8E23BC48F2644A05001589186E4C6387EC8F2547CCC147848500E1B530",
+    "advertisedMinecraftVersion": "1.20.1",
+    "worldDataVersion": 3218,
+    "demoWithMissingChunks": true
+  },
+  "spawn": {
+    "x": -43.5,
+    "y": 97.0,
+    "z": 0.5,
+    "yaw": 0.0,
+    "pitch": 0.0
+  },
+  "boundary": {
+    "mode": "WORLD_BORDER_WITH_TELEPORT_BACK",
+    "centerX": 16.0,
+    "centerZ": 48.0,
+    "size": 448.0,
+    "voidReturnBelowY": 0.0,
+    "returnDestination": "SPAWN"
+  }
+}
+

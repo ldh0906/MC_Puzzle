@@ -1,0 +1,17 @@
+package dev.mcpuzzle.core.application.party;
+
+public enum PartyServiceError {
+    PARTY_NOT_FOUND,
+    NOT_LEADER,
+    ALREADY_IN_PARTY_OR_RUN,
+    PARTY_FULL,
+    INVITE_ALREADY_PENDING,
+    INVITE_NOT_FOUND,
+    TARGET_ALREADY_MEMBER,
+    TARGET_NOT_MEMBER,
+    CANNOT_KICK_LEADER,
+    LEADER_MUST_DISBAND,
+    PARTY_NOT_OPEN,
+    ROSTER_LOCKED,
+    INVALID_STATE
+}

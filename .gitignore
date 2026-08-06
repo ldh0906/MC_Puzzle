@@ -1,0 +1,41 @@
+.gradle/
+**/build/
+.idea/
+*.iml
+run/
+
+# Local analysis and verification environments
+.analysis_tools/
+.smoke/
+__pycache__/
+*.py[cod]
+
+# Paper runtime downloads generated beside the repository modules
+/cache/
+/libraries/
+/versions/
+
+# Local Paper server runtime state (the launcher, Paper JAR, configuration,
+# and bundled lobby world remain versioned)
+/server/cache/
+/server/libraries/
+/server/versions/
+/server/logs/
+/server/plugins/
+/server/world_the_end/
+/server/mcpuzzle_*/
+/server/.console_history
+/server/banned-ips.json
+/server/banned-players.json
+/server/eula.txt
+/server/ops.json
+/server/usercache.json
+/server/version_history.json
+/server/whitelist.json
+
+# Per-player/live lock data inside the bundled lobby snapshot
+/server/world/advancements/
+/server/world/playerdata/
+/server/world/stats/
+/server/world/session.lock
+/server/world/uid.dat

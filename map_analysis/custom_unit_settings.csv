@@ -1,0 +1,80 @@
+﻿unit_id,default_name,custom_name_string_id,custom_name,hitpoints_raw_256ths,hitpoints,shields,armor,build_time_ticks,mineral_cost,gas_cost
+0,Terran Marine,5211,으헤헤 다굴이진리다,102400,400.0,10000,0,360,50,0
+1,Terran Ghost,6469,Ghost,128000,500.0,100,0,750,25,75
+2,Terran Vulture,5822,Vulture,128000,500.0,100,0,450,75,0
+3,Terran Goliath,2266,SOACOSSS,128000,500.0,100,0,600,100,50
+5,Terran Siege Tank (Tank Mode),5285,AACOAA,128000,500.0,100,0,750,150,100
+7,Terran SCV,2866,SCV,128000,500.0,100,0,300,50,0
+8,Terran Wraith,4126,Wraith,128000,500.0,100,0,900,150,100
+10,Gui Montag,452,Firebat,128000,500.0,100,0,720,100,50
+15,Terran Civilian,6583,BGM On/Off,128000,500.0,100,0,1,0,0
+19,Jim Raynor (Vulture),428,Jim Raynor,128000,500.0,100,0,900,150,0
+20,Jim Raynor (Marine),3610,살려줘!!!,2048000,8000.0,10000,0,1,50,0
+23,Edmund Duke (Tank Mode),6450,Edmund Duke(Tank),128000,500.0,100,0,1500,300,200
+25,Edmund Duke (Siege Mode),1497,Edmund Duke(Mode),128000,500.0,100,0,1500,300,200
+32,Terran Firebat,452,Firebat,128000,500.0,100,0,360,50,25
+34,Terran Medic,2763,AACOSS,128000,500.0,100,0,450,50,25
+36,Zerg Egg,5805,Hidden Key,12800,50.0,10000,0,1,1,1
+37,Zerg Zergling,5011,Made by CoOlLuCk-_-,128000,500.0,100,0,420,50,0
+38,Zerg Hydralisk,3613,SOS,128000,500.0,100,0,420,75,25
+39,Zerg Ultralisk,2922,Ultralisk,128000,500.0,100,0,900,200,200
+41,Zerg Drone,2272,Burrow,128000,500.0,100,0,300,50,0
+44,Zerg Guardian,1126,OOA,128000,500.0,100,0,600,50,100
+46,Zerg Defiler,3793,Salmon,128000,500.0,100,0,750,50,150
+47,Zerg Scourge,1309,혼자두지 말아요 >_<,128000,500.0,100,0,450,25,75
+50,Infested Terran,3129,Infested Terran,128000,500.0,100,0,600,100,50
+51,Infested Kerrigan,5252,Kerrigan,128000,500.0,100,0,1500,200,300
+53,Hunter Killer,3968,Hunter Killer,128000,500.0,100,0,780,150,50
+54,Devouring One,3616,Dog,1280000,5000.0,100,0,840,100,0
+60,Protoss Corsair,2290,Initialization,25600,100.0,0,0,1,0,0
+61,Protoss Dark Templar,5494,Dog Hunter,1280,5.0,0,0,750,125,100
+62,Zerg Devourer,5004,물고기,128000,500.0,100,0,600,150,50
+63,Protoss Dark Archon,4019,SSSSOASSAOC,128000,500.0,0,0,300,0,0
+64,Protoss Probe,3396,ASCSASS,128000,500.0,0,0,300,50,0
+65,Protoss Zealot,4582,Zealot,128000,500.0,0,0,600,100,0
+66,Protoss Dragoon,2936,Dragoon,128000,500.0,0,0,750,125,50
+68,Protoss Archon,6122,공정한 대결,128000,500.0,0,0,300,0,0
+70,Protoss Scout,2208,1,25600,100.0,0,0,1,0,0
+71,Protoss Arbiter,2041,100,25600,100.0,0,0,1,0,0
+72,Protoss Carrier,5244,10,25600,100.0,0,0,1,0,0
+75,Zeratul,4599,Block,128000,500.0,0,0,1500,100,300
+77,Fenix (Zealot),5225,Fenix(Zealot),128000,500.0,0,0,1200,200,0
+78,Fenix (Dragoon),5419,Fenix(Dragoon),128000,500.0,0,0,1500,300,100
+79,Tassadar,5456,AOSSSS,128000,500.0,0,0,1500,100,300
+83,Protoss Reaver,5555,Reaver,128000,500.0,0,0,1050,200,100
+84,Protoss Observer,4583,Detector,128000,500.0,0,0,600,25,75
+90,Bengalaas,881,Master Key,12800,50.0,10000,0,1,1,1
+97,Lurker Egg,5630,Wall,128000,500.0,0,0,1,1,1
+99,Samir Duran,5562,낚시꾼,128000,500.0,100,0,1500,200,75
+103,Zerg Lurker,2357,AA,128000,500.0,100,0,600,50,100
+109,Terran Supply Depot,2923,,12800,50.0,10000,0,600,100,0
+112,Terran Academy,2628,꼭짓점으로,12800,50.0,10000,0,1200,150,0
+115,Terran Control Tower,595,Checker,128000,500.0,100,0,600,50,50
+122,Terran Engineering Bay,5475,이게 뭐죠?,128000,500.0,100,0,900,125,0
+123,Terran Armory,5474,집중하면 알수있어요,128000,500.0,100,0,1200,100,50
+125,Terran Bunker,1431,한 공간이 약간 다릅니다,12800,50.0,10000,0,450,100,0
+126,Norad II (Crashed),521,언제 어이없었던가,128000,500.0,100,0,4800,800,600
+127,Ion Cannon,5481,뻐꾹 뻐꾹 뻐꾹,128000,500.0,100,0,900,200,0
+134,Zerg Nydus Canal,5174,Hint,128000,500.0,100,0,600,150,0
+135,Zerg Hydralisk Den,5480,아무것도 없는 방,12800,50.0,10000,0,600,100,50
+137,Zerg Greater Spire,2683,Answer,128000,500.0,100,0,1800,100,150
+138,Zerg Queen's Nest,6446,Characteristic,128000,500.0,100,0,900,150,100
+139,Zerg Evolution Chamber,4933,이건 너무 불공평해!,128000,500.0,100,0,600,75,0
+140,Zerg Ultralisk Cavern,5231,모두 모여랏!,128000,500.0,100,0,1200,150,200
+141,Zerg Spire,2677,One Second Clear Add,128000,500.0,100,0,1800,200,150
+142,Zerg Spawning Pool,1616,당신은 어디 소속이요?,128000,500.0,100,0,1200,200,0
+151,Zerg Cerebrate,2354,무언가 심오한 변화가,128000,500.0,100,0,0,0,0
+155,Protoss Robotics Facility,211,인생의 진리는 무엇인가,12800,50.0,10000,0,1200,200,200
+156,Protoss Pylon,3895,Pylon,128000,500.0,0,0,450,100,0
+159,Protoss Observatory,2623,으악 껌밟았다!,128000,500.0,0,0,450,50,100
+162,Protoss Photon Cannon,5492,가운데 놈을 잡으세요,128000,500.0,0,0,750,150,0
+163,Protoss Citadel of Adun,1590,다른점 찾기,128000,500.0,0,0,900,150,100
+164,Protoss Cybernetics Core,3901,그냥 넘어가세요,128000,500.0,0,0,900,200,0
+165,Protoss Templar Archives,2255,지옥까지 함께하자,128000,500.0,0,0,900,150,200
+166,Protoss Forge,961,저는 낚시 중입니다,128000,500.0,0,0,600,150,0
+167,Protoss Stargate,3,"S=1,C=10,A=100",128000,500.0,0,0,1050,150,150
+169,Protoss Fleet Beacon,6180,Fleet Beacon,128000,500.0,0,0,900,300,200
+170,Protoss Arbiter Tribunal,1322,싸움을 말려봐요!!,128000,500.0,0,0,900,200,150
+171,Protoss Robotics Support Bay,3133,艮,128000,500.0,0,0,450,150,100
+172,Protoss Shield Battery,2035,8,128000,500.0,0,0,450,100,0
+177,Mineral Field (Type 2),5244,10,25600000,100000.0,100,0,1,1,1

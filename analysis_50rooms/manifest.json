@@ -1,0 +1,77 @@
+[
+  {
+    "path": "analysis_report.md",
+    "size_bytes": 21829,
+    "sha256": "501085c01840840d4054d040aba9d76105b88f8a77caf85b635ebb32a3e99266"
+  },
+  {
+    "path": "audio/BGM.wav",
+    "size_bytes": 57096,
+    "sha256": "199284416989ad7049bbe973c91097c7733d6c8c9946cf5f69e2c486d4243374"
+  },
+  {
+    "path": "audio/BGM3.wav",
+    "size_bytes": 46136,
+    "sha256": "6245fb0379c076d3e2ff3dea100a367ce760f1924b26abe89d1ba12270aba85b"
+  },
+  {
+    "path": "audio/JoHap.wav",
+    "size_bytes": 37898,
+    "sha256": "f34d2eee6bbebf0eb31c00148de1d14050f716a488c0cf973fc690cb90ff3f67"
+  },
+  {
+    "path": "audio/typing.wav",
+    "size_bytes": 4636,
+    "sha256": "350b39843228887509cda2cfe5ef531eeee5c09465843cd5e8510e50bd8a89ad"
+  },
+  {
+    "path": "audio/Victory1.wav",
+    "size_bytes": 41878,
+    "sha256": "70970b70b72d572a8ba00adebf99b6dbc9071196f4a9944d60f39ab45e96fa13"
+  },
+  {
+    "path": "custom_unit_settings.csv",
+    "size_bytes": 5519,
+    "sha256": "1b4805967cf20d23f7ae225af114b7f019236fe18f29c43ed9e4652749ae648a"
+  },
+  {
+    "path": "locations.csv",
+    "size_bytes": 12748,
+    "sha256": "ac2faa3c0b4e0a3b8a66c06815f18422c90a44855e8ec578b35109cb90e0b2cd"
+  },
+  {
+    "path": "map_data.json",
+    "size_bytes": 2003371,
+    "sha256": "8b00ffe352fce0914296b9d132a40f21d1c9bb2d7f7ec57bd07564338bf2da6a"
+  },
+  {
+    "path": "room_layout.png",
+    "size_bytes": 25735,
+    "sha256": "af71d8fa5b906a6e36073d581cbc49a0cae41f0576e66590fc3c134e47db35e0"
+  },
+  {
+    "path": "scenario.chk",
+    "size_bytes": 855234,
+    "sha256": "aff985a14d0ac6db2645d862f27b72da80ec8156270f57c7acbf4d35d27b44f6"
+  },
+  {
+    "path": "strings_referenced.csv",
+    "size_bytes": 58638,
+    "sha256": "0c279900f141aafdbf8821deff2f01af6d659302e775cdaf95ab822f5e79b3e9"
+  },
+  {
+    "path": "terrain_overview.png",
+    "size_bytes": 45716,
+    "sha256": "2eee09fd38788f8a01aa1112f60025fd5a81fd485d08764cd53f35f36475a8cc"
+  },
+  {
+    "path": "triggers_full.md",
+    "size_bytes": 130557,
+    "sha256": "655b27912faa1be1562b0a80b2dcdd82b5d81d207bb9d942148e22c960bd95eb"
+  },
+  {
+    "path": "units.csv",
+    "size_bytes": 34098,
+    "sha256": "60d0b82f00caaed3b5f2cacaee4b0442645252a88d50c80995d3c05e0698aa1b"
+  }
+]

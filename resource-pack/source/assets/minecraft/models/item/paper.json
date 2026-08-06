@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "minecraft:item/paper"
+  },
+  "overrides": [
+    { "predicate": { "custom_model_data": 12001 }, "model": "mcpuzzle:item/party" },
+    { "predicate": { "custom_model_data": 12002 }, "model": "mcpuzzle:item/start" },
+    { "predicate": { "custom_model_data": 12003 }, "model": "mcpuzzle:item/saves" },
+    { "predicate": { "custom_model_data": 12004 }, "model": "mcpuzzle:item/hint" },
+    { "predicate": { "custom_model_data": 12005 }, "model": "mcpuzzle:item/slot_1" },
+    { "predicate": { "custom_model_data": 12006 }, "model": "mcpuzzle:item/slot_2" },
+    { "predicate": { "custom_model_data": 12007 }, "model": "mcpuzzle:item/slot_3" },
+    { "predicate": { "custom_model_data": 12008 }, "model": "mcpuzzle:item/back" },
+    { "predicate": { "custom_model_data": 12009 }, "model": "mcpuzzle:item/hint_request" },
+    { "predicate": { "custom_model_data": 12010 }, "model": "mcpuzzle:item/hint_view_1" },
+    { "predicate": { "custom_model_data": 12011 }, "model": "mcpuzzle:item/hint_view_2" },
+    { "predicate": { "custom_model_data": 12012 }, "model": "mcpuzzle:item/hint_view_3" },
+    { "predicate": { "custom_model_data": 12013 }, "model": "mcpuzzle:item/approve" },
+    { "predicate": { "custom_model_data": 12014 }, "model": "mcpuzzle:item/reject" },
+    { "predicate": { "custom_model_data": 12015 }, "model": "mcpuzzle:item/confirm" },
+    { "predicate": { "custom_model_data": 12016 }, "model": "mcpuzzle:item/cancel" }
+  ]
+}
