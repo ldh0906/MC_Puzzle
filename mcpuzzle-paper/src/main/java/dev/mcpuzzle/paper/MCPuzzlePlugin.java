@@ -159,8 +159,9 @@ public final class MCPuzzlePlugin extends JavaPlugin {
                 resourcePacks, teleportPermits, visibility);
         resourcePacks.setFailureHandler(runtime::onDisconnect);
         AuthoringWandService authoring = new AuthoringWandService(this);
-        MazeMenu menu = new MazeMenu(this, runtime);
         worldVerifier = new GeneratedWorldVerifier(getServer(), new BukkitMainThreadGateway(this), worlds, map);
+        MazeMenu menu = new MazeMenu(this, runtime, readiness, authoring,
+                this::reloadFromCommand, this::verifyWorldFromCommand);
         MazeCommand command = new MazeCommand(runtime, menu, readiness, authoring,
                 this::reloadFromCommand, this::verifyWorldFromCommand);
         PluginCommand maze = requireMazeCommand();

@@ -24,6 +24,12 @@ public record MazeMenuAction(Type type, List<String> arguments) {
         return new MazeMenuAction(type, List.of(arguments));
     }
 
+    public static MazeMenuAction confirmation(MazeMenuAction requested) {
+        Objects.requireNonNull(requested, "requested");
+        return MazeMenuAction.of(Type.CONFIRM,
+                Stream.concat(Stream.of(requested.type.name()), requested.arguments.stream()).toArray(String[]::new));
+    }
+
     public String encode() {
         return Stream.concat(Stream.of(type.name()), arguments.stream())
                 .collect(Collectors.joining(SEPARATOR));
@@ -54,6 +60,16 @@ public record MazeMenuAction(Type type, List<String> arguments) {
         if (index < 0 || index >= arguments.size()) return Optional.empty();
         try {
             return Optional.of(UUID.fromString(arguments.get(index)));
+        } catch (IllegalArgumentException failure) {
+            return Optional.empty();
+        }
+    }
+
+    public Optional<MazeMenuAction> confirmedAction() {
+        if (type != Type.CONFIRM || arguments.isEmpty()) return Optional.empty();
+        try {
+            return Optional.of(MazeMenuAction.of(Type.valueOf(arguments.get(0)),
+                    arguments.subList(1, arguments.size()).toArray(String[]::new)));
         } catch (IllegalArgumentException failure) {
             return Optional.empty();
         }
