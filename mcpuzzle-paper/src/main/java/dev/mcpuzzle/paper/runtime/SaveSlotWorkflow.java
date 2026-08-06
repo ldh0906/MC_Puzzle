@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 /** Owns save-slot keying, expiry timestamps, checkpoint requirements and ownership operations. */
@@ -39,6 +40,14 @@ public final class SaveSlotWorkflow {
 
     public CompletionStage<List<SaveGame>> listForPrincipal(UUID principal) {
         return persistence.listVisibleToPrincipal(principal, mazeId, clock.instant());
+    }
+
+    public CompletionStage<List<SaveGame>> listForViewer(UUID viewer, boolean operator, UUID owner) {
+        if (!viewer.equals(owner) && !operator) {
+            return CompletableFuture.failedFuture(
+                    new IllegalArgumentException("다른 플레이어의 세이브는 OP만 볼 수 있습니다."));
+        }
+        return operator && !viewer.equals(owner) ? list(owner) : listForPrincipal(viewer);
     }
 
     public CompletionStage<Boolean> delete(UUID owner, int slot) {

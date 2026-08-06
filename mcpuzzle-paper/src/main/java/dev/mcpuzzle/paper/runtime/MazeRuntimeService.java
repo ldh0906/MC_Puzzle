@@ -159,6 +159,8 @@ public final class MazeRuntimeService {
 
     public Optional<PartyView> party(UUID playerId) { return parties.findByPlayer(playerId); }
 
+    public List<PartyView> invitations(UUID playerId) { return parties.findInvitations(playerId); }
+
     public void disbandParty(Player leader) {
         if (context(leader.getUniqueId()) != null) {
             leader.sendMessage("§c미궁 진행 중에는 /maze leave를 사용하세요."); return;
@@ -393,13 +395,12 @@ public final class MazeRuntimeService {
         listSaves(player, player.getUniqueId());
     }
 
+    public CompletionStage<List<SaveGame>> saves(Player viewer, UUID ownerId) {
+        return saveSlots.listForViewer(viewer.getUniqueId(), viewer.isOp(), ownerId);
+    }
+
     public void listSaves(Player viewer, UUID ownerId) {
-        if (!viewer.getUniqueId().equals(ownerId) && !viewer.isOp()) {
-            viewer.sendMessage("§c다른 플레이어의 세이브는 OP만 볼 수 있습니다."); return;
-        }
-        CompletionStage<List<SaveGame>> listing = viewer.isOp() && !viewer.getUniqueId().equals(ownerId)
-                ? saveSlots.list(ownerId) : saveSlots.listForPrincipal(viewer.getUniqueId());
-        listing.whenComplete((saves, failure) -> onMain(() -> {
+        saves(viewer, ownerId).whenComplete((saves, failure) -> onMain(() -> {
             if (failure != null) { asyncFailure(viewer, "세이브 목록", failure); return; }
             viewer.sendMessage("§6[미궁 세이브: " + map.displayName() + " / " + ownerId + "]");
             for (int slot = 1; slot <= 3; slot++) {
@@ -432,7 +433,7 @@ public final class MazeRuntimeService {
 
     public void leaderboard(Player player, int partySize) {
         int size = Math.max(1, Math.min(4, partySize));
-        persistence.leaderboard(new LeaderboardQuery(map.mazeId(), map.mapVersion(), size, 10))
+        leaderboardEntries(size)
                 .whenComplete((entries, failure) -> onMain(() -> {
                     if (failure != null) { asyncFailure(player, "순위표", failure); return; }
                     player.sendMessage("§6[" + size + "인 파티 순위표]");
@@ -441,6 +442,11 @@ public final class MazeRuntimeService {
                             + formatDuration(entry.run().metrics().activePlayTime()) + " §7실패 "
                             + entry.run().metrics().failures() + " / 힌트 " + entry.run().metrics().hintsUsed());
                 }));
+    }
+
+    public CompletionStage<List<LeaderboardEntry>> leaderboardEntries(int partySize) {
+        int size = Math.max(1, Math.min(4, partySize));
+        return persistence.leaderboard(new LeaderboardQuery(map.mazeId(), map.mapVersion(), size, 10));
     }
 
     public void tick() {
@@ -906,8 +912,14 @@ public final class MazeRuntimeService {
         return "%02d:%02d:%02d".formatted(seconds / 3600, seconds / 60 % 60, seconds % 60);
     }
 
-    public record RunView(SessionId sessionId, SessionState state, int room, int slot, PartyRoster roster) { }
-    private RunView view(RunContext ctx) { return new RunView(ctx.session.id(), ctx.session.state(), ctx.session.currentRoom(), ctx.slot, ctx.roster); }
+    public record RunView(SessionId sessionId, SessionState state, int room, int roomCount,
+                          int slot, PartyRoster roster, Set<Integer> unlockedHints) { }
+
+    private RunView view(RunContext ctx) {
+        int room = ctx.session.currentRoom();
+        return new RunView(ctx.session.id(), ctx.session.state(), room, ctx.session.roomCount(), ctx.slot, ctx.roster,
+                Set.copyOf(ctx.session.hintProgress().unlockedByRoom().getOrDefault(room, Set.of())));
+    }
 
     private static final class RunContext {
         private final PartyId partyId;
