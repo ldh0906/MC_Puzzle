@@ -1,0 +1,14 @@
+package dev.mcpuzzle.core.domain;
+
+public enum SessionFailure {
+    INVALID_STATE,
+    NOT_LEADER,
+    NOT_MEMBER,
+    ROSTER_MISMATCH,
+    ROSTER_LOCKED,
+    PARTY_FULL,
+    MEMBER_ALREADY_PRESENT,
+    LEADER_CANNOT_LEAVE,
+    LAST_ACTIVITY_IN_FUTURE,
+    AFK_THRESHOLD_NOT_REACHED
+}

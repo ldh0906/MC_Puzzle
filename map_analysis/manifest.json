@@ -1,0 +1,122 @@
+[
+  {
+    "path": "a_to_z_v8_original.scx",
+    "size_bytes": 7090011,
+    "sha256": "5a43f214bba54335e2d39c07c61afc9fd844e00e48bcfbf2a438fed2cbb2cebb"
+  },
+  {
+    "path": "analysis_report.md",
+    "size_bytes": 21809,
+    "sha256": "fbdbb3a26988462300ef1f90e4d5bcb032c0bcf8f4bf0c9e0b962cb867b45608"
+  },
+  {
+    "path": "analyze_chk.py",
+    "size_bytes": 8595,
+    "sha256": "a39be9048e6edd958bcb2d954c0044ea0204ee1f17ee9bcf2ac9e0b4221296f8"
+  },
+  {
+    "path": "audio/BGM.wav",
+    "size_bytes": 57096,
+    "sha256": "199284416989ad7049bbe973c91097c7733d6c8c9946cf5f69e2c486d4243374"
+  },
+  {
+    "path": "audio/BGM3.wav",
+    "size_bytes": 46136,
+    "sha256": "6245fb0379c076d3e2ff3dea100a367ce760f1924b26abe89d1ba12270aba85b"
+  },
+  {
+    "path": "audio/JoHap.wav",
+    "size_bytes": 37898,
+    "sha256": "f34d2eee6bbebf0eb31c00148de1d14050f716a488c0cf973fc690cb90ff3f67"
+  },
+  {
+    "path": "audio/typing.wav",
+    "size_bytes": 4636,
+    "sha256": "350b39843228887509cda2cfe5ef531eeee5c09465843cd5e8510e50bd8a89ad"
+  },
+  {
+    "path": "audio/Victory1.wav",
+    "size_bytes": 41878,
+    "sha256": "70970b70b72d572a8ba00adebf99b6dbc9071196f4a9944d60f39ab45e96fa13"
+  },
+  {
+    "path": "custom_unit_settings.csv",
+    "size_bytes": 5519,
+    "sha256": "1b4805967cf20d23f7ae225af114b7f019236fe18f29c43ed9e4652749ae648a"
+  },
+  {
+    "path": "extract_map.py",
+    "size_bytes": 1428,
+    "sha256": "38c61fcb3d351638cb7520163bfc833e8d040e094b5139a9ae6ab559da7b598b"
+  },
+  {
+    "path": "extracted/scenario.chk",
+    "size_bytes": 5961952,
+    "sha256": "68e0b3851daefc6694aa623ac86de9e8241a9197422fac59aa99ea125da36c42"
+  },
+  {
+    "path": "locations.csv",
+    "size_bytes": 12748,
+    "sha256": "ac2faa3c0b4e0a3b8a66c06815f18422c90a44855e8ec578b35109cb90e0b2cd"
+  },
+  {
+    "path": "map_data.json",
+    "size_bytes": 2003371,
+    "sha256": "8b00ffe352fce0914296b9d132a40f21d1c9bb2d7f7ec57bd07564338bf2da6a"
+  },
+  {
+    "path": "reports/locations.json",
+    "size_bytes": 47731,
+    "sha256": "95eda3017cec8bdd1cfbaada63bfbd762c0b011d8ecfafec3c64061e51bbf2a6"
+  },
+  {
+    "path": "reports/strings.tsv",
+    "size_bytes": 108720,
+    "sha256": "7dc8e55ef2da06c63b9ab356a501d684f5b8a2a7b16d3eec3b817d2cda33ca38"
+  },
+  {
+    "path": "reports/summary.json",
+    "size_bytes": 4936,
+    "sha256": "79fa19048db57a2d12c75696d5759c151e2d7890e6e0fda15025be5ceedc0053"
+  },
+  {
+    "path": "reports/units.json",
+    "size_bytes": 8104,
+    "sha256": "bd0178da2d09f28b69b6fa36e4de47e2c6aed3d6a4bd9b07e397bf59ce18ebdc"
+  },
+  {
+    "path": "room_layout.png",
+    "size_bytes": 24220,
+    "sha256": "e4bd2a0dfdbf7702cf6a646ee3f3db7cf65ee5ebac9c1c32c26e668c6f7896fd"
+  },
+  {
+    "path": "scenario.chk",
+    "size_bytes": 855234,
+    "sha256": "aff985a14d0ac6db2645d862f27b72da80ec8156270f57c7acbf4d35d27b44f6"
+  },
+  {
+    "path": "source_map.scx",
+    "size_bytes": 249502,
+    "sha256": "1325e755dea61cf6146c9b4c84ee76c414ad29ceba065bb38698871c78b40da1"
+  },
+  {
+    "path": "strings_referenced.csv",
+    "size_bytes": 58638,
+    "sha256": "0c279900f141aafdbf8821deff2f01af6d659302e775cdaf95ab822f5e79b3e9"
+  },
+  {
+    "path": "terrain_overview.png",
+    "size_bytes": 45716,
+    "sha256": "2eee09fd38788f8a01aa1112f60025fd5a81fd485d08764cd53f35f36475a8cc"
+  },
+  {
+    "path": "triggers_full.md",
+    "size_bytes": 130557,
+    "sha256": "655b27912faa1be1562b0a80b2dcdd82b5d81d207bb9d942148e22c960bd95eb"
+  },
+  {
+    "path": "units.csv",
+    "size_bytes": 34098,
+    "sha256": "60d0b82f00caaed3b5f2cacaee4b0442645252a88d50c80995d3c05e0698aa1b"
+  }
+]

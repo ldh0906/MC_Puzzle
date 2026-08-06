@@ -1,0 +1,231 @@
+{
+  "chk_size": 5961952,
+  "parsed_end": 5961916,
+  "map_width_tiles": 64,
+  "map_height_tiles": 64,
+  "map_name_id": 1,
+  "map_name": "[미궁] A to Z",
+  "description_id": 2,
+  "description": "Map. RnRkRb\\r\\n\\r\\nQuestion.\\r\\nAftershock.　Leeroy_Jenkins　Teru-　Tic_Tac_Toc　-WaterDog-　Winterest　wnsrlqkq\\r\\n\\r\\n컴퓨터 자리 금지\\r\\n방제 배속 금지",
+  "string_count": 1029,
+  "nonempty_string_count": 353,
+  "unit_count": 24,
+  "location_count": 255,
+  "trigger_count": 71,
+  "sections": [
+    {
+      "name": "VER ",
+      "header_offset": 0,
+      "data_offset": 8,
+      "size": 2,
+      "end_offset": 10,
+      "valid": true
+    },
+    {
+      "name": "VCOD",
+      "header_offset": 10,
+      "data_offset": 18,
+      "size": 1040,
+      "end_offset": 1058,
+      "valid": true
+    },
+    {
+      "name": "OWNR",
+      "header_offset": 1058,
+      "data_offset": 1066,
+      "size": 12,
+      "end_offset": 1078,
+      "valid": true
+    },
+    {
+      "name": "SIDE",
+      "header_offset": 1078,
+      "data_offset": 1086,
+      "size": 12,
+      "end_offset": 1098,
+      "valid": true
+    },
+    {
+      "name": "COLR",
+      "header_offset": 1098,
+      "data_offset": 1106,
+      "size": 8,
+      "end_offset": 1114,
+      "valid": true
+    },
+    {
+      "name": "ERA ",
+      "header_offset": 1114,
+      "data_offset": 1122,
+      "size": 2,
+      "end_offset": 1124,
+      "valid": true
+    },
+    {
+      "name": "DIM ",
+      "header_offset": 1124,
+      "data_offset": 1132,
+      "size": 4,
+      "end_offset": 1136,
+      "valid": true
+    },
+    {
+      "name": "MTXM",
+      "header_offset": 1136,
+      "data_offset": 1144,
+      "size": 8192,
+      "end_offset": 9336,
+      "valid": true
+    },
+    {
+      "name": "UNIT",
+      "header_offset": 9336,
+      "data_offset": 9344,
+      "size": 864,
+      "end_offset": 10208,
+      "valid": true
+    },
+    {
+      "name": "PUNI",
+      "header_offset": 10208,
+      "data_offset": 10216,
+      "size": 5700,
+      "end_offset": 15916,
+      "valid": true
+    },
+    {
+      "name": "UNIx",
+      "header_offset": 15916,
+      "data_offset": 15924,
+      "size": 4168,
+      "end_offset": 20092,
+      "valid": true
+    },
+    {
+      "name": "PUPx",
+      "header_offset": 20092,
+      "data_offset": 20100,
+      "size": 2318,
+      "end_offset": 22418,
+      "valid": true
+    },
+    {
+      "name": "UPGx",
+      "header_offset": 22418,
+      "data_offset": 22426,
+      "size": 794,
+      "end_offset": 23220,
+      "valid": true
+    },
+    {
+      "name": "THG2",
+      "header_offset": 23220,
+      "data_offset": 23228,
+      "size": 2400,
+      "end_offset": 25628,
+      "valid": true
+    },
+    {
+      "name": "MASK",
+      "header_offset": 25628,
+      "data_offset": 25636,
+      "size": 4096,
+      "end_offset": 29732,
+      "valid": true
+    },
+    {
+      "name": "MRGN",
+      "header_offset": 29732,
+      "data_offset": 29740,
+      "size": 5100,
+      "end_offset": 34840,
+      "valid": true
+    },
+    {
+      "name": "STRx",
+      "header_offset": 34840,
+      "data_offset": 34848,
+      "size": 5753240,
+      "end_offset": 5788088,
+      "valid": true
+    },
+    {
+      "name": "SPRP",
+      "header_offset": 5788088,
+      "data_offset": 5788096,
+      "size": 4,
+      "end_offset": 5788100,
+      "valid": true
+    },
+    {
+      "name": "FORC",
+      "header_offset": 5788100,
+      "data_offset": 5788108,
+      "size": 20,
+      "end_offset": 5788128,
+      "valid": true
+    },
+    {
+      "name": "PTEx",
+      "header_offset": 5788128,
+      "data_offset": 5788136,
+      "size": 1672,
+      "end_offset": 5789808,
+      "valid": true
+    },
+    {
+      "name": "TECx",
+      "header_offset": 5789808,
+      "data_offset": 5789816,
+      "size": 396,
+      "end_offset": 5790212,
+      "valid": true
+    },
+    {
+      "name": "MBRF",
+      "header_offset": 5790212,
+      "data_offset": 5790220,
+      "size": 0,
+      "end_offset": 5790220,
+      "valid": true
+    },
+    {
+      "name": "TRIG",
+      "header_offset": 5790220,
+      "data_offset": 5790228,
+      "size": 170400,
+      "end_offset": 5960628,
+      "valid": true
+    },
+    {
+      "name": "UPRP",
+      "header_offset": 5960628,
+      "data_offset": 5960636,
+      "size": 1280,
+      "end_offset": 5961916,
+      "valid": true
+    },
+    {
+      "name": "ISOM",
+      "header_offset": 5961916,
+      "data_offset": 5961924,
+      "size": -1928042485,
+      "end_offset": -1922080561,
+      "valid": false
+    }
+  ],
+  "units_by_owner": {
+    "0": 1,
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1,
+    "5": 1,
+    "6": 1,
+    "7": 17
+  },
+  "units_by_type": {
+    "101": 16,
+    "214": 8
+  }
+}

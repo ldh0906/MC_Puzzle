@@ -1,0 +1,1444 @@
+﻿string_id,sources,decoded_cp949,clean_text,raw_hex,sha256
+3,custom_unit_167_name,"S=1,C=10,A=100","S=1,C=10,A=100",05533d312c433d31302c413d313030,85663437e11441484ba1a1a9ce8b7970e9861e954311fd244a0d8c09b5ce6725
+80,trigger_142_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 14 클리어!
+말 그대로 넘어가면 되겠군요","스테이지 14 클리어!
+말 그대로 넘어가면 되겠군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431342006c5acb8aebeee210d0a1304b8bb20b1d7b4ebb7ce20b3d1beeeb0a1b8e920b5c7b0dab1babfe4,8f3a4d9a3d3a83378f52a37a7a539352b51ccb0fdb7ede240fbb185a3ad99f90
+148,trigger_144_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 16 클리어!
+공정 사회를 지향합니다","스테이지 16 클리어!
+공정 사회를 지향합니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431362006c5acb8aebeee210d0a1304b0f8c1a420bbe7c8b8b8a620c1f6c7e2c7d5b4cfb4d9,df372aa6400088c4d9e294d0001b2655182d1e7b0c631c0ebf261e636fa80472
+211,custom_unit_155_name,인생의 진리는 무엇인가,인생의 진리는 무엇인가,04c0cebbfdc0c720c1f8b8aeb4c220b9abbef9c0ceb0a1,88955b6fbafa3f94a272c0ec2628cdb9cf21e475fdbbe716f7c0c64f89ada01c
+332,trigger_198_text,SPE,SPE,0f535045,8d0694988f5af452b3163abcb119a2e1e67da2a916fe30e7d8772e37fa2f2f4f
+341,trigger_267_text,000 + 000 = ?,000 + 000 = ?,0f303030202b20303030203d203f,2c382a2c406283012ff23e5565bca485ab8552576f72f74d97b692e596e146ac
+345,trigger_173_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 44 클리어!
+10의 자릿 수가 해당 플레이어를 뜻합니다","스테이지 44 클리어!
+10의 자릿 수가 해당 플레이어를 뜻합니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434342006c5acb8aebeee210d0a13043130c0c720c0dab8b420bcf6b0a120c7d8b4e720c7c3b7b9c0ccbeeeb8a620b6e6c7d5b4cfb4d9,29c6bcf3b65472c611d353d306e9f49421917a8328068cd7e45a6259369b16db
+428,custom_unit_19_name,Jim Raynor,Jim Raynor,1f4a05696d205261796e6f72,7a5e1eb6f19894ff2505c158888d9653ff55f87c548d77565101c8965df2853c
+452,custom_unit_10_name; custom_unit_32_name,Firebat,Firebat,1f4605697265626174,deefcb4c5a889aad2ccacf90c18d41a1ca5086458b895baf8158b36aee449c74
+521,custom_unit_126_name,언제 어이없었던가,언제 어이없었던가,04bef0c1a620beeec0ccbef8befab4f8b0a1,cff5571952517b46993c8bc8ab747c77c16d5c6887b2a7a4d1a6ba1a0601611a
+581,trigger_255_text,"868
+668
+006
+???","868
+668
+006
+???",073836380d0a073636380d0a073030360d0a0f3f3f3f,b2de741c12649259216162941776777a8588005ab624dc84af2eae3f377e0464
+586,trigger_263_text,"     F O R T Y
++         T E N
++         T E N
+=  S  I  X T Y
+
+S I X = ?","     F O R T Y
++         T E N
++         T E N
+=  S  I  X T Y
+
+S I X = ?",07202020202046204f2052205420590d0a072b202020202020202020542045204e0d0a072b202020202020202020542045204e0d0a073d202053202049202058205420590d0a0d0a0f5320492058203d203f,19bfa908d1b080a386d580e959239495d0dc1944e5058d39a01309c2df70462b
+595,custom_unit_115_name,Checker,Checker,05436865636b6572,9f32d44a817b9ec2fb0db032af9917ef5e4b15bd6dbb388c1cdfdea0c946da95
+771,map_description,"총 스테이지 50단계입니다.
+전판을 깨셔야 다음 스테이지로 넘어가실 수 있습니다.
+Made by CoOlLuCk-_-","총 스테이지 50단계입니다.
+전판을 깨셔야 다음 스테이지로 넘어가실 수 있습니다.
+Made by CoOlLuCk-_-",c3d120bdbac5d7c0ccc1f6203530b4dcb0e8c0d4b4cfb4d92e0d0ac0fcc6c7c0bb20b1fabcc5bedf20b4d9c0bd20bdbac5d7c0ccc1f6b7ce20b3d1beeeb0a1bdc720bcf620c0d6bdc0b4cfb4d92e0d0a4d61646520627920436f4f6c4c75436b2d5f2d,3bbc9de20b5c686b1f4a7acb15981afcc6acee7406f5f5a264a148c515dc4e96
+881,custom_unit_90_name,Master Key,Master Key,1f4d1e6173746572201f4b1e6579,03b9b0e26560956fe3a39034661b87566d3dcf737f06a5f40b1dafc916a0418c
+882,force_1_name,Player[Need Full],Player[Need Full],506c617965725b4e6565642046756c6c5d,be438ec60a24e7825049ac959349af7f1150a3e09b206f53813560dc34c86498
+913,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+                                                   Made by CoOlLuCk-_-
+
+
+
+
+
+","                                                     미궁 50개의 방
+                                                   Made by CoOlLuCk-_-",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202005b9ccb1c3203530b0b3c0c720b9e60d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020054d61646520627920436f4f6c4c75436b2d5f2d0d0a0d0a0d0a0d0a0d0a0d0a,f287e7c3856a5aca4b11082c74aaaa4574383bacbb747675b249a7b5a7ea7d46
+959,trigger_176_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 47 클리어!
+ㄷ한자 7, 8, 1 입니다","스테이지 47 클리어!
+ㄷ한자 7, 8, 1 입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434372006c5acb8aebeee210d0a1304a4a7c7d1c0da20372c20382c203120c0d4b4cfb4d9,f92c0c041b44a9591d735b1bee8a5c26572c4049fc4adeeb8e5ce62402042d8c
+961,custom_unit_166_name,저는 낚시 중입니다,저는 낚시 중입니다,04c0fab4c220b3acbdc320c1dfc0d4b4cfb4d9,ada06821ce4d24e29daa641c82bafc049c30f0d54142cfad188cb6f55d2b1f12
+1105,trigger_136_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 8 클리어!
+키패드에 쳐봤다면 바로 알 수 있었죠.","스테이지 8 클리어!
+키패드에 쳐봤다면 바로 알 수 있었죠.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004382006c5acb8aebeee210d0a1304c5b0c6d0b5e5bfa120c3c4bac3b4d9b8e920b9d9b7ce20becb20bcf620c0d6befac1d22e,c875cb2703d982c66196855b33c12798de92d744795d1ac11527d8ec365c196b
+1124,trigger_184_text,"478963 = 7
+7412365 = 6
+963 + 9874563 × 745693 = ?","478963 = 7
+7412365 = 6
+963 + 9874563 × 745693 = ?",07343738393633203d20370d0a0737343132333635203d20360d0a0f393633202b203938373435363320a1bf20373435363933203d203f,cd21a75a270b634549ac0e4817ad1e8e04a030ba0c82498dffda79f2db574b62
+1126,custom_unit_44_name,OOA,OOA,1f4f4f41,4aa92c0fb46b718980b9f5f61679016b060657695c439e70de3df011f355a0fc
+1130,trigger_158_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 30 클리어!
+뻐꾸기가 3번 울었으니 3시를 나타내야죠!","스테이지 30 클리어!
+뻐꾸기가 3번 울었으니 3시를 나타내야죠!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433302006c5acb8aebeee210d0a1304bbb5b2d9b1e2b0a12033b9f820bfefbefac0b8b4cf2033bdc3b8a620b3aac5b8b3bbbedfc1d221,7a987e44b4b3a54bfee095d38e6b22fd4c39532c46de3c4ab44c659733413b53
+1131,trigger_202_text,"1+2×3 = 33
+
+3×6+19 = 54
+
+4+2×5+1 = ?","1+2×3 = 33
+
+3×6+19 = 54
+
+4+2×5+1 = ?",07312b32a1bf33203d2033330d0a0d0a0733a1bf362b3139203d2035340d0a0d0a0f342b32a1bf352b31203d203f,7505ae9d59ae9dc776cde001acfdd858b69623aa4228a8a6e4dce3e879a0b618
+1309,custom_unit_47_name,혼자두지 말아요 >_<,혼자두지 말아요 >_<,04c8a5c0dab5cec1f620b8bbbec6bfe4203e5f3c,532d89e41008b2bf6902c1c7ee9e5f07e437d0f673eecf95b2242959f8372bc2
+1322,custom_unit_170_name,싸움을 말려봐요!!,싸움을 말려봐요!!,04bdcebff2c0bb20b8bbb7c1bac1bfe42121,0b283f6d5973c8a490ef55b6ae567cd3c18bfa701ae065e365327670fb39b9d3
+1342,trigger_152_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 24 클리어!
+약간은 다른 사칙연산입니다","스테이지 24 클리어!
+약간은 다른 사칙연산입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432342006c5acb8aebeee210d0a1304bee0b0a3c0ba20b4d9b8a520bbe7c4a2bfacbbeac0d4b4cfb4d9,1497cbcdc0b69178cbb77ef11ad31d393a0ccd9c5e99b30318fe4254f263a343
+1348,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+                                                   Made by CoOlLuCk-_-
+
+
+
+
+
+","                                                     미궁 50개의 방
+                                                   Made by CoOlLuCk-_-",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202006b9ccb1c3203530b0b3c0c720b9e60d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020034d046164652062792006436f4f6c4c75436b2d5f2d0d0a0d0a0d0a0d0a0d0a0d0a,8cff71a16bda2b4b1c4f6131ad44bba05718fb060da5255ca1e7410f04aebdea
+1354,trigger_139_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 11 클리어!
+4번째 영역에만 힌트가 있어 약간 다르네요!","스테이지 11 클리어!
+4번째 영역에만 힌트가 있어 약간 다르네요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431312006c5acb8aebeee210d0a130434b9f8c2b020bfb5bfaabfa1b8b820c8f9c6aeb0a120c0d6beee20bee0b0a320b4d9b8a3b3d7bfe421,721ff98bd1e338875ae3cbcf3215b5147ea56df7a2362b6512bab0b01e184c68
+1357,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의
+
+
+
+
+
+
+",                                                     미궁 50개의,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b3c0c70d0a0d0a0d0a0d0a0d0a0d0a0d0a,ab3ba919b00ec4f029892e07bf8e21346511756e5ade1f3df106bad0229f0e58
+1428,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미구
+
+
+
+
+
+
+",                                                     미구,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1b80d0a0d0a0d0a0d0a0d0a0d0a0d0a,cecd375b05bd1db763ec747e9c53d646e407c9b4ac341825abb6c2f66f047fd7
+1431,custom_unit_125_name,한 공간이 약간 다릅니다,한 공간이 약간 다릅니다,04c7d120b0f8b0a3c0cc20bee0b0a320b4d9b8a8b4cfb4d9,77cedc51c0e2627cb07687d9ce66b9804e7ad661d1e4b59a298a968ab7c20eae
+1497,custom_unit_25_name,Edmund Duke(Mode),Edmund Duke(Mode),1f4505646d756e642044756b65284d6f646529,ffa90bd43d9cc6a4491095b3f0b84c425210b26adcd572e7e7e77ad46a59d74b
+1582,trigger_125_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 7 클리어!
+무언가가 걸리적 거리네요.","스테이지 7 클리어!
+무언가가 걸리적 거리네요.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004372006c5acb8aebeee210d0a1304b9abbef0b0a1b0a120b0c9b8aec0fb20b0c5b8aeb3d7bfe42e,c8ba7eb89e47ea64ae0bfa1c87d6169f54c0265c425895a62730bd9883cbe75b
+1590,custom_unit_163_name,다른점 찾기,다른점 찾기,04b4d9b8a5c1a120c3a3b1e2,08ba6764c77ac3f38463b029260026dc833d480dc5b7cea69bc242c12b066b74
+1615,trigger_170_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 41 클리어!
+정말 아무것도 없어야합니다","스테이지 41 클리어!
+정말 아무것도 없어야합니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434312006c5acb8aebeee210d0a1304c1a4b8bb20bec6b9abb0cdb5b520bef8beeebedfc7d5b4cfb4d9,3b2faff11d0614aaca695c25f6d1123650de007915a38692a7db1e061580d6aa
+1616,custom_unit_142_name,당신은 어디 소속이요?,당신은 어디 소속이요?,04b4e7bdc5c0ba20beeeb5f020bcd2bcd3c0ccbfe43f,b851652df283fdb2f4d61657afcd21081edb6abf59cc70f8610fe6466e638beb
+2020,trigger_165_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 37 클리어!
+현재 4행 4열의 위치에 있습니다(row는 행, column은 렬입니다)","스테이지 37 클리어!
+현재 4행 4열의 위치에 있습니다(row는 행, column은 렬입니다)",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433372006c5acb8aebeee210d0a1304c7f6c0e72034c7e02034bfadc0c720c0a7c4a1bfa120c0d6bdc0b4cfb4d928726f77b4c220c7e02c20636f6c756d6ec0ba20b7c4c0d4b4cfb4d929,f782774ca1aece3a28a9c9e66788d62eb28fad478f8a8e3935adf1a1285445e1
+2035,custom_unit_172_name,8,8,0438,811ae5ec47cc5d6e83ee6b8a8fbd3f7d4b1102e6e39713a43ad00ea7a4d52820
+2041,custom_unit_71_name,100,100,04313030,f9ea4ce0d37298d29a288b1c8936e1cb2a4de3a45cd3b348a63bde470304336e
+2042,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+
+
+
+
+
+
+",                                                     미궁 50개의 방,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202003b9ccb1c3203530b0b3c0c720b9e60d0a0d0a0d0a0d0a0d0a0d0a0d0a,6267490f488b396697f1e91460b9cdb6f2649bf7d8bc0273d2f0855e56658838
+2050,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 바
+
+
+
+
+
+
+",                                                     미궁 50개의 바,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b3c0c720b9d90d0a0d0a0d0a0d0a0d0a0d0a0d0a,4221d53acbbcfb28cbb1740a6121f63e7fe94ca32e1bfde2b1e63b44cbf18003
+2081,trigger_138_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 10 클리어!
+연어는 거슬러 올라가는 특성이 있습니다.","스테이지 10 클리어!
+연어는 거슬러 올라가는 특성이 있습니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431302006c5acb8aebeee210d0a1304bfacbeeeb4c220b0c5bdbdb7af20bfc3b6f3b0a1b4c220c6afbcbac0cc20c0d6bdc0b4cfb4d92e,da83c4ad8713992bc4837848c019c993902131cc4d15b9dd328c40b35f2c2608
+2198,mission_briefing_text,"미궁 - 50개의 방
+Made by CoOlLuCk-_-
+힌트는 표시된게 전부입니다 'ㅅ'","미궁 - 50개의 방
+Made by CoOlLuCk-_-
+힌트는 표시된게 전부입니다 'ㅅ'",06b9ccb1c320042d20033530b0b3c0c720b9e60d0a064d046164652062792003436f4f6c4c75436b2d5f2d0d0a04c8f9c6aeb4c220c7a5bdc3b5c8b0d420c0fcbacec0d4b4cfb4d92027a4b527,bb211a291ff0cac493198ec0cc8ed30db46de542356796be46a8a17c7c726df9
+2205,trigger_160_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 32 클리어!
+1부터 했다면 답을 몰랐겠지요","스테이지 32 클리어!
+1부터 했다면 답을 몰랐겠지요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433322006c5acb8aebeee210d0a130431bacec5cd20c7dfb4d9b8e920b4e4c0bb20b8f4b6fab0dac1f6bfe4,96d44426131a026de763d967b46b65d13eb747ac9086b7ff122a299fe34e303a
+2208,custom_unit_70_name,1,1,0431,6a5d09f1edf9de9ad8307d0c4b6571483d661c8a2d07bfbef1e4e75618a332ae
+2255,custom_unit_165_name,지옥까지 함께하자,지옥까지 함께하자,04c1f6bfc1b1eec1f620c7d4b2b2c7cfc0da,a2ee4935cee6d6f1813f546732c970fe3ed34487b5bad7646de6f40208ee29ef
+2266,custom_unit_3_name,SOACOSSS,SOACOSSS,1f534f41434f535353,d9010965d2ed2a58c872468ec3682ff216f185764e6050e9b9691ca90b892965
+2272,custom_unit_41_name,Burrow,Burrow,05427572726f77,466ef381fa9161d49c0fc7f2f98a9e286dd5dd7aef54013b98f89d781688dba4
+2273,mission_briefing_wav; trigger_3_wav,staredit\wav\BGM.wav,staredit\wav\BGM.wav,73746172656469745c7761765c42474d2e776176,e89b886a5dd58d4ee54664432a74df77948e8522d71042a9116833ea71f02801
+2290,custom_unit_60_name,Initialization,Initialization,05496e697469616c697a6174696f6e,eb3d8767ed27ce196cb339e4f3edc0ab1087fd8709c206eafd0483ecc0964dbe
+2304,trigger_159_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 31 클리어!
+당신의 파일런을 보셨다면 아셨을 것입니다","스테이지 31 클리어!
+당신의 파일런을 보셨다면 아셨을 것입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433312006c5acb8aebeee210d0a1304b4e7bdc5c0c720c6c4c0cfb7b1c0bb20bab8bcccb4d9b8e920bec6bcccc0bb20b0cdc0d4b4cfb4d9,cbf8512d33c4e7ad401d2824678287fd0f1331802874cd45f71640b7bf41aad7
+2309,trigger_126_wav; trigger_132_wav; trigger_180_wav; trigger_181_wav; trigger_182_wav; trigger_183_wav; trigger_184_wav; trigger_188_wav; trigger_196_wav; trigger_197_wav; trigger_198_wav; trigger_1_wav; trigger_202_wav; trigger_206_wav; trigger_207_wav; trigger_208_wav; trigger_212_wav; trigger_215_wav; trigger_219_wav; trigger_223_wav; trigger_227_wav; trigger_231_wav; trigger_255_wav; trigger_259_wav; trigger_263_wav; trigger_267_wav; trigger_271_wav,staredit\wav\typing.wav,staredit\wav\typing.wav,73746172656469745c7761765c747970696e672e776176,a3b1903611dd4064098fccc3111527f2df8b07ab3e51ded27140df80e3b538b3
+2328,trigger_175_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 46 클리어!
+거꾸로 보니 답이 보이는군요","스테이지 46 클리어!
+거꾸로 보니 답이 보이는군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434362006c5acb8aebeee210d0a1304b0c5b2d9b7ce20bab8b4cf20b4e4c0cc20bab8c0ccb4c2b1babfe4,8efbfa450a4abea4680f015ae717c88443f358861c00e1c922ffbee73bac54d5
+2340,trigger_124_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 6 클리어!
+개를 잡으려면 개 사냥꾼을 불러야죠!","스테이지 6 클리어!
+개를 잡으려면 개 사냥꾼을 불러야죠!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004362006c5acb8aebeee210d0a1304b0b3b8a620c0e2c0b8b7c1b8e920b0b320bbe7b3c9b2dbc0bb20bad2b7afbedfc1d221,1286238526f734b35a0fce31d989d5eeac9a720981ac50ddadb5b06e71420a68
+2354,custom_unit_151_name,무언가 심오한 변화가,무언가 심오한 변화가,04b9abbef0b0a120bdc9bfc0c7d120baafc8adb0a1,32a6d1a787407a0cfd5d9fbacbcbbe29c9c251ea13b4f53c7bd3138701e57a62
+2357,custom_unit_103_name,AA,AA,1f4141,71e4f5d21cfe81b03f2cea996b26b9c347be6f9d73aad2ec98b2be5c5a288fb9
+2399,trigger_271_text,10 11 12 13 14 15 16 17 20 22 24 31 100 ???,10 11 12 13 14 15 16 17 20 22 24 31 100 ???,07313020313120313220313320313420313520313620313720323020323220323420333120313030200f3f3f3f,265304143c112f6be46c7d80455929d67b9a246bd29de31ef14051f5b044e802
+2407,trigger_223_text,"
+
+- 철수 신상정보 -
+생년월일 : x년 2월 7일
+성별 : 남성
+직업 : S기업 회사원
+결혼 유무 : 유
+
+철수는 1981년에 서울대학교 2학년이였다.
+철수가 태어난 년도는?
+(단, 철수는 한 번에 대학에 붙으며 군대는 면제되었다)","- 철수 신상정보 -
+생년월일 : x년 2월 7일
+성별 : 남성
+직업 : S기업 회사원
+결혼 유무 : 유
+
+철수는 1981년에 서울대학교 2학년이였다.
+철수가 태어난 년도는?
+(단, 철수는 한 번에 대학에 붙으며 군대는 면제되었다)",0d0a0d0a13072d20c3b6bcf620bdc5bbf3c1a4bab8202d0d0a1307bbfdb3e2bff9c0cf203a2078b3e22032bff92037c0cf0d0a1307bcbabab0203a20b3b2bcba0d0a1307c1f7bef7203a2053b1e2bef720c8b8bbe7bff80d0a1307b0e1c8a520c0afb9ab203a20c0af0d0a0d0a07c3b6bcf6b4c22031393831b3e2bfa120bcadbfefb4ebc7d0b1b32032c7d0b3e2c0ccbfb4b4d92e0d0a0fc3b6bcf6b0a120c5c2beeeb3ad20b3e2b5b5b4c23f0d0a0528b4dc2c20c3b6bcf6b4c220c7d120b9f8bfa120b4ebc7d0bfa120bad9c0b8b8e720b1bab4ebb4c220b8e9c1a6b5c7befab4d929,2e9214bb544f27492e6fd46a8805fe2f63003a699de8b297c8e700df6c88bfb3
+2482,trigger_6_text,"
+
+
+
+
+
+
+
+
+
+
+
+힌트를 보고 답을 맞추십시요.
+다음 단계로 가기 위해선 현재 스테이지를 클리어하셔야합니다.
+
+
+
+
+
+
+","힌트를 보고 답을 맞추십시요.
+다음 단계로 가기 위해선 현재 스테이지를 클리어하셔야합니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1306c8f9c6aeb8a620bab8b0ed20b4e4c0bb20b8c2c3dfbdcabdc3bfe42e0d0a1306b4d9c0bd20b4dcb0e8b7ce20b0a1b1e220c0a7c7d8bcb120c7f6c0e720bdbac5d7c0ccc1f6b8a620c5acb8aebeeec7cfbcc5bedfc7d5b4cfb4d92e0d0a0d0a0d0a0d0a0d0a0d0a0d0a,e55fc9a9d1e3fc2ab2de644a71cefa5c943847d164c41e6e7a3de31d5b5fa28f
+2489,trigger_100_text; trigger_101_text; trigger_102_text; trigger_103_text; trigger_104_text; trigger_105_text; trigger_106_text; trigger_107_text; trigger_108_text; trigger_109_text; trigger_110_text; trigger_111_text; trigger_112_text; trigger_113_text; trigger_114_text; trigger_115_text; trigger_116_text; trigger_117_text; trigger_118_text; trigger_71_text; trigger_72_text; trigger_73_text; trigger_74_text; trigger_75_text; trigger_76_text; trigger_77_text; trigger_78_text; trigger_79_text; trigger_80_text; trigger_81_text; trigger_82_text; trigger_83_text; trigger_84_text; trigger_85_text; trigger_86_text; trigger_87_text; trigger_88_text; trigger_89_text; trigger_90_text; trigger_91_text; trigger_92_text; trigger_93_text; trigger_94_text; trigger_95_text; trigger_96_text; trigger_97_text; trigger_98_text; trigger_99_text,넘어가실 수 없습니다.,넘어가실 수 없습니다.,06b3d1beeeb0a1bdc720bcf620bef8bdc0b4cfb4d92e,b365d71e403e458f5d70479a73e2e23af3f94bb4bc98d8ba1b16de981d62ad0e
+2505,trigger_120_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 2 클리어!
+엔지니어링 베이에서는 바이오닉 업그레이드가 일어나죠!","스테이지 2 클리어!
+엔지니어링 베이에서는 바이오닉 업그레이드가 일어나죠!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004322006c5acb8aebeee210d0a1304bfa3c1f6b4cfbeeeb8b520baa3c0ccbfa1bcadb4c220b9d9c0ccbfc0b4d020bef7b1d7b7b9c0ccb5e5b0a120c0cfbeeeb3aac1d221,2067a2bcf230dded431d1832bbad532a433e7f225b2662ff4ef897beb06af448
+2623,custom_unit_159_name,으악 껌밟았다!,으악 껌밟았다!,04c0b8bec720b2adb9e2bed2b4d921,015e329d5fce1d291d2f24793ddec41fc8b4c95d3dc62cb70e724e908e54a062
+2628,custom_unit_112_name,꼭짓점으로,꼭짓점으로,04b2c0c1fec1a1c0b8b7ce,38c924b5f669ea76d1f64276d10d149f9dec6bee5afd3d0f029eeffe507f3ccc
+2632,trigger_196_text,공정한 대결을 추구하십시요!,공정한 대결을 추구하십시요!,1306b0f8c1a4c7d120b4ebb0e1c0bb20c3dfb1b8c7cfbdcabdc3bfe421,8ebb3715828be6286061da856024c8333ef7f88261eda7e43b61d58e6bca96bb
+2651,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개
+
+
+
+
+
+
+",                                                     미궁 50개,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b30d0a0d0a0d0a0d0a0d0a0d0a0d0a,316136910a317411f2c90e11ae6632c36cfe1e4c81f561e1b19306c950aa0b5f
+2660,trigger_169_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 40 클리어!
+이제 40탄을 넘었군요","스테이지 40 클리어!
+이제 40탄을 넘었군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434302006c5acb8aebeee210d0a1304c0ccc1a6203430c5bac0bb20b3d1befab1babfe4,81f4c500ed10b27818a0610996173cb468b8214926b250243560b98ae03343b7
+2664,trigger_166_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 38 클리어!
+쓰여진 한자는 어긋날 간입니다.","스테이지 38 클리어!
+쓰여진 한자는 어긋날 간입니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433382006c5acb8aebeee210d0a1304beb2bfa9c1f820c7d1c0dab4c220beeeb1dfb3af20b0a3c0d4b4cfb4d92e,d7989c3a185e02c970ca654368c9e3d5fb65a54eab3a7507cd945411d49576bc
+2667,trigger_259_text,×÷＋,×÷＋,0fa1bfa1c0a3ab,4f297ee5686b7872d813ebb2f8861b96b7f298f37bc428783609d90d6a32fc72
+2674,trigger_126_text,"
+
+
+
+
+
+
+
+
+
+
+이번 스테이지는 답이 되는 수를 산출해내셔야 합니다.
+수의 산출을 위해 6시 방향에 산출기가 지급됩니다.","이번 스테이지는 답이 되는 수를 산출해내셔야 합니다.
+수의 산출을 위해 6시 방향에 산출기가 지급됩니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1306c0ccb9f820bdbac5d7c0ccc1f6b4c220b4e4c0cc20b5c7b4c220bcf6b8a620bbeac3e2c7d8b3bbbcc5bedf20c7d5b4cfb4d92e0d0a1306bcf6c0c720bbeac3e2c0bb20c0a7c7d82036bdc320b9e6c7e2bfa120bbeac3e2b1e2b0a120c1f6b1deb5cbb4cfb4d92e,9fb15b9df2a41880c28a30a198e061cea5cf055c15e5562e0ae61415432c075a
+2677,custom_unit_141_name,One Second Clear Add,One Second Clear Add,044f6e65205365636f6e6420436c65617220416464,5056a440be7c1f29030d1c5d25dbd65a841db551962912ec7509c3184873f802
+2683,custom_unit_137_name,Answer,Answer,0e41056e73776572,039c286bcb444046c716b3f379a73a94df4bc60920b7cb4d75fd68558c86e3c5
+2689,trigger_177_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 48 클리어!
+조금 어려운 복면산입니다","스테이지 48 클리어!
+조금 어려운 복면산입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434382006c5acb8aebeee210d0a1304c1b6b1dd20beeeb7c1bfee20bab9b8e9bbeac0d4b4cfb4d9,55b29772f7b783b79fa70a000241715edd6d1175443e849c939c585c88fb1003
+2763,custom_unit_34_name,AACOSS,AACOSS,1f4141434f5353,3c100b319d2b45b1896efb5570fa391f87f6ba81bedc120b0bcdf9a3151f9b37
+2853,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+
+
+
+
+
+
+",                                                     미궁 50개의 방,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202006b9ccb1c3203530b0b3c0c720b9e60d0a0d0a0d0a0d0a0d0a0d0a0d0a,e1d86cda4e0964a688ce629eed85f6ecf6dd9518c2c966909a28661133bdd66f
+2855,trigger_178_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 49 클리어!
+888은 000 두 개가 합쳐진 수입니다","스테이지 49 클리어!
+888은 000 두 개가 합쳐진 수입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434392006c5acb8aebeee210d0a1304383838c0ba2030303020b5ce20b0b3b0a120c7d5c3c4c1f820bcf6c0d4b4cfb4d9,d1fcc5d9ad0a206c570b6285ad362b41033b5e2302e64f61bab1b070ea782053
+2866,custom_unit_7_name,SCV,SCV,1f53054356,9b00c027ec1fb33df9d3158fec62883051d2822d097bb9e0f748a7e3ba9ec79f
+2922,custom_unit_39_name,Ultralisk,Ultralisk,1f55056c7472616c69736b,dfaff4221a8dd834b15e1d8c814f4387309ebcadedc0d2fe3b12f31486a846ca
+2923,custom_unit_109_name,                                         ,,2020202020202020202020202020202020202020202020202020202020202020202020202020202020,a84ae3324d3a82901f16577e6d5fbe6871b6308d4364ef0f790892d8a634f6fb
+2936,custom_unit_66_name,Dragoon,Dragoon,1f44057261676f6f6e,32fe078b5e405059c6f117dc8ee92ad6ba5bd1df678b50571ad529818c11c890
+2937,trigger_227_text,"2011년 그 날, 70만, 그들의 모든 것이 끝난다.","2011년 그 날, 70만, 그들의 모든 것이 끝난다.",0f32303131b3e220b1d720b3af2c203730b8b82c20b1d7b5e9c0c720b8f0b5e720b0cdc0cc20b3a1b3adb4d92e,49c0126f57bee1afe5ab0b86090a2176da07a5340590a8a871d0820fbfc0a174
+2945,trigger_154_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 26 클리어!
+어이없을지 모르지만 타일이 왼쪽 위를 가르키고있군요","스테이지 26 클리어!
+어이없을지 모르지만 타일이 왼쪽 위를 가르키고있군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432362006c5acb8aebeee210d0a1304beeec0ccbef8c0bbc1f620b8f0b8a3c1f6b8b820c5b8c0cfc0cc20bfdec2ca20c0a7b8a620b0a1b8a3c5b0b0edc0d6b1babfe4,294646e74b78aaa0165a90f23b187a19b50a3ffa481e1f8811b01fbf599c4972
+3012,trigger_162_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 34 클리어!
+스타게이트에서 그대로 sanctuary를 치시면 됩니다","스테이지 34 클리어!
+스타게이트에서 그대로 sanctuary를 치시면 됩니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433342006c5acb8aebeee210d0a1304bdbac5b8b0d4c0ccc6aebfa1bcad20b1d7b4ebb7ce2073616e637475617279b8a620c4a1bdc3b8e920b5cbb4cfb4d9,93ee7bb874444a8b3aaf926a4fdbe4de98d7f4e025f2566fac7c4cef826550b2
+3088,trigger_119_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 1 클리어!
+지형이 약간 다른 것을 잘 찾아내셨군요!","스테이지 1 클리어!
+지형이 약간 다른 것을 잘 찾아내셨군요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004312006c5acb8aebeee210d0a1304c1f6c7fcc0cc20bee0b0a320b4d9b8a520b0cdc0bb20c0df20c3a3bec6b3bbbcccb1babfe421,8189ab6d17eae99bf2ee7b959e842f76ad04812ef39717dea2eca472c85a9f90
+3091,trigger_140_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 12 클리어!
+다른 유닛은 모두 영웅인데, 고스트만 일반 유닛이군요","스테이지 12 클리어!
+다른 유닛은 모두 영웅인데, 고스트만 일반 유닛이군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431322006c5acb8aebeee210d0a1304b4d9b8a520c0afb4d6c0ba20b8f0b5ce20bfb5bff5c0ceb5a52c20b0edbdbac6aeb8b820c0cfb9dd20c0afb4d6c0ccb1babfe4,100bd776d98e88c30a3ed6c0e0748e0266bf4367e6e9309dcdeb98c14c4a8804
+3092,trigger_143_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 15 클리어!
+공정하게 2:2로 싸우면 되겠군요","스테이지 15 클리어!
+공정하게 2:2로 싸우면 되겠군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431352006c5acb8aebeee210d0a1304b0f8c1a4c7cfb0d420323a32b7ce20bdcebfecb8e920b5c7b0dab1babfe4,f2371679659b0ecc58db5b73d6b47a1eeb4f7985351c14684a42048f33c61a1e
+3101,trigger_132_text,개 사냥꾼을 고용하셨습니다.,개 사냥꾼을 고용하셨습니다.,06b0b320bbe7b3c9b2dbc0bb20b0edbfebc7cfbcccbdc0b4cfb4d92e,a49b446f315a54dbc3d1ceaf3d6a2d438bf0799ff381b3550d5b3a5148322c81
+3105,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개ㅇ
+
+
+
+
+
+
+",                                                     미궁 50개ㅇ,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b3a4b70d0a0d0a0d0a0d0a0d0a0d0a0d0a,023596f277e2bc42f694778ef1d87c7721a3093088b1d270164b1fef8be48d8a
+3106,trigger_149_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 21 클리어!
+모두 수송선에 8기가 탈 수 있는 유닛들입니다.","스테이지 21 클리어!
+모두 수송선에 8기가 탈 수 있는 유닛들입니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432312006c5acb8aebeee210d0a1304b8f0b5ce20bcf6bcdbbcb1bfa12038b1e2b0a120c5bb20bcf620c0d6b4c220c0afb4d6b5e9c0d4b4cfb4d92e,c5b1d784878e6e97bb035c1f96785213ec638cc0b5b1c403353108d56006f46b
+3129,custom_unit_50_name,Infested Terran,Infested Terran,1f49056e666573746564201f5405657272616e,105ecc400638984a25c9d4637967ce1afdf77d34f21bcdc9202988fd36e6dd02
+3133,custom_unit_171_name,艮,艮,04cadd,257f33b61bcda0b876e0feeb18b3ceb5b9b8d7f1bf7c865a782b1b4c447e27dd
+3200,force_4_name,Force 4,Force 4,466f7263652034,154d5c8beb309c8e383fcf1bb5ce608cd31c27d759af7e8426fabe61a50bdaca
+3227,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+
+
+
+
+
+
+",                                                     미궁 50개의 방,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202005b9ccb1c3203530b0b3c0c720b9e60d0a0d0a0d0a0d0a0d0a0d0a0d0a,cf20a93ab5a4122b246ba7318d0d37d719b8144e1a7f0f77e8cdd4ab702651f8
+3228,trigger_151_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 23 클리어!
+거울에 비춰보면 392라는 숫자가 나오는군요","스테이지 23 클리어!
+거울에 비춰보면 392라는 숫자가 나오는군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432332006c5acb8aebeee210d0a1304b0c5bfefbfa120baf1c3e7bab8b8e920333932b6f3b4c220bcfdc0dab0a120b3aabfc0b4c2b1babfe4,d96c96449d547421f00dec0dc062380a08d43f79406a402507a0baad3dc7c0ff
+3236,trigger_57_wav,staredit\wav\Victory1.wav,staredit\wav\Victory1.wav,73746172656469745c7761765c566963746f7279312e776176,e87476082738adb170659e5b099b717d8b79ec064767ab7f96534ec23af6b853
+3396,custom_unit_64_name,ASCSASS,ASCSASS,1f41534353415353,0db604aed540c0901e2d2a4d987c9e8eae0ae501d7785b186c1350ed8afbacc2
+3426,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미
+
+
+
+
+
+
+",                                                     미,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9cc0d0a0d0a0d0a0d0a0d0a0d0a0d0a,9287dbea2b717adf295cf77096721339b305d1c5a659cac379ef8ce1054178f6
+3429,trigger_148_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 20 클리어!
+유일하게 패턴이 4번 나타나며 시야가 좁아지네요","스테이지 20 클리어!
+유일하게 패턴이 4번 나타나며 시야가 좁아지네요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432302006c5acb8aebeee210d0a1304c0afc0cfc7cfb0d420c6d0c5cfc0cc2034b9f820b3aac5b8b3aab8e720bdc3bedfb0a120c1bcbec6c1f6b3d7bfe4,ed63d65874a16178979c1966aa22ef117198d7b1180e17102e7a87dcc0ff8232
+3477,trigger_179_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 50 클리어!
+16을 16진수, 15진수, 14진수... 로 나타낸 것입니다","스테이지 50 클리어!
+16을 16진수, 15진수, 14진수... 로 나타낸 것입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200435302006c5acb8aebeee210d0a13043136c0bb203136c1f8bcf62c203135c1f8bcf62c203134c1f8bcf62e2e2e20b7ce20b3aac5b8b3bd20b0cdc0d4b4cfb4d9,3209ac6ed989a71e17c86c9c5efd9da7e76bb85e555e167114a0926cd4d42fd1
+3610,custom_unit_20_name,살려줘!!!,살려줘!!!,04bbecb7c1c1e0212121,68a39119243eb6158dd5f1dde0472f82abe28bc04b37271a0c35ce0f2bb50dab
+3613,custom_unit_38_name,SOS,SOS,1f534f53,5383a72356ed609a312c0f36f2b05c5981f7126101d32d344bdbd01921eaed6d
+3616,custom_unit_54_name,Dog,Dog,05446f67,aed3f98a82350c6b009cd05e90c035824754ece97a2ab1ee6f1349edc1892bbc
+3793,custom_unit_46_name,Salmon,Salmon,1f5305616c6d6f6e,d5eb272bfc51f44512c69304d61d56350dd2d324f8fba8fd25019e3fbf964078
+3895,custom_unit_156_name,Pylon,Pylon,1f5005796c6f6e,e74ff4b26a51daa67bb47dac4b6173866f664dc66a142280282009afee49cc04
+3900,trigger_171_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 42 클리어!
+심오하게 가스가 바뀌는군요","스테이지 42 클리어!
+심오하게 가스가 바뀌는군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434322006c5acb8aebeee210d0a1304bdc9bfc0c7cfb0d420b0a1bdbab0a120b9d9b2eeb4c2b1babfe4,55baa2e6bbe2d065b63708d1e6e6da48601bdcdb9509c1c09f58c2c65eb68fc6
+3901,custom_unit_164_name,그냥 넘어가세요,그냥 넘어가세요,04b1d7b3c920b3d1beeeb0a1bcbcbfe4,a2a975dc5630588d6f96d8ef57759bdcf1217c26cbb5185c0b977abac865c66c
+3968,custom_unit_53_name,Hunter Killer,Hunter Killer,1f4805756e746572204b696c6c6572,da9d76110c943fdb194fab38aacfc6009807e51c8337e68edcad365109205b4a
+4019,custom_unit_63_name,SSSSOASSAOC,SSSSOASSAOC,1f535353534f415353414f43,5b81baa5ef1b80ca371fdfa27bcc74429c6ac3c0d9bd94ef756cf9e7134ad1f3
+4119,trigger_156_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 28 클리어!
+벽 뒤에 비밀 공간이 숨어있군요","스테이지 28 클리어!
+벽 뒤에 비밀 공간이 숨어있군요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432382006c5acb8aebeee210d0a1304baae20b5dabfa120baf1b9d020b0f8b0a3c0cc20bcfbbeeec0d6b1babfe4,9a31229e0bda575cd7d204bc9cfefb0bbec33646b15645582facd1371671f473
+4126,custom_unit_8_name,Wraith,Wraith,1f57057261697468,6981bb6fb9b922028490c7f86c0b88515221a999e2a8d9a5eea0a219ffd9b90e
+4132,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50
+
+
+
+
+
+
+",                                                     미궁 50,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c32035300d0a0d0a0d0a0d0a0d0a0d0a0d0a,dc8fb77ba52eacd2403b3ae0187bd4417aae9c25bd8fd414fe1622c0a1f9ef93
+4167,trigger_146_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 18 클리어!
+네... 여러분을 낚시하는 중이였습니다.","스테이지 18 클리어!
+네... 여러분을 낚시하는 중이였습니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431382006c5acb8aebeee210d0a1304b3d72e2e2e20bfa9b7afbad0c0bb20b3acbdc3c7cfb4c220c1dfc0ccbfb4bdc0b4cfb4d92e,89c6ae02420fb71b990a9b6b1f4e9b9f5e6eca664a895a9398f88dd3c4430935
+4193,trigger_207_text,인생의 진리는 無 라네,인생의 진리는 無 라네,1306c0cebbfdc0c720c1f8b8aeb4c220d9ed20b6f3b3d7,a9891d4a83d77de4a288a7a2962f4a2d861a89265a13a28e06987020b26ab0bf
+4343,trigger_161_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 33 클리어!
+모든 영어가 키보드의 윗 부분이네요!","스테이지 33 클리어!
+모든 영어가 키보드의 윗 부분이네요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433332006c5acb8aebeee210d0a1304b8f0b5e720bfb5beeeb0a120c5b0bab8b5e5c0c720c0ad20bacebad0c0ccb3d7bfe421,e09794abb9c2f58074bd18dbc3e885e0585c283fda460c391ba62a28a40869ac
+4500,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미ㄱ
+
+
+
+
+
+
+",                                                     미ㄱ,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9cca4a10d0a0d0a0d0a0d0a0d0a0d0a0d0a,5b1e0896d305fcdea14a5e643bbbb5d8a4088dc8a01e0f2dea4eb81f62ada652
+4582,custom_unit_65_name,Zealot,Zealot,1f5a0565616c6f74,e7558b18a8dad44df5309aead693352fddc5c0a9076ffdbfd6802e0b307170f4
+4583,custom_unit_84_name,Detector,Detector,06440565746563746f72,888bbd4796bf62fe8df52c954e1d41d670bacc95d36cae96c2b70af0945b8b3c
+4599,custom_unit_75_name,Block,Block,05426c6f636b,8886b06a85f088ba196233b6c4b49cfab17978c45a102061db6321816ef5507f
+4603,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 5
+
+
+
+
+
+
+",                                                     미궁 5,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c320350d0a0d0a0d0a0d0a0d0a0d0a0d0a,8d7be76b0171f86223396e09328b38cdd1e9d6c9464fe66d695bbf457ea4f78d
+4729,trigger_121_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 3 클리어!
+막혔다면 부수면 되겠지요.","스테이지 3 클리어!
+막혔다면 부수면 되겠지요.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004332006c5acb8aebeee210d0a1304b8b7c7fbb4d9b8e920bacebcf6b8e920b5c7b0dac1f6bfe42e,5f73fadbf7b1fb344ca1fa0be7fd1e62aa7595055e0a8a30995db4929e95cce6
+4832,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+
+
+
+
+
+
+",                                                     미궁 50개의 방,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a20202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020200eb9ccb1c3203530b0b3c0c720b9e60d0a0d0a0d0a0d0a0d0a0d0a0d0a,abcfb4b5c88066069dc641c0d4abe2b3d79ba7b7405326eb96d5933692ca9e47
+4930,trigger_153_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 25 클리어!
+마스터 키를 잘 사용하셨는지요.","스테이지 25 클리어!
+마스터 키를 잘 사용하셨는지요.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432352006c5acb8aebeee210d0a1304b8b6bdbac5cd20c5b0b8a620c0df20bbe7bfebc7cfbcccb4c2c1f6bfe42e,819f6293ae02e3054a12d7e9d502f866c0b0a02b17cfc9e03fabd334c3aa39e9
+4933,custom_unit_139_name,이건 너무 불공평해!,이건 너무 불공평해!,04c0ccb0c720b3cab9ab20bad2b0f8c6f2c7d821,0700bdcf2446336a4e710bd54f54ee4d02b4610f6132d614d12bb16da1e6c9b4
+5004,custom_unit_62_name,물고기,물고기,1fb9b004b0edb1e2,46681b80541281ac1dad733fcc64b6eae84fd231599a3f0963742352d740e6a9
+5011,custom_unit_37_name,Made by CoOlLuCk-_-,Made by CoOlLuCk-_-,034d046164652062792006436f4f6c4c75436b2d5f2d,bcef02df870d3897c7fc07a2cac5b4d01b64b343790de500fa3b7a6cd044e518
+5015,trigger_212_text,1부터 하다보면...,1부터 하다보면...,0f31bacec5cd20c7cfb4d9bab8b8e92e2e2e,9cab848adee6cc6bffcae696fc00ef85cabcc32453a0a5793f6625107c057bb5
+5144,trigger_145_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 17 클리어!
+저는 저그 소속입니다.","스테이지 17 클리어!
+저는 저그 소속입니다.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431372006c5acb8aebeee210d0a1304c0fab4c220c0fab1d720bcd2bcd3c0d4b4cfb4d92e,db72d2264b47cdda0c5a9d67f73d8d00effb031fca95a02e257e8c6de0d4d3b6
+5174,custom_unit_134_name,Hint,Hint,0e4805696e74,667f99029f41d0b355418ac92a7180b39ef69a9d8764f7cefd7acd858d58b3eb
+5177,trigger_150_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 22 클리어!
+적으로 나타는 유닛들이 있군요!","스테이지 22 클리어!
+적으로 나타는 유닛들이 있군요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432322006c5acb8aebeee210d0a1304c0fbc0b8b7ce20b3aac5b8b4c220c0afb4d6b5e9c0cc20c0d6b1babfe421,1a2e96c9c6badd89a0b8411967a54a8682bc91b1aa9d900ca0d706c0cdbd67ef
+5204,trigger_163_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 35 클리어!
+철수의 생년월일을 보니 빠른 62년생입니다","스테이지 35 클리어!
+철수의 생년월일을 보니 빠른 62년생입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433352006c5acb8aebeee210d0a1304c3b6bcf6c0c720bbfdb3e2bff9c0cfc0bb20bab8b4cf20bafcb8a5203632b3e2bbfdc0d4b4cfb4d9,d1af7c040ab4fe77b505a2c7eceddf88db86f99c26bb9ade5445699c05007741
+5205,trigger_174_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 45 클리어!
+계속 함께 다니셨다면 깨셨을 것입니다","스테이지 45 클리어!
+계속 함께 다니셨다면 깨셨을 것입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434352006c5acb8aebeee210d0a1304b0e8bcd320c7d4b2b220b4d9b4cfbcccb4d9b8e920b1fabcccc0bb20b0cdc0d4b4cfb4d9,5ba1e8b4abd609e2b6391c2cb0f0d20fafb32af1ecac15e3d209711a33a7a5ed
+5207,trigger_57_text,"
+
+
+
+
+
+
+
+
+
+
+모든 스테이지를 클리어 하셨습니다.
+당신은 정말 대단한 두뇌를 지니셨군요!
+못난 제작자, 이만 물러가겠습니다.
+Made by CoOlLuCk-_-","모든 스테이지를 클리어 하셨습니다.
+당신은 정말 대단한 두뇌를 지니셨군요!
+못난 제작자, 이만 물러가겠습니다.
+Made by CoOlLuCk-_-",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303b8f0b5e720bdbac5d7c0ccc1f6b8a620c5acb8aebeee20c7cfbcccbdc0b4cfb4d92e0d0a1303b4e7bdc5c0ba20c1a4b8bb20b4ebb4dcc7d120b5ceb3fab8a620c1f6b4cfbcccb1babfe4210d0a1303b8f8b3ad20c1a6c0dbc0da2c20c0ccb8b820b9b0b7afb0a1b0dabdc0b4cfb4d92e0d0a131e4d6164652062792006436f4f6c4c75436b2d5f2d,9bb27b49125999e3df2568c25b757be09e65525731bbadb285867f4b1d315bb6
+5211,custom_unit_0_name,으헤헤 다굴이진리다,으헤헤 다굴이진리다,04c0b8c7ecc7ec20b4d9b1bcc0ccc1f8b8aeb4d9,f3a91bab3ea8cfdbff52112ac31fd86f552121374632e323a374060e22d7a0d7
+5214,map_title,미궁 - 50개의 방,미궁 - 50개의 방,0eb9ccb1c320062d20073530b0b3c0c720b9e6,3080f4905e32cb399652366f56da9cf1ebc83af635a319047455d38bb75261d1
+5225,custom_unit_77_name,Fenix(Zealot),Fenix(Zealot),1f4605656e6978285a65616c6f7429,4a6e7b5c2b1a6e4b6fc68cda559976942254438b2a930d64e6711a1577c645bf
+5231,custom_unit_140_name,모두 모여랏!,모두 모여랏!,04b8f0b5ce20b8f0bfa9b6f921,c4028a5da2fc128e26be2f9eb4411c6549215622874334e9863185fea3aa0503
+5244,custom_unit_177_name; custom_unit_72_name,10,10,043130,09534dcdc2910ad726449b61358f95a8873eb40c1063fa8c86f67bf2055e3fbf
+5252,custom_unit_51_name,Kerrigan,Kerrigan,1f4b056572726967616e,a0d9bedd0184d43956faf5accb2a3817a1e68d6988b126014d3f85bac9f59407
+5276,trigger_197_text,인생의 진리를 깨닫고 싶다면 그 때 오게나...,인생의 진리를 깨닫고 싶다면 그 때 오게나...,1306c0cebbfdc0c720c1f8b8aeb8a620b1fab4ddb0ed20bdcdb4d9b8e920b1d720b6a720bfc0b0d4b3aa2e2e2e,7bb68a98b74f341db1b145da2f9473fe4ad86d3e4f78ecea27ec4103d8a10b2d
+5278,force_3_name,'ㅅ','ㅅ',27a4b527,1c610fd8b2064173880d27d30fa322210004a583571bd36236659f4e99a0de5a
+5285,custom_unit_5_name,AACOAA,AACOAA,1f4141434f4141,55f8d3ad3c290e6cec5b4f81785ee2230212870c283ed4e4fb1cb0e9dc76f18c
+5419,custom_unit_78_name,Fenix(Dragoon),Fenix(Dragoon),1f4605656e697828447261676f6f6e29,eef0725fe4af26d01af6bf7f3c707f0208cb62aba99ad02f9295942d9734bbf5
+5421,trigger_122_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 4 클리어!
+버로우를 이용하면 좁은 곳에도 모일 수 있죠.","스테이지 4 클리어!
+버로우를 이용하면 좁은 곳에도 모일 수 있죠.",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004342006c5acb8aebeee210d0a1304b9f6b7cebfecb8a620c0ccbfebc7cfb8e920c1bcc0ba20b0f7bfa1b5b520b8f0c0cf20bcf620c0d6c1d22e,45cc16a034dbb646358272155d77051886031b7dcc54fa4c9ec9826df1b9e21f
+5422,force_2_name,Made by CoOlLuCk-_-,Made by CoOlLuCk-_-,4d61646520627920436f4f6c4c75436b2d5f2d,3910e42cfb3c0d57687a99caf69c480ae633a26a917a6fbb8c33aac3d3fa94ca
+5456,custom_unit_79_name,AOSSSS,AOSSSS,1f414f53535353,215590132e4cd30a4c9b93f8abaf1f9c8181f7a8414df579b7fa0c1e01e65259
+5474,custom_unit_123_name,집중하면 알수있어요,집중하면 알수있어요,04c1fdc1dfc7cfb8e920becbbcf6c0d6beeebfe4,2a2b2656ed68711f3ef30efbc44e765aae7b2023e4387be681146121ebe83aef
+5475,custom_unit_122_name,이게 뭐죠?,이게 뭐죠?,04c0ccb0d420b9b9c1d23f,97e278e12831fbd99212027757d11ebfc53e53acf5a85773fbe93cbcc8ef2023
+5480,custom_unit_135_name,아무것도 없는 방,아무것도 없는 방,04bec6b9abb0cdb5b520bef8b4c220b9e6,190b9d9609c884149f401f99d5c445993775ffc31124965a56b1ebb1f66a2d15
+5481,custom_unit_127_name,뻐꾹 뻐꾹 뻐꾹,뻐꾹 뻐꾹 뻐꾹,04bbb5b2da20bbb5b2da20bbb5b2da,75a8432aabf9d80358dc6b3e236e2628790a8a09f5c08a49152b493c5aa58692
+5484,trigger_141_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 13 클리어!
+각 자릿수 별로 다른 특징이 있네요","스테이지 13 클리어!
+각 자릿수 별로 다른 특징이 있네요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431332006c5acb8aebeee210d0a1304b0a220c0dab8b4bcf620bab0b7ce20b4d9b8a520c6afc2a1c0cc20c0d6b3d7bfe4,c8c1bfa0edbb235211082f36d4b67d5970a184b12f333e5b053dbb5a2fd10d73
+5492,custom_unit_162_name,가운데 놈을 잡으세요,가운데 놈을 잡으세요,04b0a1bfeeb5a520b3f0c0bb20c0e2c0b8bcbcbfe4,97f881092b4b3b8c8e032dc4c1b2412764339a3479d2586573836e22c1198149
+5494,custom_unit_61_name,Dog Hunter,Dog Hunter,03446f67200648756e746572,3d2c3496d20311cf0d1dfa49889cfcd94398a3922813e76f4f71cd20597b39ad
+5555,custom_unit_83_name,Reaver,Reaver,1f52056561766572,2e40e126986d06dff3205fedfd803c319e94a6198700f6fdf3d5595414e71ffd
+5556,trigger_155_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 27 클리어!
+인생의 진리가 無 라면 無 의 상태를 만들어야죠","스테이지 27 클리어!
+인생의 진리가 無 라면 無 의 상태를 만들어야죠",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432372006c5acb8aebeee210d0a1304c0cebbfdc0c720c1f8b8aeb0a120d9ed20b6f3b8e920d9ed20c0c720bbf3c5c2b8a620b8b8b5e9beeebedfc1d2,6e15fdf21fecb4648702d93da6ed562f8c5c067dbb79d650c33bba3157c1e269
+5562,custom_unit_99_name,낚시꾼,낚시꾼,1fb3ac04bdc3b2db,5b493d7436e18b11f0b9fd8fc7efce42e55a62eab0ed07ee0ec844b4bd8660f3
+5596,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     ㅁ
+
+
+
+
+
+
+",                                                     ㅁ,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004a4b10d0a0d0a0d0a0d0a0d0a0d0a0d0a,3b7d2cc2088417e9891d7a4cd70141983a8b392c759acb7c882db374bcf9120c
+5608,trigger_185_text; trigger_186_text; trigger_189_text; trigger_190_text; trigger_199_text; trigger_200_text; trigger_203_text; trigger_204_text; trigger_209_text; trigger_210_text; trigger_213_text; trigger_216_text; trigger_217_text; trigger_220_text; trigger_221_text; trigger_224_text; trigger_225_text; trigger_228_text; trigger_229_text; trigger_232_text; trigger_233_text; trigger_256_text; trigger_257_text; trigger_260_text; trigger_261_text; trigger_264_text; trigger_265_text; trigger_268_text; trigger_269_text; trigger_272_text; trigger_273_text,틀렸습니다!,틀렸습니다!,1306c6b2b7c8bdc0b4cfb4d921,bb8306bfa54e979a7341e71fc915dcc026172717942a5fa6d97a329af9c3bde6
+5625,trigger_119_wav; trigger_120_wav; trigger_121_wav; trigger_122_wav; trigger_123_wav; trigger_124_wav; trigger_125_wav; trigger_136_wav; trigger_137_wav; trigger_138_wav; trigger_139_wav; trigger_140_wav; trigger_141_wav; trigger_142_wav; trigger_143_wav; trigger_144_wav; trigger_145_wav; trigger_146_wav; trigger_147_wav; trigger_148_wav; trigger_149_wav; trigger_150_wav; trigger_151_wav; trigger_152_wav; trigger_153_wav; trigger_154_wav; trigger_155_wav; trigger_156_wav; trigger_157_wav; trigger_158_wav; trigger_159_wav; trigger_160_wav; trigger_161_wav; trigger_162_wav; trigger_163_wav; trigger_164_wav; trigger_165_wav; trigger_166_wav; trigger_167_wav; trigger_169_wav; trigger_170_wav; trigger_171_wav; trigger_172_wav; trigger_173_wav; trigger_174_wav; trigger_175_wav; trigger_176_wav; trigger_177_wav; trigger_178_wav; trigger_179_wav,staredit\wav\JoHap.wav,staredit\wav\JoHap.wav,73746172656469745c7761765c4a6f4861702e776176,3cec3038eee7cee9ed87b369b7f612e04c7e35f8d6efbc345848bbc8e1704802
+5627,trigger_147_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 19 클리어!
+스컬지를 잘 운반하셨군요!","스테이지 19 클리어!
+스컬지를 잘 운반하셨군요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200431392006c5acb8aebeee210d0a1304bdbac4c3c1f6b8a620c0df20bfeeb9ddc7cfbcccb1babfe421,5903da8043d7783678a7574b934c72bb678c45a0fee567a343d3413f1e42af5b
+5630,custom_unit_97_name,Wall,Wall,1f5705616c6c,f7faac4d6d7ba18dd4b0a2b4c8b6b0b15309fd49280e48f2de68b50e72995227
+5693,trigger_206_text,마스터 키를 획득하셨습니다.,마스터 키를 획득하셨습니다.,1306b8b6bdbac5cd20c5b0b8a620c8b9b5e6c7cfbcccbdc0b4cfb4d92e,87ce524345b6964df592ebd14a44df2001d1f181529bf0b7821782871d520299
+5781,trigger_167_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 39 클리어!
+답은 은근히 쉬운 곳에 있습니다","스테이지 39 클리어!
+답은 은근히 쉬운 곳에 있습니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433392006c5acb8aebeee210d0a1304b4e4c0ba20c0bab1d9c8f720bdacbfee20b0f7bfa120c0d6bdc0b4cfb4d9,d3a575bf451968d35ec8089a25c792f8473de51ce0a0647225522dda43b0fb03
+5784,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+
+
+
+
+
+
+",                                                     미궁 50개의 방,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202007b9ccb1c3203530b0b3c0c720b9e60d0a0d0a0d0a0d0a0d0a0d0a0d0a,59239b46a007252b3492f4108b3898f1d46fcc59ef5c3f587ccf5a72de10e690
+5788,trigger_188_text,124  137  250  373  516  839  ???,124  137  250  373  516  839  ???,073132342020313337202032353020203337332020353136202038333920200f3f3f3f,4bb2350321fce878f0f0f08b3b10d045d37dbd589c22aa5bd199826c9351fc5a
+5790,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개으
+
+
+
+
+
+
+",                                                     미궁 50개으,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b3c0b80d0a0d0a0d0a0d0a0d0a0d0a0d0a,ea2772595a816ca6a6376e52769f93e79e466e57ec26adfef7a42ff081399fce
+5799,trigger_164_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 36 클리어!
+2011년 11월 10일, 70만 수험생의 모든 것이 끝나는 수능 날입니다","스테이지 36 클리어!
+2011년 11월 10일, 70만 수험생의 모든 것이 끝나는 수능 날입니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200433362006c5acb8aebeee210d0a130432303131b3e2203131bff9203130c0cf2c203730b8b820bcf6c7e8bbfdc0c720b8f0b5e720b0cdc0cc20b3a1b3aab4c220bcf6b4c920b3afc0d4b4cfb4d9,45e5155696209af6605680733f5e4c9c919a4a15a2f668e88a4aac92283c86c2
+5801,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+",,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a,098d80a80d49a191f2f5cf7bd7443f1c517b53321f057e29e54b89c6b3b44360
+5805,custom_unit_36_name,Hidden Key,Hidden Key,1f481e696464656e201f4b1e6579,c5550c5df18efe11d538b85d5a17344626b79ac75ecb42821a8c993b9f0afe0e
+5822,custom_unit_2_name,Vulture,Vulture,1f5605756c74757265,f0ff5cbd3a5a98739779f6aaac209d2d7dc61d45a86917f99debe873667af6bb
+5913,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁
+
+
+
+
+
+
+",                                                     미궁,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c30d0a0d0a0d0a0d0a0d0a0d0a0d0a,8460047b9a85564fd9efa36480218ca2605751281287eab5ad28d36944be1995
+5914,trigger_231_text,"A row  B column
+
+A × B × B = ?","A row  B column
+
+A × B × B = ?",074120726f7720204220636f6c756d6e0d0a0d0a0f4120a1bf204220a1bf2042203d203f,604d82ade7437c2854387ef5b227833067fecc42652055f15c9b255acbe8f5c2
+5980,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50ㄱ
+
+
+
+
+
+
+",                                                     미궁 50ㄱ,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530a4a10d0a0d0a0d0a0d0a0d0a0d0a0d0a,28e7bb2548db2490fe4c19fc1f9519fd907de07450f5c08c8318e5e5b933392f
+6008,trigger_137_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 9 클리어!
+공격, 방어도 아닌 계급이 다르네요!","스테이지 9 클리어!
+공격, 방어도 아닌 계급이 다르네요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004392006c5acb8aebeee210d0a1304b0f8b0dd2c20b9e6beeeb5b520bec6b4d120b0e8b1dec0cc20b4d9b8a3b3d7bfe421,4a543d9a7d9e77bff6ce21436490d4f4bc889c2311bd3b07d1c73d2bb8bad2c6
+6122,custom_unit_68_name,공정한 대결,공정한 대결,04b0f8c1a4c7d120b4ebb0e1,77140f85bc3e5ac7464c3f3076031202874780afd3aed8977efbcc6d3db8ad31
+6178,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 방
+
+
+
+
+
+
+",                                                     미궁 50개의 방,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b3c0c720b9e60d0a0d0a0d0a0d0a0d0a0d0a0d0a,3fcad89b83b7d84dc728ab78aa47ca46a3df9a0a359d93a9e006761ddbac5b9e
+6180,custom_unit_169_name,Fleet Beacon,Fleet Beacon,1f46056c65657420426561636f6e,fdb800a9726541a3f44d3a5c4daab4d288e306eb0e26440e281f09d6fec09f8a
+6188,trigger_1_text,"
+
+
+
+
+
+
+
+
+
+
+
+                                                     미궁 50개의 ㅂ
+
+
+
+
+
+
+",                                                     미궁 50개의 ㅂ,0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202004b9ccb1c3203530b0b3c0c720a4b20d0a0d0a0d0a0d0a0d0a0d0a0d0a,75e40ab6366a2e29de8e0fa368aff75b689be6fac1b2dc05fe69164fa8e63538
+6189,trigger_208_text,"Psi used = 0
+
+Psi total + Psi max = ?","Psi used = 0
+
+Psi total + Psi max = ?",075073692075736564203d20300d0a0d0a0f50736920746f74616c202b20507369206d6178203d203f,d5c6a9b6221c51e884b93acffbc91d0af74a56c82eb3401f125b31bc920a23b2
+6191,trigger_172_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 43 클리어!
+스타게이트에서 1, 2, 3, 4가 되는 유닛들에 서면 됩니다","스테이지 43 클리어!
+스타게이트에서 1, 2, 3, 4가 되는 유닛들에 서면 됩니다",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200434332006c5acb8aebeee210d0a1304bdbac5b8b0d4c0ccc6aebfa1bcad20312c20322c20332c2034b0a120b5c7b4c220c0afb4d6b5e9bfa120bcadb8e920b5cbb4cfb4d9,dbc323c695d34aaad77d8baed72705a0a5cf42b2226c486d851c363d9e602adb
+6215,trigger_157_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 29 클리어!
+제가 어이없게도라는 말을 했었던 26탄에 답이 있네요","스테이지 29 클리어!
+제가 어이없게도라는 말을 했었던 26탄에 답이 있네요",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f6200432392006c5acb8aebeee210d0a1304c1a6b0a120beeec0ccbef8b0d4b5b5b6f3b4c220b8bbc0bb20c7dfbefab4f8203236c5babfa120b4e4c0cc20c0d6b3d7bfe4,713de239596e42d48b62d0468179bda0c2929f091e064f77740343bb66044a73
+6437,mission_briefing_text,미궁 - 50개의 방,미궁 - 50개의 방,06b9ccb1c320042d20033530b0b3c0c720b9e6,95a1076b0231c803e268f48f02dcf63373a59b7963a56ed646552c581cd034b5
+6446,custom_unit_138_name,Characteristic,Characteristic,044368617261637465726973746963,84f08343c9b3f840269ae7c7c417defa12e9f6006ed59ce02f860dc9e4604190
+6450,custom_unit_23_name,Edmund Duke(Tank),Edmund Duke(Tank),1f4505646d756e642044756b652854616e6b29,7b29feef4655f3de6151d53ce36dbdaf535f33ed08b8729bee96fb7592ec5ea3
+6454,trigger_215_text,"T + I = 13
+
+EYY + QUP = ?","T + I = 13
+
+EYY + QUP = ?",0754202b2049203d2031330d0a0d0a0f455959202b20515550203d203f,bb06a8539c242e111d8177bf34b4fc006de7a57854a0ce1eee8101b0545f3351
+6469,custom_unit_1_name,Ghost,Ghost,1f4705686f7374,e97363daad2a6ff91d981df63ed1de3e85a7d342479b972667d1afdb9566cb3c
+6505,trigger_2_wav,staredit\wav\BGM3.wav,staredit\wav\BGM3.wav,73746172656469745c7761765c42474d332e776176,4d67718be33f183cbd7cdb21a1270ed1479f51cf2c8697ef4bae2535dbe0f8e5
+6583,custom_unit_15_name,BGM On/Off,BGM On/Off,07420347064d20054f6e2f4f6666,37285c4d66b5e8f0ef466c2453683601866d13a80ea7eed654c0db5cabb6e402
+6585,trigger_219_text,sanctuary,sanctuary,0f73616e637475617279,b864bfdba9249a15951c68baecb3d1bc08764f34584729a82f5453a0b39632a5
+6652,trigger_123_text,"
+
+
+
+
+
+
+
+
+
+
+
+스테이지 5 클리어!
+옵저버를 찾아내셨군요!","스테이지 5 클리어!
+옵저버를 찾아내셨군요!",0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a0d0a1303bdbac5d7c0ccc1f62004352006c5acb8aebeee210d0a1304bfc9c0fab9f6b8a620c3a3bec6b3bbbcccb1babfe421,18dca9c063e774158a32d5cc48f85fc5f36b11013301a9122615318d5de3b955

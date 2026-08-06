@@ -1,0 +1,479 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mcpuzzle.dev/schema/map-pack.schema.json",
+  "title": "MCPuzzle Map Pack",
+  "description": "Generated-world puzzle pack for MCPuzzle Paper 1.20.1.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "mapVersion",
+    "mazeId",
+    "displayName",
+    "description",
+    "locale",
+    "party",
+    "world",
+    "partySpawns",
+    "rooms"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "format": "uri-reference" },
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "mapVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][0-9A-Za-z.-]+)?$" },
+    "mazeId": { "$ref": "#/$defs/id" },
+    "displayName": { "$ref": "#/$defs/nonBlankText" },
+    "description": { "$ref": "#/$defs/nonBlankText" },
+    "locale": { "type": "string", "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$" },
+    "party": { "$ref": "#/$defs/party" },
+    "world": { "$ref": "#/$defs/world" },
+    "partySpawns": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/position" }
+    },
+    "source": { "$ref": "#/$defs/packSource" },
+    "rooms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/room" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+    },
+    "nonBlankText": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": ".*\\S.*"
+    },
+    "material": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_]*$"
+    },
+    "position": {
+      "type": "object",
+      "required": ["x", "y", "z"],
+      "properties": {
+        "x": { "type": "integer" },
+        "y": { "type": "integer", "minimum": -64, "maximum": 320 },
+        "z": { "type": "integer" },
+        "yaw": { "type": "number", "minimum": -360, "maximum": 360 },
+        "pitch": { "type": "number", "minimum": -90, "maximum": 90 }
+      },
+      "additionalProperties": false
+    },
+    "region": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "$ref": "#/$defs/position" },
+        "max": { "$ref": "#/$defs/position" }
+      },
+      "additionalProperties": false
+    },
+    "party": {
+      "type": "object",
+      "required": ["minPlayers", "maxPlayers"],
+      "properties": {
+        "minPlayers": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "maxPlayers": { "type": "integer", "minimum": 1, "maximum": 4 }
+      },
+      "additionalProperties": false
+    },
+    "world": {
+      "type": "object",
+      "required": ["mode", "environment", "bounds", "floorY", "generator"],
+      "properties": {
+        "mode": { "const": "GENERATED_VOID" },
+        "environment": { "enum": ["NORMAL", "NETHER", "THE_END"] },
+        "bounds": { "$ref": "#/$defs/region" },
+        "floorY": { "type": "integer", "minimum": -64, "maximum": 320 },
+        "generator": {
+          "type": "object",
+          "required": ["type", "roomSpacing", "floorMaterial", "wallMaterial", "ceilingMaterial", "lightMaterial"],
+          "properties": {
+            "type": { "const": "ROOM_STACK" },
+            "roomSpacing": { "type": "integer", "minimum": 32, "maximum": 1024 },
+            "floorMaterial": { "$ref": "#/$defs/material" },
+            "wallMaterial": { "$ref": "#/$defs/material" },
+            "ceilingMaterial": { "$ref": "#/$defs/material" },
+            "lightMaterial": { "$ref": "#/$defs/material" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "packSource": {
+      "type": "object",
+      "required": ["format"],
+      "properties": {
+        "format": { "$ref": "#/$defs/nonBlankText" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      },
+      "additionalProperties": false
+    },
+    "room": {
+      "type": "object",
+      "required": [
+        "id",
+        "sequence",
+        "originalStage",
+        "title",
+        "buildBounds",
+        "playBounds",
+        "spawn",
+        "checkpoint",
+        "completionMode",
+        "mechanics",
+        "hints",
+        "messages",
+        "reset"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "sequence": { "type": "integer", "minimum": 1 },
+        "originalStage": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "#/$defs/nonBlankText" },
+        "buildBounds": { "$ref": "#/$defs/region" },
+        "playBounds": { "$ref": "#/$defs/region" },
+        "spawn": { "$ref": "#/$defs/position" },
+        "checkpoint": { "$ref": "#/$defs/position" },
+        "visual": { "$ref": "#/$defs/visualBlueprint" },
+        "completionMode": { "enum": ["ALL_MECHANICS", "ANY_MECHANIC"] },
+        "mechanics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "oneOf": [
+              { "$ref": "#/$defs/latchingPressurePads" },
+              { "$ref": "#/$defs/cornerObjectives" },
+              { "$ref": "#/$defs/destructibleTarget" },
+              { "$ref": "#/$defs/numericKeypad" },
+              { "$ref": "#/$defs/logicAnswer" },
+              { "$ref": "#/$defs/proximityEscort" },
+              { "$ref": "#/$defs/dynamicPartyPadsAndTarget" }
+            ]
+          }
+        },
+        "hints": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": { "$ref": "#/$defs/hint" }
+        },
+        "messages": { "$ref": "#/$defs/messages" },
+        "reset": { "$ref": "#/$defs/reset" },
+        "source": { "$ref": "#/$defs/roomSource" }
+      },
+      "additionalProperties": false
+    },
+    "visualPaletteEntry": {
+      "type": "object",
+      "required": ["tile", "material"],
+      "properties": {
+        "tile": { "type": "integer", "minimum": 0, "maximum": 65535 },
+        "material": { "$ref": "#/$defs/material" }
+      },
+      "additionalProperties": false
+    },
+    "visualBlueprint": {
+      "type": "object",
+      "required": ["origin", "scale", "width", "height", "palette", "cells"],
+      "properties": {
+        "origin": { "$ref": "#/$defs/position" },
+        "scale": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "width": { "type": "integer", "minimum": 1, "maximum": 64 },
+        "height": { "type": "integer", "minimum": 1, "maximum": 64 },
+        "palette": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/visualPaletteEntry" }
+        },
+        "cells": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 0, "maximum": 65535 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "hint": {
+      "type": "object",
+      "required": ["tier", "text"],
+      "properties": {
+        "tier": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "text": { "$ref": "#/$defs/nonBlankText" }
+      },
+      "additionalProperties": false
+    },
+    "messages": {
+      "type": "object",
+      "required": ["intro", "completion", "failure"],
+      "properties": {
+        "intro": { "$ref": "#/$defs/nonBlankText" },
+        "completion": { "$ref": "#/$defs/nonBlankText" },
+        "failure": { "$ref": "#/$defs/nonBlankText" }
+      },
+      "additionalProperties": false
+    },
+    "reset": {
+      "type": "object",
+      "required": ["scope", "teleportPartyToCheckpoint", "restoreBlocks", "removeOwnedEntities", "clearMechanicState"],
+      "properties": {
+        "scope": { "const": "ROOM" },
+        "teleportPartyToCheckpoint": { "const": true },
+        "restoreBlocks": { "type": "boolean" },
+        "removeOwnedEntities": { "type": "boolean" },
+        "clearMechanicState": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "mechanicHeader": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "type": "string" }
+      }
+    },
+    "latchingPressurePads": {
+      "type": "object",
+      "required": ["id", "type", "pads", "requiredCount", "latch", "allowSequentialSolo", "indicatorMaterial"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "LATCHING_PRESSURE_PADS" },
+        "pads": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/position" } },
+        "requiredCount": { "type": "integer", "minimum": 1 },
+        "latch": { "type": "boolean" },
+        "allowSequentialSolo": { "type": "boolean" },
+        "indicatorMaterial": { "$ref": "#/$defs/material" }
+      },
+      "additionalProperties": false
+    },
+    "cornerObjectives": {
+      "type": "object",
+      "required": ["id", "type", "pads", "requiredCount", "latch", "allowSequentialSolo", "indicatorMaterial"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "CORNER_OBJECTIVES" },
+        "pads": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/position" } },
+        "requiredCount": { "type": "integer", "const": 4 },
+        "latch": { "type": "boolean" },
+        "allowSequentialSolo": { "type": "boolean" },
+        "indicatorMaterial": { "$ref": "#/$defs/material" }
+      },
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "required": ["material", "position", "interaction"],
+      "properties": {
+        "material": { "$ref": "#/$defs/material" },
+        "position": { "$ref": "#/$defs/position" },
+        "interaction": { "enum": ["BREAK_BLOCK", "INTERACT"] }
+      },
+      "additionalProperties": false
+    },
+    "destructibleTarget": {
+      "type": "object",
+      "required": ["id", "type", "target"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "DESTRUCTIBLE_TARGET" },
+        "target": { "$ref": "#/$defs/target" }
+      },
+      "additionalProperties": false
+    },
+    "digitButton": {
+      "type": "object",
+      "required": ["digit", "position"],
+      "properties": {
+        "digit": { "type": "integer", "minimum": 0, "maximum": 9 },
+        "position": { "$ref": "#/$defs/position" }
+      },
+      "additionalProperties": false
+    },
+    "numericKeypad": {
+      "type": "object",
+      "required": ["id", "type", "answer", "minDigits", "maxDigits", "wrongAnswer", "digitButtons", "submitButton", "clearButton"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "NUMERIC_KEYPAD" },
+        "answer": { "type": "integer", "minimum": 0 },
+        "minDigits": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "maxDigits": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "wrongAnswer": { "const": "RESET_ROOM" },
+        "digitButtons": { "type": "array", "minItems": 10, "maxItems": 10, "items": { "$ref": "#/$defs/digitButton" } },
+        "submitButton": { "$ref": "#/$defs/position" },
+        "clearButton": { "$ref": "#/$defs/position" }
+      },
+      "additionalProperties": false
+    },
+    "logicAnswer": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "question",
+        "pages",
+        "answerFormat",
+        "answers",
+        "normalization",
+        "cooldownSeconds",
+        "difficulty",
+        "inspiration",
+        "solutionExplanation",
+        "wrongAnswerSamples"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "LOGIC_ANSWER" },
+        "question": { "$ref": "#/$defs/nonBlankText" },
+        "pages": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240,
+            "pattern": ".*\\S.*"
+          }
+        },
+        "answerFormat": { "$ref": "#/$defs/nonBlankText" },
+        "answers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": ".*\\S.*"
+          }
+        },
+        "normalization": { "const": "LETTERS_AND_DIGITS" },
+        "cooldownSeconds": { "type": "integer", "minimum": 3, "maximum": 60 },
+        "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "inspiration": { "$ref": "#/$defs/nonBlankText" },
+        "solutionExplanation": { "$ref": "#/$defs/nonBlankText" },
+        "wrongAnswerSamples": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": ".*\\S.*"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "escortEntity": {
+      "type": "object",
+      "required": ["entityType", "customName", "spawn", "invulnerable"],
+      "properties": {
+        "entityType": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "customName": { "$ref": "#/$defs/nonBlankText" },
+        "spawn": { "$ref": "#/$defs/position" },
+        "invulnerable": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "proximityEscort": {
+      "type": "object",
+      "required": ["id", "type", "entity", "checkpoints", "destination", "proximityRadius", "movementSpeed", "gateMode", "failureIfUngatedCheckpointReached", "failurePolicy", "completionAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "PROXIMITY_ESCORT" },
+        "entity": { "$ref": "#/$defs/escortEntity" },
+        "checkpoints": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/position" } },
+        "destination": { "$ref": "#/$defs/position" },
+        "proximityRadius": { "type": "number", "exclusiveMinimum": 0, "maximum": 32 },
+        "movementSpeed": { "type": "number", "exclusiveMinimum": 0, "maximum": 2 },
+        "gateMode": { "const": "REQUIRE_PLAYER_AT_NEXT_CHECKPOINT" },
+        "failureIfUngatedCheckpointReached": { "const": true },
+        "failurePolicy": { "const": "RESET_ROOM" },
+        "completionAt": { "const": "DESTINATION" }
+      },
+      "additionalProperties": false
+    },
+    "playerPad": {
+      "type": "object",
+      "required": ["partyIndex", "position"],
+      "properties": {
+        "partyIndex": { "type": "integer", "minimum": 1, "maximum": 4 },
+        "position": { "$ref": "#/$defs/position" }
+      },
+      "additionalProperties": false
+    },
+    "dynamicPartyPadsAndTarget": {
+      "type": "object",
+      "required": ["id", "type", "activePadCount", "playerPads", "latch", "target", "completionMode"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "DYNAMIC_PARTY_PADS_AND_TARGET" },
+        "activePadCount": { "const": "PARTY_SIZE" },
+        "playerPads": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/playerPad" } },
+        "latch": { "type": "boolean" },
+        "target": { "$ref": "#/$defs/target" },
+        "completionMode": { "const": "ACTIVE_PADS_AND_TARGET" }
+      },
+      "additionalProperties": false
+    },
+    "rectangle2d": {
+      "type": "object",
+      "required": ["left", "top", "right", "bottom"],
+      "properties": {
+        "left": { "type": "integer", "minimum": 0 },
+        "top": { "type": "integer", "minimum": 0 },
+        "right": { "type": "integer", "minimum": 0 },
+        "bottom": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "sourceLocation": {
+      "type": "object",
+      "required": ["id", "rectangle"],
+      "properties": {
+        "id": { "type": "integer", "minimum": 1 },
+        "rectangle": { "$ref": "#/$defs/rectangle2d" }
+      },
+      "additionalProperties": false
+    },
+    "roomSource": {
+      "type": "object",
+      "required": ["completionTrigger", "roomRectangle", "rawRequirements", "locations"],
+      "properties": {
+        "completionTrigger": { "type": "integer", "minimum": 0 },
+        "roomRectangle": { "$ref": "#/$defs/rectangle2d" },
+        "numericAnswer": { "type": "integer", "minimum": 0 },
+        "rawRequirements": { "type": "array", "items": { "type": "string" } },
+        "locations": { "type": "array", "items": { "$ref": "#/$defs/sourceLocation" } },
+        "routeLocationIds": { "type": "array", "minItems": 2, "items": { "type": "integer", "minimum": 1 } },
+        "destinationLocationId": { "type": "integer", "minimum": 1 },
+        "playerPadLocationIds": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "integer", "minimum": 1 } },
+        "targetRoomLocationId": { "type": "integer", "minimum": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "required": ["routeLocationIds"] },
+          "then": { "required": ["destinationLocationId"] }
+        },
+        {
+          "if": { "required": ["playerPadLocationIds"] },
+          "then": { "required": ["targetRoomLocationId"] }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
