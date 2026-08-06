@@ -6,6 +6,7 @@ import dev.mcpuzzle.core.domain.PartyFailure;
 
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -233,6 +234,15 @@ public final class PartyService {
     public synchronized Optional<PartyView> findById(PartyId partyId) {
         PartyEntry entry = parties.get(Objects.requireNonNull(partyId, "partyId"));
         return entry == null ? Optional.empty() : Optional.of(view(partyId, entry));
+    }
+
+    public synchronized List<PartyView> findInvitations(UUID playerId) {
+        Objects.requireNonNull(playerId, "playerId");
+        return parties.entrySet().stream()
+                .filter(entry -> entry.getValue().lifecycle == PartyLifecycle.OPEN)
+                .filter(entry -> entry.getValue().pendingInvites.contains(playerId))
+                .map(entry -> view(entry.getKey(), entry.getValue()))
+                .toList();
     }
 
     private LocatedParty locateActor(UUID actorId) {

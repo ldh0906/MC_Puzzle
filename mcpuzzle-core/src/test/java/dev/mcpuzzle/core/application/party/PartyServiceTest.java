@@ -135,6 +135,22 @@ class PartyServiceTest {
         assertEquals(PartyLifecycle.IN_RUN, service.findById(id).orElseThrow().lifecycle());
     }
 
+    @Test
+    void listsOnlyLiveInvitationsForTheTargetPlayer() {
+        PartyService service = new PartyService();
+        UUID firstLeader = UUID.randomUUID();
+        UUID secondLeader = UUID.randomUUID();
+        UUID target = UUID.randomUUID();
+        PartyId accepted = success(service.create(firstLeader)).id();
+        success(service.create(secondLeader));
+        success(service.invite(firstLeader, target));
+        success(service.invite(secondLeader, target));
+
+        assertEquals(2, service.findInvitations(target).size());
+        success(service.accept(target, accepted));
+        assertTrue(service.findInvitations(target).isEmpty());
+    }
+
     private static PartyView success(PartyServiceResult result) {
         assertTrue(result.succeeded(), () -> "Unexpected party error: " + result.error());
         return result.party().orElseThrow();
