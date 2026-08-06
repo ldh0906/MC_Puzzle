@@ -24,7 +24,7 @@ foreach ($requiredFile in @($pluginSource, $paperJar, $hashFile)) {
 
 $paperJarFullPath = [System.IO.Path]::GetFullPath($paperJar)
 $runningServer = Get-CimInstance Win32_Process -Filter "Name = 'java.exe'" | Where-Object {
-    $_.CommandLine -and $_.CommandLine.Contains($paperJarFullPath, [System.StringComparison]::OrdinalIgnoreCase)
+    $_.CommandLine -and $_.CommandLine.IndexOf($paperJarFullPath, [System.StringComparison]::OrdinalIgnoreCase) -ge 0
 } | Select-Object -First 1
 if ($null -ne $runningServer) {
     throw "검증 대상 Paper가 이미 실행 중입니다(PID $($runningServer.ProcessId)). 서버를 정상 종료한 뒤 다시 실행하세요."
@@ -42,9 +42,7 @@ $processInfo.CreateNoWindow = $true
 $processInfo.RedirectStandardInput = $true
 $processInfo.RedirectStandardOutput = $true
 $processInfo.RedirectStandardError = $true
-@("-Xms$MinMemory", "-Xmx$MaxMemory", "-jar", $paperJar, "--nogui") | ForEach-Object {
-    [void]$processInfo.ArgumentList.Add($_)
-}
+$processInfo.Arguments = "-Xms$MinMemory -Xmx$MaxMemory -jar `"$paperJar`" --nogui"
 
 $serverProcess = [System.Diagnostics.Process]::new()
 $serverProcess.StartInfo = $processInfo
@@ -150,7 +148,7 @@ try {
             # The exact process started above is force-stopped only if stdin has already failed.
         }
         if (-not $serverProcess.WaitForExit(10000)) {
-            $serverProcess.Kill($true)
+            $serverProcess.Kill()
             $serverProcess.WaitForExit()
         }
     }

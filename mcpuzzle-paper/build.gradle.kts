@@ -18,11 +18,18 @@ dependencies {
 
 val buildPuzzleResourcePack by tasks.registering(Exec::class) {
     val resourcePackRoot = rootProject.file("resource-pack")
+    val powerShellExecutable = System.getenv("PATH").orEmpty().split(File.pathSeparator)
+        .asSequence()
+        .map(::File)
+        .map { it.resolve("pwsh.exe") }
+        .firstOrNull(File::isFile)
+        ?.absolutePath
+        ?: "powershell.exe"
     inputs.dir(resourcePackRoot.resolve("source"))
     inputs.file(resourcePackRoot.resolve("build.ps1"))
     outputs.file(resourcePackRoot.resolve("build/MCPuzzle-1.0.0.zip"))
     commandLine(
-        "pwsh.exe",
+        powerShellExecutable,
         "-NoProfile",
         "-ExecutionPolicy", "Bypass",
         "-File", resourcePackRoot.resolve("build.ps1").absolutePath
