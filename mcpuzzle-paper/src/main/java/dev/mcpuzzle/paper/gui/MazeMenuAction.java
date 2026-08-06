@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.OptionalInt;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +35,25 @@ public record MazeMenuAction(Type type, List<String> arguments) {
         try {
             return Optional.of(new MazeMenuAction(Type.valueOf(values[0]),
                     Arrays.asList(values).subList(1, values.length)));
+        } catch (IllegalArgumentException failure) {
+            return Optional.empty();
+        }
+    }
+
+    public OptionalInt integer(int index, int min, int max) {
+        if (index < 0 || index >= arguments.size()) return OptionalInt.empty();
+        try {
+            int value = Integer.parseInt(arguments.get(index));
+            return value >= min && value <= max ? OptionalInt.of(value) : OptionalInt.empty();
+        } catch (NumberFormatException failure) {
+            return OptionalInt.empty();
+        }
+    }
+
+    public Optional<UUID> uuid(int index) {
+        if (index < 0 || index >= arguments.size()) return Optional.empty();
+        try {
+            return Optional.of(UUID.fromString(arguments.get(index)));
         } catch (IllegalArgumentException failure) {
             return Optional.empty();
         }

@@ -1,9 +1,16 @@
 package dev.mcpuzzle.paper.gui;
 
-import dev.mcpuzzle.paper.runtime.MazeRuntimeService;
+import dev.mcpuzzle.core.application.party.PartyLifecycle;
+import dev.mcpuzzle.core.application.party.PartyView;
+import dev.mcpuzzle.core.domain.LeaderboardEntry;
+import dev.mcpuzzle.core.domain.SaveGame;
+import dev.mcpuzzle.core.domain.SessionState;
 import dev.mcpuzzle.paper.resourcepack.PuzzleItemModel;
+import dev.mcpuzzle.paper.runtime.MazeRuntimeService;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,64 +18,267 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
+import java.time.Duration;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 public final class MazeMenu implements Listener {
+    private static final int[] CONTENT_SLOTS = {
+            10, 11, 12, 13, 14, 15, 16,
+            19, 20, 21, 22, 23, 24, 25,
+            28, 29, 30, 31, 32, 33, 34,
+            37, 38, 39, 40, 41, 42, 43
+    };
+    private static final DateTimeFormatter DATE_TIME = DateTimeFormatter.ofPattern("MM/dd HH:mm")
+            .withZone(ZoneId.systemDefault());
+
+    private final Plugin plugin;
     private final MazeRuntimeService runtime;
     private final NamespacedKey actionKey;
+    private final MazeMenuItems items;
 
     public MazeMenu(Plugin plugin, MazeRuntimeService runtime) {
+        this.plugin = Objects.requireNonNull(plugin, "plugin");
         this.runtime = Objects.requireNonNull(runtime, "runtime");
         this.actionKey = new NamespacedKey(plugin, "menu_action");
+        this.items = new MazeMenuItems(actionKey);
     }
 
     public void openMain(Player player) {
-        MenuHolder holder = new MenuHolder(player.getUniqueId(), MenuType.MAIN, 0);
-        Inventory inventory = Bukkit.createInventory(holder, 27, "§1미궁"); holder.inventory = inventory;
-        inventory.setItem(11, item(PuzzleItemModel.PARTY, "§e파티 상태", "party_status", List.of("§7클릭해 명단을 확인합니다.")));
-        inventory.setItem(13, item(PuzzleItemModel.START, "§6새 미궁 시작", "saves", List.of("§7슬롯을 선택합니다.")));
-        inventory.setItem(15, item(PuzzleItemModel.SAVES, "§b세이브 / 재개", "saves", List.of("§7슬롯 1~3")));
-        inventory.setItem(22, item(PuzzleItemModel.HINT, "§d힌트", "hints", List.of("§7현재 방 힌트")));
+        MenuHolder holder = create(player, MenuType.MAIN, player.getUniqueId(), 0, 54, "§1✦ 심야의 미궁 ✦");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+
+        PartyView party = runtime.party(player.getUniqueId()).orElse(null);
+        MazeRuntimeService.RunView run = runtime.run(player.getUniqueId()).orElse(null);
+        List<String> statusLore = new ArrayList<>();
+        statusLore.add(party == null ? "§7파티: §8없음" : "§7파티: §f" + party.members().size() + "명 · " + role(player, party));
+        statusLore.add(run == null ? "§7미궁: §8대기 중" : "§7미궁: §f" + stateName(run.state()));
+        if (run != null) {
+            statusLore.add("§7진행: §d" + run.room() + "§7/§f" + run.roomCount() + "번 방");
+            statusLore.add("§7슬롯: §b" + run.slot());
+        }
+        inventory.setItem(4, items.material(Material.NETHER_STAR, "§6§l현재 상태", MazeMenuAction.of(MazeMenuAction.Type.MAIN), statusLore));
+
+        inventory.setItem(20, items.model(PuzzleItemModel.PARTY, party == null ? "§e파티 만들기" : "§e파티 관리",
+                MazeMenuAction.of(MazeMenuAction.Type.PARTY), List.of(
+                        party == null ? "§7함께 도전할 파티를 만듭니다." : "§7명단, 초대, 추방을 관리합니다.",
+                        "", "§e클릭해서 열기")));
+        inventory.setItem(22, items.model(PuzzleItemModel.SAVES, "§b세이브 · 미궁 입장",
+                MazeMenuAction.of(MazeMenuAction.Type.SAVES), List.of("§7새 미궁 시작과 진행 재개", "§7슬롯 상세 정보를 확인합니다.", "", "§b클릭해서 열기")));
+        inventory.setItem(24, items.model(PuzzleItemModel.HINT, "§d힌트 보관소",
+                MazeMenuAction.of(MazeMenuAction.Type.HINTS), List.of("§7현재 방의 힌트를 요청하거나", "§7이미 열린 힌트를 다시 봅니다.", "", "§d클릭해서 열기")));
+        inventory.setItem(30, items.material(Material.GOLDEN_HELMET, "§6명예의 전당",
+                MazeMenuAction.of(MazeMenuAction.Type.LEADERBOARD, "1"), List.of("§71~4인 파티별 완주 순위", "", "§6클릭해서 열기")));
+
+        int invitationCount = runtime.invitations(player.getUniqueId()).size();
+        inventory.setItem(32, items.material(invitationCount == 0 ? Material.ENDER_PEARL : Material.ENDER_EYE,
+                invitationCount == 0 ? "§7받은 파티 초대 없음" : "§a받은 파티 초대 §f" + invitationCount + "개",
+                MazeMenuAction.of(MazeMenuAction.Type.PARTY_INVITATIONS, "0"), List.of("§7초대를 수락하거나 거절합니다.", "", "§a클릭해서 열기")));
+
+        if (run == null) {
+            inventory.setItem(40, items.model(PuzzleItemModel.START, "§a도전 준비",
+                    MazeMenuAction.of(MazeMenuAction.Type.SAVES), List.of("§7파티를 구성하고 슬롯을 골라", "§7새 미궁을 시작합니다.", "", "§a클릭해서 슬롯 선택")));
+        } else if (run.state() == SessionState.QUEUED) {
+            inventory.setItem(40, items.material(Material.BARRIER, "§c입장 대기 취소",
+                    MazeMenuAction.of(MazeMenuAction.Type.QUEUE_CANCEL), List.of("§7파티장만 취소할 수 있습니다.", "", "§c클릭 후 확인")));
+        } else {
+            inventory.setItem(40, items.material(Material.OAK_DOOR, "§c미궁 저장 후 나가기",
+                    MazeMenuAction.of(MazeMenuAction.Type.RUN_LEAVE), List.of("§7체크포인트 진행을 저장하고", "§7파티 전체가 로비로 돌아갑니다.", "", "§c클릭 후 확인")));
+        }
+
+        inventory.setItem(49, items.material(Material.BARRIER, "§c닫기", MazeMenuAction.of(MazeMenuAction.Type.CLOSE), List.of()));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
+        player.openInventory(inventory);
+    }
+
+    public void openParty(Player player) {
+        MenuHolder holder = create(player, MenuType.PARTY, player.getUniqueId(), 0, 54, "§1파티 관리");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        PartyView party = runtime.party(player.getUniqueId()).orElse(null);
+
+        if (party == null) {
+            inventory.setItem(22, items.model(PuzzleItemModel.PARTY, "§a새 파티 만들기",
+                    MazeMenuAction.of(MazeMenuAction.Type.PARTY_CREATE), List.of("§7파티장이 되어 최대 4명이", "§7함께 미궁에 도전합니다.", "", "§a클릭해서 만들기")));
+            inventory.setItem(31, items.material(Material.ENDER_EYE, "§e받은 초대 확인",
+                    MazeMenuAction.of(MazeMenuAction.Type.PARTY_INVITATIONS, "0"), List.of("§7다른 파티가 보낸 초대를 확인합니다.")));
+        } else {
+            OfflinePlayer leader = Bukkit.getOfflinePlayer(party.leaderId());
+            inventory.setItem(4, items.playerHead(leader, "§6§l파티장 · " + displayName(leader),
+                    MazeMenuAction.of(MazeMenuAction.Type.PARTY), List.of("§7상태: §f" + lifecycleName(party.lifecycle()), "§7인원: §f" + party.members().size() + "/4")));
+            int memberSlot = 20;
+            for (UUID memberId : party.members()) {
+                OfflinePlayer member = Bukkit.getOfflinePlayer(memberId);
+                boolean isLeader = memberId.equals(party.leaderId());
+                MazeMenuAction action = !isLeader && player.getUniqueId().equals(party.leaderId())
+                        ? MazeMenuAction.of(MazeMenuAction.Type.PARTY_KICK, memberId.toString())
+                        : MazeMenuAction.of(MazeMenuAction.Type.PARTY);
+                List<String> lore = new ArrayList<>();
+                lore.add(isLeader ? "§6★ 파티장" : "§7파티원");
+                lore.add(member.isOnline() ? "§a● 온라인" : "§8● 오프라인");
+                if (!isLeader && player.getUniqueId().equals(party.leaderId())) lore.add("§c클릭해서 추방");
+                inventory.setItem(memberSlot++, items.playerHead(member, "§f" + displayName(member), action, lore));
+            }
+
+            boolean leaderView = player.getUniqueId().equals(party.leaderId());
+            if (leaderView && party.lifecycle() == PartyLifecycle.OPEN && party.members().size() < 4) {
+                inventory.setItem(38, items.material(Material.LIME_DYE, "§a플레이어 초대",
+                        MazeMenuAction.of(MazeMenuAction.Type.PARTY_INVITE_LIST, "0"), List.of("§7온라인 플레이어 목록을 엽니다.")));
+            }
+            if (leaderView) {
+                inventory.setItem(42, items.material(Material.RED_DYE, "§c파티 해산",
+                        MazeMenuAction.of(MazeMenuAction.Type.PARTY_DISBAND), List.of("§7모든 파티원을 내보냅니다.", "", "§c클릭 후 확인")));
+            } else {
+                inventory.setItem(42, items.material(Material.OAK_DOOR, "§c파티 나가기",
+                        MazeMenuAction.of(MazeMenuAction.Type.PARTY_LEAVE), List.of("§7열린 파티에서 나갑니다.", "", "§c클릭 후 확인")));
+            }
+        }
+        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.MAIN));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
+        player.openInventory(inventory);
+    }
+
+    public void openInvitations(Player player, int page) {
+        List<PartyView> invitations = runtime.invitations(player.getUniqueId());
+        int safePage = normalizePage(page, invitations.size());
+        MenuHolder holder = create(player, MenuType.INVITATIONS, player.getUniqueId(), safePage, 54, "§1받은 파티 초대");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        if (invitations.isEmpty()) {
+            inventory.setItem(22, items.material(Material.GRAY_DYE, "§7받은 초대가 없습니다", MazeMenuAction.of(MazeMenuAction.Type.PARTY), List.of("§8새 초대가 오면 여기에 표시됩니다.")));
+        } else {
+            int start = safePage * CONTENT_SLOTS.length;
+            for (int index = start; index < Math.min(start + CONTENT_SLOTS.length, invitations.size()); index++) {
+                PartyView invitation = invitations.get(index);
+                OfflinePlayer leader = Bukkit.getOfflinePlayer(invitation.leaderId());
+                inventory.setItem(CONTENT_SLOTS[index - start], items.playerHead(leader, "§e" + displayName(leader) + "님의 파티",
+                        MazeMenuAction.of(MazeMenuAction.Type.PARTY_ACCEPT, invitation.leaderId().toString()),
+                        List.of("§7현재 인원: §f" + invitation.members().size() + "/4", "", "§a좌클릭: 수락", "§c우클릭: 거절")));
+            }
+            pagination(inventory, safePage, invitations.size(), MazeMenuAction.Type.PARTY_INVITATIONS);
+        }
+        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.PARTY));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
+        player.openInventory(inventory);
+    }
+
+    public void openInvitePlayers(Player player, int page) {
+        List<? extends Player> candidates = Bukkit.getOnlinePlayers().stream()
+                .filter(candidate -> !candidate.getUniqueId().equals(player.getUniqueId()))
+                .filter(candidate -> runtime.party(candidate.getUniqueId()).isEmpty())
+                .sorted(Comparator.comparing(Player::getName, String.CASE_INSENSITIVE_ORDER))
+                .toList();
+        int safePage = normalizePage(page, candidates.size());
+        MenuHolder holder = create(player, MenuType.INVITE_PLAYERS, player.getUniqueId(), safePage, 54, "§1초대할 플레이어");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        if (candidates.isEmpty()) {
+            inventory.setItem(22, items.material(Material.GRAY_DYE, "§7초대 가능한 플레이어가 없습니다",
+                    MazeMenuAction.of(MazeMenuAction.Type.PARTY), List.of("§8이미 파티에 속한 플레이어는 제외됩니다.")));
+        } else {
+            int start = safePage * CONTENT_SLOTS.length;
+            for (int index = start; index < Math.min(start + CONTENT_SLOTS.length, candidates.size()); index++) {
+                Player candidate = candidates.get(index);
+                inventory.setItem(CONTENT_SLOTS[index - start], items.playerHead(candidate, "§a" + candidate.getName(),
+                        MazeMenuAction.of(MazeMenuAction.Type.PARTY_INVITE, candidate.getUniqueId().toString()),
+                        List.of("§7미궁 파티에 초대합니다.", "", "§a클릭해서 초대")));
+            }
+            pagination(inventory, safePage, candidates.size(), MazeMenuAction.Type.PARTY_INVITE_LIST);
+        }
+        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.PARTY));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
         player.openInventory(inventory);
     }
 
     public void openSaves(Player player) {
-        MenuHolder holder = new MenuHolder(player.getUniqueId(), MenuType.SAVES, 0);
-        Inventory inventory = Bukkit.createInventory(holder, 27, "§1미궁 세이브 슬롯"); holder.inventory = inventory;
-        for (int slot = 1; slot <= 3; slot++) {
-            inventory.setItem(10 + slot * 2, item(saveSlotModel(slot), "§e슬롯 " + slot, "slot:" + slot,
-                    List.of("§a좌클릭: 재개", "§6우클릭: 새로 시작", "§cShift+클릭: 삭제")));
-        }
-        inventory.setItem(22, item(PuzzleItemModel.BACK, "§c뒤로", "main", List.of()));
+        openSaves(player, player.getUniqueId());
+    }
+
+    private void openSaves(Player player, UUID ownerId) {
+        MenuHolder holder = create(player, MenuType.SAVES, ownerId, 0, 54, "§1미궁 세이브 슬롯");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        inventory.setItem(22, items.material(Material.CLOCK, "§e세이브를 불러오는 중...", MazeMenuAction.of(MazeMenuAction.Type.SAVES, ownerId.toString()), List.of("§7잠시만 기다려 주세요.")));
+        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.MAIN));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
         player.openInventory(inventory);
-        runtime.listSaves(player);
+
+        runtime.saves(player, ownerId).whenComplete((saves, failure) -> onMain(() -> {
+            if (!isCurrent(player, holder)) return;
+            if (failure != null) {
+                inventory.setItem(22, items.material(Material.BARRIER, "§c세이브를 불러오지 못했습니다",
+                        MazeMenuAction.of(MazeMenuAction.Type.SAVES, ownerId.toString()), List.of("§7" + rootMessage(failure), "", "§e클릭해서 다시 시도")));
+                return;
+            }
+            renderSaves(player, holder, saves);
+        }));
     }
 
     public void openHints(Player player) {
-        MenuHolder holder = new MenuHolder(player.getUniqueId(), MenuType.HINTS, 0);
-        Inventory inventory = Bukkit.createInventory(holder, 27, "§5미궁 힌트"); holder.inventory = inventory;
-        inventory.setItem(10, item(PuzzleItemModel.HINT_REQUEST, "§d다음 힌트 요청", "hint_request", List.of("§7파티장이 승인해야 열립니다.")));
-        for (int tier = 1; tier <= 3; tier++) inventory.setItem(11 + tier * 2,
-                item(hintViewModel(tier), "§d힌트 " + tier + " 보기", "hint_view:" + tier, List.of("§7이미 열린 힌트는 무료입니다.")));
-        inventory.setItem(22, item(PuzzleItemModel.APPROVE, "§a대기 요청 승인", "hint_confirm", List.of()));
-        inventory.setItem(23, item(PuzzleItemModel.REJECT, "§c대기 요청 거절", "hint_decline", List.of()));
+        MenuHolder holder = create(player, MenuType.HINTS, player.getUniqueId(), 0, 45, "§5미궁 힌트 보관소");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        MazeRuntimeService.RunView run = runtime.run(player.getUniqueId()).orElse(null);
+        if (run == null || run.state() != SessionState.ACTIVE) {
+            inventory.setItem(22, items.material(Material.GRAY_DYE, "§7활성 미궁이 없습니다",
+                    MazeMenuAction.of(MazeMenuAction.Type.MAIN), List.of("§8미궁에 입장하면 힌트를 사용할 수 있습니다.")));
+        } else {
+            inventory.setItem(4, items.material(Material.COMPASS, "§d현재 §f" + run.room() + "§d/§f" + run.roomCount() + "§d번 방",
+                    MazeMenuAction.of(MazeMenuAction.Type.HINTS), List.of("§7열린 힌트: §f" + run.unlockedHints().size() + "/3")));
+            inventory.setItem(11, items.model(PuzzleItemModel.HINT_REQUEST, "§d다음 힌트 요청",
+                    MazeMenuAction.of(MazeMenuAction.Type.HINT_REQUEST), List.of("§7파티장의 승인을 받아", "§7다음 단계를 해제합니다.", "", "§d클릭해서 요청")));
+            for (int tier = 1; tier <= 3; tier++) {
+                boolean unlocked = run.unlockedHints().contains(tier);
+                inventory.setItem(17 + tier * 2, items.model(hintViewModel(tier),
+                        unlocked ? "§d힌트 " + tier + " 보기" : "§8잠긴 힌트 " + tier,
+                        MazeMenuAction.of(MazeMenuAction.Type.HINT_VIEW, Integer.toString(tier)),
+                        List.of(unlocked ? "§a이미 해제된 힌트입니다." : "§7먼저 이전 힌트를 요청하세요.", "", unlocked ? "§d클릭해서 보기" : "§8아직 볼 수 없습니다")));
+            }
+            inventory.setItem(31, items.model(PuzzleItemModel.APPROVE, "§a요청 승인",
+                    MazeMenuAction.of(MazeMenuAction.Type.HINT_APPROVE), List.of("§7파티장 전용", "§a클릭해서 승인")));
+            inventory.setItem(33, items.model(PuzzleItemModel.REJECT, "§c요청 거절",
+                    MazeMenuAction.of(MazeMenuAction.Type.HINT_DECLINE), List.of("§7파티장 전용", "§c클릭해서 거절")));
+        }
+        back(inventory, 40, MazeMenuAction.of(MazeMenuAction.Type.MAIN));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
         player.openInventory(inventory);
     }
 
-    private void openConfirm(Player player, MenuType type, int slot, String title) {
-        MenuHolder holder = new MenuHolder(player.getUniqueId(), type, slot);
-        Inventory inventory = Bukkit.createInventory(holder, 9, title); holder.inventory = inventory;
-        inventory.setItem(3, item(PuzzleItemModel.CONFIRM, "§a확인", "confirm", List.of("§7슬롯 " + slot)));
-        inventory.setItem(5, item(PuzzleItemModel.CANCEL, "§c취소", "cancel", List.of()));
+    public void openLeaderboard(Player player, int partySize) {
+        int size = Math.max(1, Math.min(4, partySize));
+        MenuHolder holder = create(player, MenuType.LEADERBOARD, player.getUniqueId(), size, 54, "§1명예의 전당 · " + size + "인");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        for (int tab = 1; tab <= 4; tab++) {
+            inventory.setItem(1 + tab * 2, items.material(tab == size ? Material.GOLD_INGOT : Material.IRON_INGOT,
+                    (tab == size ? "§6§l" : "§7") + tab + "인 파티",
+                    MazeMenuAction.of(MazeMenuAction.Type.LEADERBOARD, Integer.toString(tab)), List.of("§7클릭해서 순위 보기")));
+        }
+        inventory.setItem(22, items.material(Material.CLOCK, "§e순위를 불러오는 중...", MazeMenuAction.of(MazeMenuAction.Type.LEADERBOARD, Integer.toString(size)), List.of()));
+        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.MAIN));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
         player.openInventory(inventory);
+
+        runtime.leaderboardEntries(size).whenComplete((entries, failure) -> onMain(() -> {
+            if (!isCurrent(player, holder)) return;
+            inventory.setItem(22, items.decoration(Material.BLACK_STAINED_GLASS_PANE));
+            if (failure != null) {
+                inventory.setItem(22, items.material(Material.BARRIER, "§c순위를 불러오지 못했습니다",
+                        MazeMenuAction.of(MazeMenuAction.Type.LEADERBOARD, Integer.toString(size)), List.of("§7" + rootMessage(failure))));
+                return;
+            }
+            renderLeaderboard(inventory, entries);
+        }));
     }
 
     @EventHandler
@@ -79,28 +289,11 @@ public final class MazeMenu implements Listener {
         if (event.getClickedInventory() != event.getView().getTopInventory()) return;
         ItemStack clicked = event.getCurrentItem();
         if (clicked == null || !clicked.hasItemMeta()) return;
-        String action = clicked.getItemMeta().getPersistentDataContainer().get(actionKey, PersistentDataType.STRING);
+        String encoded = clicked.getItemMeta().getPersistentDataContainer().get(actionKey, PersistentDataType.STRING);
+        MazeMenuAction action = MazeMenuAction.decode(encoded).orElse(null);
         if (action == null) return;
         runtime.recordActivity(player);
-        switch (action) {
-            case "main" -> openMain(player);
-            case "saves" -> openSaves(player);
-            case "hints" -> openHints(player);
-            case "party_status" -> { player.closeInventory(); showParty(player); }
-            case "hint_request" -> { player.closeInventory(); runtime.requestHint(player); }
-            case "hint_confirm" -> { player.closeInventory(); runtime.confirmHint(player, true); }
-            case "hint_decline" -> { player.closeInventory(); runtime.confirmHint(player, false); }
-            case "confirm" -> {
-                player.closeInventory();
-                if (holder.type == MenuType.START_CONFIRM) runtime.requestStart(player, holder.slot, true);
-                else if (holder.type == MenuType.DELETE_CONFIRM) runtime.deleteSave(player, player.getUniqueId(), holder.slot);
-            }
-            case "cancel" -> openSaves(player);
-            default -> {
-                if (action.startsWith("hint_view:")) { player.closeInventory(); runtime.viewHint(player, Integer.parseInt(action.substring(10))); }
-                else if (action.startsWith("slot:")) handleSlot(player, event, Integer.parseInt(action.substring(5)));
-            }
-        }
+        dispatch(player, event, action);
     }
 
     @EventHandler
@@ -108,24 +301,252 @@ public final class MazeMenu implements Listener {
         if (event.getView().getTopInventory().getHolder() instanceof MenuHolder) event.setCancelled(true);
     }
 
-    private void handleSlot(Player player, InventoryClickEvent event, int slot) {
-        if (event.isShiftClick()) openConfirm(player, MenuType.DELETE_CONFIRM, slot, "§4세이브 삭제 확인");
-        else if (event.isRightClick()) openConfirm(player, MenuType.START_CONFIRM, slot, "§6새 미궁 시작 확인");
-        else { player.closeInventory(); runtime.requestResume(player, slot); }
+    private void dispatch(Player player, InventoryClickEvent event, MazeMenuAction action) {
+        switch (action.type()) {
+            case MAIN -> openMain(player);
+            case CLOSE -> player.closeInventory();
+            case PARTY -> openParty(player);
+            case PARTY_CREATE -> { runtime.createParty(player); openParty(player); }
+            case PARTY_INVITE_LIST -> openInvitePlayers(player, integer(action, 0, 0, 100));
+            case PARTY_INVITE -> player(action, 0).ifPresentOrElse(target -> { runtime.invite(player, target); openParty(player); }, () -> invalid(player));
+            case PARTY_INVITATIONS -> openInvitations(player, integer(action, 0, 0, 100));
+            case PARTY_ACCEPT -> handleInvitation(player, event, action, true);
+            case PARTY_DECLINE -> handleInvitation(player, event, action, false);
+            case PARTY_KICK, PARTY_LEAVE, PARTY_DISBAND, SAVE_DELETE, RUN_LEAVE, QUEUE_CANCEL -> openConfirm(player, action);
+            case SAVES -> openSaves(player, action.uuid(0).orElse(player.getUniqueId()));
+            case SAVE_START -> openConfirm(player, action);
+            case SAVE_RESUME -> handleSave(player, event, action);
+            case HINTS -> openHints(player);
+            case HINT_REQUEST -> { player.closeInventory(); runtime.requestHint(player); }
+            case HINT_VIEW -> { player.closeInventory(); runtime.viewHint(player, integer(action, 0, 1, 3)); }
+            case HINT_APPROVE -> { player.closeInventory(); runtime.confirmHint(player, true); }
+            case HINT_DECLINE -> { player.closeInventory(); runtime.confirmHint(player, false); }
+            case LEADERBOARD -> openLeaderboard(player, integer(action, 0, 1, 4));
+            case CONFIRM -> confirm(player, action);
+            case CANCEL -> openCancelDestination(player, action);
+            default -> invalid(player);
+        }
     }
 
-    private void showParty(Player player) {
-        runtime.party(player.getUniqueId()).ifPresentOrElse(party -> {
-            player.sendMessage("§6[파티] §f파티장: " + Bukkit.getOfflinePlayer(party.leaderId()).getName());
-            party.members().forEach(id -> player.sendMessage("§7- " + Objects.toString(Bukkit.getOfflinePlayer(id).getName(), id.toString())));
-        }, () -> player.sendMessage("§c파티가 없습니다."));
+    private void handleInvitation(Player player, InventoryClickEvent event, MazeMenuAction action, boolean accept) {
+        if (!accept || event.isRightClick()) {
+            action.uuid(0).map(Bukkit::getPlayer).ifPresentOrElse(leader -> {
+                runtime.decline(player, leader);
+                openInvitations(player, 0);
+            }, () -> player.sendMessage("§c초대를 보낸 파티장이 온라인이 아닙니다."));
+            return;
+        }
+        action.uuid(0).map(Bukkit::getPlayer).ifPresentOrElse(leader -> {
+            runtime.accept(player, leader);
+            openParty(player);
+        }, () -> player.sendMessage("§c초대를 보낸 파티장이 온라인이 아닙니다."));
     }
 
-    private ItemStack item(PuzzleItemModel model, String name, String action, List<String> lore) {
-        ItemStack item = model.createItem();
-        ItemMeta meta = item.getItemMeta(); meta.setDisplayName(name); meta.setLore(lore);
-        meta.getPersistentDataContainer().set(actionKey, PersistentDataType.STRING, action);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES); item.setItemMeta(meta); return item;
+    private void handleSave(Player player, InventoryClickEvent event, MazeMenuAction action) {
+        int slot = integer(action, 0, 1, 3);
+        UUID owner = action.uuid(1).orElse(player.getUniqueId());
+        if (event.isShiftClick()) {
+            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.SAVE_DELETE, Integer.toString(slot), owner.toString()));
+        } else if (event.isRightClick()) {
+            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.SAVE_START, Integer.toString(slot)));
+        } else {
+            player.closeInventory();
+            runtime.requestResume(player, slot, owner);
+        }
+    }
+
+    private void openConfirm(Player player, MazeMenuAction requested) {
+        MenuHolder holder = create(player, MenuType.CONFIRM, player.getUniqueId(), 0, 27, "§4정말 실행할까요?");
+        Inventory inventory = holder.inventory;
+        items.frame(inventory, Material.RED_STAINED_GLASS_PANE);
+        List<String> arguments = new ArrayList<>();
+        arguments.add(requested.type().name());
+        arguments.addAll(requested.arguments());
+        inventory.setItem(11, items.model(PuzzleItemModel.CONFIRM, "§a확인",
+                MazeMenuAction.of(MazeMenuAction.Type.CONFIRM, arguments.toArray(String[]::new)), List.of("§7이 작업을 실행합니다.")));
+        inventory.setItem(15, items.model(PuzzleItemModel.CANCEL, "§c취소",
+                MazeMenuAction.of(MazeMenuAction.Type.CANCEL, cancelDestination(requested).name()), List.of("§7이전 화면으로 돌아갑니다.")));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
+        player.openInventory(inventory);
+    }
+
+    private void confirm(Player player, MazeMenuAction confirmation) {
+        if (confirmation.arguments().isEmpty()) { invalid(player); return; }
+        MazeMenuAction.Type requestedType;
+        try { requestedType = MazeMenuAction.Type.valueOf(confirmation.arguments().get(0)); }
+        catch (IllegalArgumentException failure) { invalid(player); return; }
+        MazeMenuAction requested = MazeMenuAction.of(requestedType,
+                confirmation.arguments().subList(1, confirmation.arguments().size()).toArray(String[]::new));
+        player.closeInventory();
+        switch (requested.type()) {
+            case PARTY_KICK -> player(requested, 0).ifPresentOrElse(target -> runtime.kick(player, target), () -> invalid(player));
+            case PARTY_LEAVE -> runtime.leaveOpenParty(player);
+            case PARTY_DISBAND -> runtime.disbandParty(player);
+            case SAVE_START -> runtime.requestStart(player, integer(requested, 0, 1, 3), true);
+            case SAVE_DELETE -> runtime.deleteSave(player, requested.uuid(1).orElse(player.getUniqueId()), integer(requested, 0, 1, 3));
+            case RUN_LEAVE -> runtime.leave(player);
+            case QUEUE_CANCEL -> runtime.cancelQueue(player);
+            default -> invalid(player);
+        }
+    }
+
+    private void openCancelDestination(Player player, MazeMenuAction action) {
+        if (action.arguments().isEmpty()) { openMain(player); return; }
+        try {
+            switch (MazeMenuAction.Type.valueOf(action.arguments().get(0))) {
+                case PARTY -> openParty(player);
+                case SAVES -> openSaves(player);
+                default -> openMain(player);
+            }
+        } catch (IllegalArgumentException failure) {
+            openMain(player);
+        }
+    }
+
+    private void renderSaves(Player player, MenuHolder holder, List<SaveGame> saves) {
+        Inventory inventory = holder.inventory;
+        for (int slot = 1; slot <= 3; slot++) {
+            int currentSlot = slot;
+            SaveGame save = saves.stream().filter(candidate -> candidate.slot().number() == currentSlot)
+                    .sorted(Comparator.comparing((SaveGame candidate) -> !candidate.slot().ownerId().equals(holder.subjectId)))
+                    .findFirst().orElse(null);
+            int position = 18 + slot * 2;
+            if (save == null) {
+                inventory.setItem(position, items.model(saveSlotModel(slot), "§a빈 슬롯 " + slot,
+                        MazeMenuAction.of(MazeMenuAction.Type.SAVE_START, Integer.toString(slot)),
+                        List.of("§7새 미궁을 처음부터 시작합니다.", "", "§a클릭 후 확인")));
+            } else {
+                List<String> lore = List.of(
+                        "§7진행: §d" + save.snapshot().currentRoom() + "§7/§f" + save.snapshot().roomCount() + "번 방",
+                        "§7파티: §f" + save.slot().roster().size() + "명",
+                        "§7소유자: §f" + displayName(Bukkit.getOfflinePlayer(save.slot().ownerId())),
+                        "§7저장: §f" + DATE_TIME.format(save.slot().updatedAt()),
+                        "§7만료: §c" + DATE_TIME.format(save.slot().expiresAt()),
+                        "", "§a좌클릭: 재개", "§6우클릭: 새로 시작", "§cShift+클릭: 삭제");
+                inventory.setItem(position, items.model(saveSlotModel(slot), "§e슬롯 " + slot + " · 저장됨",
+                        MazeMenuAction.of(MazeMenuAction.Type.SAVE_RESUME, Integer.toString(slot), save.slot().ownerId().toString()), lore));
+            }
+        }
+        inventory.setItem(31, items.material(Material.WRITABLE_BOOK, "§7슬롯 사용 안내",
+                MazeMenuAction.of(MazeMenuAction.Type.SAVES, holder.subjectId.toString()),
+                List.of("§a좌클릭 §7진행 재개", "§6우클릭 §7새로 시작", "§cShift+클릭 §7세이브 삭제")));
+    }
+
+    private void renderLeaderboard(Inventory inventory, List<LeaderboardEntry> entries) {
+        if (entries.isEmpty()) {
+            inventory.setItem(22, items.material(Material.PAPER, "§7아직 완주 기록이 없습니다",
+                    MazeMenuAction.of(MazeMenuAction.Type.MAIN), List.of("§8첫 기록의 주인공이 되어 보세요.")));
+            return;
+        }
+        int[] slots = {19, 20, 21, 22, 23, 24, 25, 29, 31, 33};
+        for (int index = 0; index < Math.min(slots.length, entries.size()); index++) {
+            LeaderboardEntry entry = entries.get(index);
+            OfflinePlayer leader = Bukkit.getOfflinePlayer(entry.run().roster().leaderId());
+            String color = entry.rank() == 1 ? "§6§l" : entry.rank() == 2 ? "§f§l" : entry.rank() == 3 ? "§c§l" : "§7";
+            inventory.setItem(slots[index], items.playerHead(leader, color + "#" + entry.rank() + " · " + displayName(leader),
+                    MazeMenuAction.of(MazeMenuAction.Type.LEADERBOARD, Integer.toString(entry.run().roster().size())),
+                    List.of("§7기록: §f" + formatDuration(entry.run().metrics().activePlayTime()),
+                            "§7실패: §f" + entry.run().metrics().failures(),
+                            "§7힌트: §f" + entry.run().metrics().hintsUsed(),
+                            "§7완주: §f" + DATE_TIME.format(entry.run().completedAt()))));
+        }
+    }
+
+    private void pagination(Inventory inventory, int page, int total, MazeMenuAction.Type type) {
+        if (page > 0) inventory.setItem(45, items.material(Material.ARROW, "§e이전 페이지",
+                MazeMenuAction.of(type, Integer.toString(page - 1)), List.of()));
+        if ((page + 1) * CONTENT_SLOTS.length < total) inventory.setItem(53, items.material(Material.ARROW, "§e다음 페이지",
+                MazeMenuAction.of(type, Integer.toString(page + 1)), List.of()));
+    }
+
+    private MazeMenuAction.Type cancelDestination(MazeMenuAction action) {
+        return switch (action.type()) {
+            case PARTY_KICK, PARTY_LEAVE, PARTY_DISBAND -> MazeMenuAction.Type.PARTY;
+            case SAVE_START, SAVE_DELETE -> MazeMenuAction.Type.SAVES;
+            default -> MazeMenuAction.Type.MAIN;
+        };
+    }
+
+    private MenuHolder create(Player player, MenuType type, UUID subjectId, int value, int size, String title) {
+        MenuHolder holder = new MenuHolder(player.getUniqueId(), type, subjectId, value);
+        holder.inventory = Bukkit.createInventory(holder, size, title);
+        return holder;
+    }
+
+    private void decorate(Inventory inventory) {
+        items.frame(inventory, Material.BLUE_STAINED_GLASS_PANE);
+    }
+
+    private void back(Inventory inventory, int slot, MazeMenuAction destination) {
+        inventory.setItem(slot, items.model(PuzzleItemModel.BACK, "§c뒤로", destination, List.of()));
+    }
+
+    private java.util.Optional<Player> player(MazeMenuAction action, int index) {
+        return action.uuid(index).map(Bukkit::getPlayer).filter(Objects::nonNull);
+    }
+
+    private int integer(MazeMenuAction action, int index, int min, int max) {
+        return action.integer(index, min, max).orElse(min);
+    }
+
+    private int normalizePage(int requested, int total) {
+        int pages = Math.max(1, (int) Math.ceil(total / (double) CONTENT_SLOTS.length));
+        return Math.max(0, Math.min(requested, pages - 1));
+    }
+
+    private boolean isCurrent(Player player, MenuHolder holder) {
+        return player.isOnline() && player.getOpenInventory().getTopInventory().getHolder() == holder;
+    }
+
+    private void onMain(Runnable action) {
+        if (plugin.getServer().isPrimaryThread()) action.run();
+        else plugin.getServer().getScheduler().runTask(plugin, action);
+    }
+
+    private void invalid(Player player) {
+        player.closeInventory();
+        player.sendMessage("§c메뉴 상태가 만료되었습니다. /maze를 다시 열어 주세요.");
+    }
+
+    private String displayName(OfflinePlayer player) {
+        return Objects.toString(player.getName(), player.getUniqueId().toString().substring(0, 8));
+    }
+
+    private String role(Player player, PartyView party) {
+        return player.getUniqueId().equals(party.leaderId()) ? "§6파티장" : "§f파티원";
+    }
+
+    private String lifecycleName(PartyLifecycle lifecycle) {
+        return switch (lifecycle) {
+            case OPEN -> "모집 중";
+            case QUEUED -> "입장 대기";
+            case IN_RUN -> "미궁 진행 중";
+            case CLOSED -> "종료됨";
+        };
+    }
+
+    private String stateName(SessionState state) {
+        return switch (state) {
+            case WAITING -> "준비 중";
+            case QUEUED -> "입장 대기";
+            case PROVISIONING -> "월드 생성 중";
+            case ACTIVE -> "진행 중";
+            case SUSPENDED -> "저장 중단";
+            case COMPLETED -> "완주";
+            case ABANDONED -> "종료";
+            case CLEANUP -> "정리 중";
+        };
+    }
+
+    private String formatDuration(Duration duration) {
+        long seconds = duration.toSeconds();
+        return "%02d:%02d:%02d".formatted(seconds / 3600, seconds / 60 % 60, seconds % 60);
+    }
+
+    private String rootMessage(Throwable failure) {
+        Throwable current = failure;
+        while (current.getCause() != null) current = current.getCause();
+        return Objects.toString(current.getMessage(), current.getClass().getSimpleName());
     }
 
     private PuzzleItemModel saveSlotModel(int slot) {
@@ -146,10 +567,23 @@ public final class MazeMenu implements Listener {
         };
     }
 
-    private enum MenuType { MAIN, SAVES, HINTS, START_CONFIRM, DELETE_CONFIRM }
+    private enum MenuType { MAIN, PARTY, INVITATIONS, INVITE_PLAYERS, SAVES, HINTS, LEADERBOARD, CONFIRM }
+
     private static final class MenuHolder implements InventoryHolder {
-        private final UUID playerId; private final MenuType type; private final int slot; private Inventory inventory;
-        private MenuHolder(UUID playerId, MenuType type, int slot) { this.playerId = playerId; this.type = type; this.slot = slot; }
-        @Override public Inventory getInventory() { return inventory; }
+        private final UUID playerId;
+        private final MenuType type;
+        private final UUID subjectId;
+        private final int value;
+        private Inventory inventory;
+
+        private MenuHolder(UUID playerId, MenuType type, UUID subjectId, int value) {
+            this.playerId = playerId;
+            this.type = type;
+            this.subjectId = subjectId;
+            this.value = value;
+        }
+
+        @Override
+        public Inventory getInventory() { return inventory; }
     }
 }
