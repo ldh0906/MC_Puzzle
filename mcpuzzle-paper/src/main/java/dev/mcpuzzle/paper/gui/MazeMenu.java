@@ -108,14 +108,20 @@ public final class MazeMenu implements Listener {
         if (run == null) {
             inventory.setItem(40, items.model(PuzzleItemModel.START, "§a도전 준비",
                     MazeMenuAction.of(MazeMenuAction.Type.SAVES), List.of("§7파티를 구성하고 슬롯을 골라", "§7새 미궁을 시작합니다.", "", "§a클릭해서 슬롯 선택")));
-        } else if (run.state() == SessionState.QUEUED) {
+        } else if (dashboardActions(run.state()).contains(MazeMenuAction.Type.QUEUE_CANCEL)) {
             inventory.setItem(40, items.material(Material.BARRIER, "§c입장 대기 취소",
                     MazeMenuAction.of(MazeMenuAction.Type.QUEUE_CANCEL), List.of("§7파티장만 취소할 수 있습니다.", "", "§c클릭 후 확인")));
-        } else {
+        } else if (dashboardActions(run.state()).contains(MazeMenuAction.Type.ANSWER_PROMPT)) {
             inventory.setItem(39, items.material(Material.NAME_TAG, "§a정답 입력",
                     MazeMenuAction.of(MazeMenuAction.Type.ANSWER_PROMPT), List.of("§7명령어 없이 채팅으로 현재 방의", "§7정답을 한 번 제출합니다.", "", "§a클릭해서 입력 시작")));
             inventory.setItem(41, items.material(Material.OAK_DOOR, "§c미궁 저장 후 나가기",
                     MazeMenuAction.of(MazeMenuAction.Type.RUN_LEAVE), List.of("§7체크포인트 진행을 저장하고", "§7파티 전체가 로비로 돌아갑니다.", "", "§c클릭 후 확인")));
+        } else if (dashboardActions(run.state()).contains(MazeMenuAction.Type.RUN_LEAVE)) {
+            inventory.setItem(40, items.material(Material.OAK_DOOR, "§e저장·퇴장 다시 시도",
+                    MazeMenuAction.of(MazeMenuAction.Type.RUN_LEAVE), List.of("§7중단된 진행의 저장과 정리를", "§7다시 요청합니다.", "", "§e클릭 후 확인")));
+        } else {
+            inventory.setItem(40, items.material(Material.CLOCK, "§7" + stateName(run.state()),
+                    MazeMenuAction.of(MazeMenuAction.Type.MAIN), List.of("§8현재 단계가 끝날 때까지 기다려 주세요.")));
         }
 
         if (player.hasPermission("mcpuzzle.admin")) {
@@ -408,7 +414,11 @@ public final class MazeMenu implements Listener {
         MazeMenuAction action = MazeMenuAction.decode(encoded).orElse(null);
         if (action == null) return;
         runtime.recordActivity(player);
-        dispatch(player, event, action);
+        try {
+            dispatch(player, event, action);
+        } catch (IllegalArgumentException failure) {
+            invalid(player);
+        }
     }
 
     @EventHandler
@@ -690,7 +700,16 @@ public final class MazeMenu implements Listener {
     }
 
     private int integer(MazeMenuAction action, int index, int min, int max) {
-        return action.integer(index, min, max).orElse(min);
+        return action.requireInteger(index, min, max);
+    }
+
+    static List<MazeMenuAction.Type> dashboardActions(SessionState state) {
+        return switch (state) {
+            case QUEUED -> List.of(MazeMenuAction.Type.QUEUE_CANCEL);
+            case ACTIVE -> List.of(MazeMenuAction.Type.ANSWER_PROMPT, MazeMenuAction.Type.RUN_LEAVE);
+            case SUSPENDED -> List.of(MazeMenuAction.Type.RUN_LEAVE);
+            default -> List.of();
+        };
     }
 
     private int normalizePage(int requested, int total) {

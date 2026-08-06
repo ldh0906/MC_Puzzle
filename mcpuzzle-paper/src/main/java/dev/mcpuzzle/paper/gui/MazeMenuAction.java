@@ -56,6 +56,11 @@ public record MazeMenuAction(Type type, List<String> arguments) {
         }
     }
 
+    public int requireInteger(int index, int min, int max) {
+        return integer(index, min, max).orElseThrow(
+                () -> new IllegalArgumentException("Missing or invalid numeric menu argument"));
+    }
+
     public Optional<UUID> uuid(int index) {
         if (index < 0 || index >= arguments.size()) return Optional.empty();
         try {
