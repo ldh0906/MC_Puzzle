@@ -2,6 +2,7 @@ package dev.mcpuzzle.paper;
 
 import dev.mcpuzzle.core.application.admission.InstanceAdmissionQueue;
 import dev.mcpuzzle.core.application.party.PartyService;
+import dev.mcpuzzle.core.domain.MapVersion;
 import dev.mcpuzzle.paper.adapter.persistence.SQLitePersistence;
 import dev.mcpuzzle.paper.authoring.AuthoringWandService;
 import dev.mcpuzzle.paper.command.MazeCommand;
@@ -44,6 +45,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
@@ -53,6 +55,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public final class MCPuzzlePlugin extends JavaPlugin {
     private final PluginReadiness readiness = new PluginReadiness();
@@ -75,15 +78,18 @@ public final class MCPuzzlePlugin extends JavaPlugin {
         saveDefaultConfig();
         // This is the versioned, plugin-owned active pack. Overwrite it on upgrade so an
         // older extraction cannot silently keep the server on obsolete room content.
-        saveResource("map-packs/a-to-z-archive-20/map.jsonc", true);
+        saveResource("map-packs/difficulty-mazes-30/easy.jsonc", true);
+        saveResource("map-packs/difficulty-mazes-30/normal.jsonc", true);
+        saveResource("map-packs/difficulty-mazes-30/hard.jsonc", true);
         saveResource("map-packs/schema/map-pack.schema.json", true);
         saveResource("resource-pack/MCPuzzle-1.0.0.zip", true);
         try {
             configuration = MCPuzzleConfig.load(getConfig());
-            mapRegistry = new MapPackRegistry(new JsoncMapPackLoader(),
-                    getDataFolder().toPath().resolve("map-packs/a-to-z-archive-20/map.jsonc"));
-            MapPack map = mapRegistry.reload();
-            bootstrap(map);
+            Path mapsRoot = getDataFolder().toPath().resolve("map-packs/difficulty-mazes-30");
+            mapRegistry = new MapPackRegistry(new JsoncMapPackLoader(), List.of(
+                    mapsRoot.resolve("easy.jsonc"), mapsRoot.resolve("normal.jsonc"), mapsRoot.resolve("hard.jsonc")));
+            Map<String, MapPack> maps = mapRegistry.reload();
+            bootstrap(maps);
         } catch (Exception failure) {
             readiness.degraded("초기 설정/맵 오류: " + rootMessage(failure));
             getLogger().severe(readiness.detail());
@@ -91,7 +97,7 @@ public final class MCPuzzlePlugin extends JavaPlugin {
         }
     }
 
-    private void bootstrap(MapPack map) {
+    private void bootstrap(Map<String, MapPack> maps) {
         filesExecutor = Executors.newFixedThreadPool(2, namedFactory("mcpuzzle-files"));
         retryExecutor = Executors.newSingleThreadScheduledExecutor(namedFactory("mcpuzzle-world-retry"));
         InstanceRuntimeRegistry ownership = new InstanceRuntimeRegistry();
@@ -103,7 +109,7 @@ public final class MCPuzzlePlugin extends JavaPlugin {
                 configuration.lobby(), new DurablePlayerSnapshotStore(getDataFolder().toPath().resolve("player-snapshots")),
                 filesExecutor);
         worlds = new GeneratedVoidWorldInstanceAdapter(this, getServer(), mainThread, ownership,
-                getServer().getWorldContainer().toPath(), filesExecutor, retryExecutor, map);
+                getServer().getWorldContainer().toPath(), filesExecutor, retryExecutor, maps);
         localResourcePackServer = new LocalResourcePackServer(this);
         try {
             localResourcePackServer.start(configuration.resourcePack());
@@ -118,13 +124,21 @@ public final class MCPuzzlePlugin extends JavaPlugin {
         CompletionStage<SQLitePersistence> opening = SQLitePersistence.open(database);
         opening.thenCompose(opened -> {
             persistence = opened;
-            CompletionStage<?> recovery = opened.recoverAfterRestart().thenAccept(report -> getLogger().info(
-                    "시작 복구: 대기 삭제 " + report.discardedTransientAdmissions().size()
-                            + ", 실행 삭제 " + report.discardedInterruptedRuns().size()
-                            + ", 중단 세이브 유지 " + report.retainedSuspended().size()));
-            CompletionStage<?> expiry = opened.purgeExpired(Instant.now()).thenAccept(count -> {
-                if (count > 0) getLogger().info("만료 세이브 " + count + "개를 정리했습니다.");
-            });
+            Map<String, MapVersion> currentVersions = maps.values().stream()
+                    .collect(Collectors.toUnmodifiableMap(MapPack::mazeId, MapPack::mapVersion));
+            CompletionStage<?> databaseMaintenance = opened.purgeIncompatibleVersions(currentVersions)
+                    .thenAccept(count -> {
+                        if (count > 0) getLogger().info("맵 버전 불일치 세이브 " + count + "개를 자동 삭제했습니다.");
+                    })
+                    .thenCompose(ignored -> opened.recoverAfterRestart())
+                    .thenAccept(report -> getLogger().info(
+                            "시작 복구: 대기 삭제 " + report.discardedTransientAdmissions().size()
+                                    + ", 실행 삭제 " + report.discardedInterruptedRuns().size()
+                                    + ", 중단 세이브 유지 " + report.retainedSuspended().size()))
+                    .thenCompose(ignored -> opened.purgeExpired(Instant.now()))
+                    .thenAccept(count -> {
+                        if (count > 0) getLogger().info("만료 세이브 " + count + "개를 정리했습니다.");
+                    });
             CompletionStage<?> snapshots = isolation.loadPendingSnapshots().thenAccept(report -> {
                 if (report.pendingSnapshots() > 0) getLogger().warning("복원 대기 플레이어 스냅샷: " + report.pendingSnapshots());
                 report.warnings().forEach(getLogger()::warning);
@@ -134,7 +148,7 @@ public final class MCPuzzlePlugin extends JavaPlugin {
                         .exceptionally(failure -> { getLogger().warning("고아 월드 정리 실패 " + orphan.worldName() + ": " + rootMessage(failure)); return null; })).toList();
                 return CompletableFuture.allOf(cleanup.stream().map(CompletionStage::toCompletableFuture).toArray(CompletableFuture[]::new));
             });
-            return CompletableFuture.allOf(recovery.toCompletableFuture(), expiry.toCompletableFuture(),
+            return CompletableFuture.allOf(databaseMaintenance.toCompletableFuture(),
                     snapshots.toCompletableFuture(), orphans.toCompletableFuture()).thenApply(ignored -> opened);
         }).whenComplete((opened, failure) -> {
             if (shuttingDown) {
@@ -147,19 +161,19 @@ public final class MCPuzzlePlugin extends JavaPlugin {
                     getLogger().severe(readiness.detail());
                     return;
                 }
-                finishBootstrap(map, ownership, teleportPermits, visibility);
+                finishBootstrap(maps, ownership, teleportPermits, visibility);
             });
         });
     }
 
-    private void finishBootstrap(MapPack map, InstanceRuntimeRegistry ownership,
+    private void finishBootstrap(Map<String, MapPack> maps, InstanceRuntimeRegistry ownership,
                                  TeleportPermitRegistry teleportPermits, VisibilityIsolationService visibility) {
-        runtime = new MazeRuntimeService(this, Clock.systemUTC(), readiness, map, new PartyService(),
+        runtime = new MazeRuntimeService(this, Clock.systemUTC(), readiness, maps, new PartyService(),
                 new InstanceAdmissionQueue(configuration.maxActiveWorlds()), persistence, worlds, isolation,
                 resourcePacks, teleportPermits, visibility);
         resourcePacks.setFailureHandler(runtime::onDisconnect);
         AuthoringWandService authoring = new AuthoringWandService(this);
-        worldVerifier = new GeneratedWorldVerifier(getServer(), new BukkitMainThreadGateway(this), worlds, map);
+        worldVerifier = new GeneratedWorldVerifier(getServer(), new BukkitMainThreadGateway(this), worlds, maps.values());
         MazeMenu menu = new MazeMenu(this, runtime, readiness, authoring,
                 this::reloadFromCommand, this::verifyWorldFromCommand);
         MazeCommand command = new MazeCommand(runtime, menu, readiness, authoring,
@@ -171,9 +185,9 @@ public final class MCPuzzlePlugin extends JavaPlugin {
         for (var player : getServer().getOnlinePlayers()) isolation.restorePendingPlayer(player.getUniqueId());
         if (configuration.resourcePack().configured()) {
             readiness.ready();
-            getLogger().info("MCPuzzle 준비 완료: " + map.displayName() + " / " + map.rooms().size() + "개 방");
-            getLogger().info("MCPuzzle READY maze=" + map.mazeId()
-                    + " version=" + map.mapVersion() + " rooms=" + map.rooms().size());
+            int roomCount = maps.values().stream().mapToInt(pack -> pack.rooms().size()).sum();
+            getLogger().info("MCPuzzle 준비 완료: 난이도 미궁 " + maps.size() + "개 / 총 " + roomCount + "개 방");
+            getLogger().info("MCPuzzle READY mazes=" + maps.size() + " rooms=" + roomCount);
         } else {
             readiness.degraded("필수 리소스 팩 설정 필요: " + configuration.resourcePack().problem().orElse("알 수 없음"));
             getLogger().warning(readiness.detail());
@@ -197,7 +211,7 @@ public final class MCPuzzlePlugin extends JavaPlugin {
         try {
             reloadConfig();
             MCPuzzleConfig replacement = MCPuzzleConfig.load(getConfig());
-            MapPack validated = mapRegistry.reload();
+            Map<String, MapPack> validated = mapRegistry.reload();
             if (!replacement.resourcePack().localHost().equals(configuration.resourcePack().localHost())) {
                 throw new IllegalArgumentException("local-host 변경은 서버를 재시작해야 적용됩니다.");
             }
@@ -207,7 +221,8 @@ public final class MCPuzzlePlugin extends JavaPlugin {
             else readiness.degraded("필수 리소스 팩 설정 필요: " + replacement.resourcePack().problem().orElse("알 수 없음"));
             sender.sendMessage("§a설정과 맵 팩 검증을 완료했습니다.");
             sender.sendMessage("§e월드 생성/인스턴스 수 변경은 안전을 위해 다음 서버 재시작부터 적용됩니다.");
-            getLogger().info("리로드 검증 성공: " + validated.mazeId() + " " + validated.mapVersion());
+            getLogger().info("리로드 검증 성공: " + validated.size() + "개 미궁 / "
+                    + validated.values().stream().mapToInt(pack -> pack.rooms().size()).sum() + "개 방");
         } catch (Exception failure) {
             sender.sendMessage("§c리로드 거부: " + rootMessage(failure));
             getLogger().warning("리로드 중 기존 정상 레지스트리를 유지했습니다: " + rootMessage(failure));
@@ -219,7 +234,7 @@ public final class MCPuzzlePlugin extends JavaPlugin {
             sender.sendMessage("§c플러그인이 READY 상태가 아닙니다.");
             return;
         }
-        sender.sendMessage("§e임시 20방 월드를 생성하고 검사한 뒤 삭제합니다.");
+        sender.sendMessage("§e임시 전체 방 월드를 생성하고 검사한 뒤 삭제합니다.");
         getLogger().info("MCPuzzle WORLD_VERIFY START");
         worldVerifier.verify().whenComplete((report, failure) -> onMain(() -> {
             if (failure != null) {
@@ -231,7 +246,7 @@ public final class MCPuzzlePlugin extends JavaPlugin {
                     + " visualBlocks=" + report.visualBlocks()
                     + " scanned=" + report.scannedInputLayerBlocks()
                     + " signs=" + report.signs());
-            sender.sendMessage("§a20방 생성·블록·표지판·금지 입력·정리 검증을 통과했습니다.");
+            sender.sendMessage("§a" + report.rooms() + "방 생성·구조물·입력 장치·표지판·정리 검증을 통과했습니다.");
         }));
     }
 

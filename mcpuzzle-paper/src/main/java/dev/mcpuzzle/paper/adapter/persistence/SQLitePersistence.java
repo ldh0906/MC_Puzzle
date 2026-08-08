@@ -381,6 +381,44 @@ public final class SQLitePersistence implements
     }
 
     @Override
+    public CompletionStage<Integer> purgeIncompatibleVersions(Map<String, MapVersion> currentVersions) {
+        Objects.requireNonNull(currentVersions, "currentVersions");
+        Map<String, MapVersion> normalizedVersions = new TreeMap<>();
+        currentVersions.forEach((mazeId, version) -> {
+            String normalizedMazeId = requireText(mazeId, "mazeId");
+            Objects.requireNonNull(version, "mapVersion");
+            if (normalizedVersions.put(normalizedMazeId, version) != null) {
+                throw new IllegalArgumentException("Duplicate maze id after normalization: " + normalizedMazeId);
+            }
+        });
+        return submit(() -> inTransaction(() -> {
+            int purged = 0;
+            try (PreparedStatement deleteSuspendedSnapshots = connection.prepareStatement("""
+                    DELETE FROM session_snapshots
+                    WHERE state = 'SUSPENDED' AND session_id IN (
+                        SELECT session_id FROM save_games
+                        WHERE maze_id = ? AND map_version <> ?
+                    )
+                    """);
+                 PreparedStatement deleteSaves = connection.prepareStatement("""
+                         DELETE FROM save_games
+                         WHERE maze_id = ? AND map_version <> ?
+                         """)) {
+                for (Map.Entry<String, MapVersion> entry : normalizedVersions.entrySet()) {
+                    deleteSuspendedSnapshots.setString(1, entry.getKey());
+                    deleteSuspendedSnapshots.setString(2, entry.getValue().value());
+                    deleteSuspendedSnapshots.executeUpdate();
+
+                    deleteSaves.setString(1, entry.getKey());
+                    deleteSaves.setString(2, entry.getValue().value());
+                    purged += deleteSaves.executeUpdate();
+                }
+            }
+            return purged;
+        }));
+    }
+
+    @Override
     public CompletionStage<Void> record(CompletedRun run) {
         Objects.requireNonNull(run, "run");
         return submit(() -> {

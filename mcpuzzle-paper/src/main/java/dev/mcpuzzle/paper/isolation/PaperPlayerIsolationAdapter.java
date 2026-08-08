@@ -27,6 +27,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -180,6 +181,20 @@ public final class PaperPlayerIsolationAdapter implements PlayerIsolationPort {
 
     public Set<UUID> blockedPlayers() {
         return Set.copyOf(blockedPlayers);
+    }
+
+    /** Returns the configured main world's current spawn, with the primary world spawn as fallback. */
+    public Optional<Location> lobbySpawn() {
+        Location configured = lobbyDestination.resolve(server).filter(this::isSafe).orElse(null);
+        if (configured != null) {
+            return Optional.of(configured);
+        }
+        List<World> worlds = server.getWorlds();
+        if (worlds.isEmpty()) {
+            return Optional.empty();
+        }
+        Location fallback = worlds.get(0).getSpawnLocation();
+        return isSafe(fallback) ? Optional.of(fallback) : Optional.empty();
     }
 
     private CapturePlan prepareCapture(SessionId sessionId, PartyRoster roster, WorldInstanceHandle instance)
@@ -424,6 +439,7 @@ public final class PaperPlayerIsolationAdapter implements PlayerIsolationPort {
         player.getActivePotionEffects().stream().map(PotionEffect::getType).toList()
                 .forEach(player::removePotionEffect);
         player.getInventory().clear();
+        player.getInventory().setItem(1, new ItemStack(Material.WRITABLE_BOOK));
         player.getInventory().setArmorContents(new ItemStack[4]);
         player.getInventory().setItemInOffHand(new ItemStack(Material.AIR));
         player.setGameMode(GameMode.ADVENTURE);
@@ -455,9 +471,9 @@ public final class PaperPlayerIsolationAdapter implements PlayerIsolationPort {
     }
 
     private void restoreToLobby(Player player, PlayerSnapshot snapshot) {
-        Location configured = lobbyDestination.resolve(server).filter(this::isSafe).orElse(null);
-        if (configured != null
-                && teleportPermits.runPermitted(player.getUniqueId(), () -> player.teleport(configured))) {
+        Location spawn = lobbySpawn().orElse(null);
+        if (spawn != null
+                && teleportPermits.runPermitted(player.getUniqueId(), () -> player.teleport(spawn))) {
             snapshot.restoreState(player);
             return;
         }
@@ -466,15 +482,6 @@ public final class PaperPlayerIsolationAdapter implements PlayerIsolationPort {
                 && teleportPermits.runPermitted(player.getUniqueId(), () -> player.teleport(original))) {
             snapshot.restoreState(player);
             return;
-        }
-        List<World> worlds = server.getWorlds();
-        if (!worlds.isEmpty()) {
-            Location fallback = worlds.get(0).getSpawnLocation();
-            if (isSafe(fallback)
-                    && teleportPermits.runPermitted(player.getUniqueId(), () -> player.teleport(fallback))) {
-                snapshot.restoreState(player);
-                return;
-            }
         }
         throw new IllegalStateException("No safe lobby fallback is available for " + player.getUniqueId());
     }

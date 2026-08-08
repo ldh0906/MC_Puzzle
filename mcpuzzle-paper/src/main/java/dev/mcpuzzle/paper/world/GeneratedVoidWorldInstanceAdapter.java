@@ -24,6 +24,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
@@ -42,7 +43,7 @@ public final class GeneratedVoidWorldInstanceAdapter implements WorldInstancePor
     private final GeneratedRoomBuilder builder;
     private final Executor filesExecutor;
     private final ScheduledExecutorService retries;
-    private final MapPack mapPack;
+    private final Map<String, MapPack> mapPacks;
 
     public GeneratedVoidWorldInstanceAdapter(
             Plugin plugin,
@@ -52,7 +53,7 @@ public final class GeneratedVoidWorldInstanceAdapter implements WorldInstancePor
             Path worldContainer,
             Executor filesExecutor,
             ScheduledExecutorService retries,
-            MapPack mapPack
+            Map<String, MapPack> mapPacks
     ) {
         this.server = Objects.requireNonNull(server, "server");
         this.mainThread = Objects.requireNonNull(mainThread, "mainThread");
@@ -61,21 +62,22 @@ public final class GeneratedVoidWorldInstanceAdapter implements WorldInstancePor
         this.builder = new GeneratedRoomBuilder(Objects.requireNonNull(plugin, "plugin"));
         this.filesExecutor = Objects.requireNonNull(filesExecutor, "filesExecutor");
         this.retries = Objects.requireNonNull(retries, "retries");
-        this.mapPack = Objects.requireNonNull(mapPack, "mapPack");
+        this.mapPacks = Map.copyOf(Objects.requireNonNull(mapPacks, "mapPacks"));
     }
 
     @Override
     public CompletionStage<WorldInstanceHandle> provision(SessionId sessionId, String mazeId,
                                                            MapVersion mapVersion, PartyRoster roster) {
-        if (!mapPack.mazeId().equals(mazeId) || !mapPack.mapVersion().equals(mapVersion)) {
+        MapPack mapPack = mapPacks.get(mazeId);
+        if (mapPack == null || !mapPack.mapVersion().equals(mapVersion)) {
             return CompletableFuture.failedFuture(new IllegalArgumentException("Loaded map does not match admission request"));
         }
         String name = files.worldName(sessionId);
-        return mainThread.call(() -> createWorld(name))
+        return mainThread.call(() -> createWorld(name, mapPack))
                 .thenCompose(world -> CompletableFuture
                         .runAsync(() -> mark(sessionId, mazeId, mapVersion, roster), filesExecutor)
                         .thenApply(ignored -> world))
-                .thenCompose(this::preloadBuildChunks)
+                .thenCompose(world -> preloadBuildChunks(world, mapPack))
                 .thenCompose(world -> mainThread.call(() -> builder.build(world, mapPack))
                         .thenCompose(build -> build)
                         .thenApply(ignored -> world))
@@ -129,7 +131,7 @@ public final class GeneratedVoidWorldInstanceAdapter implements WorldInstancePor
         });
     }
 
-    private World createWorld(String name) {
+    private World createWorld(String name, MapPack mapPack) {
         if (server.getWorld(name) != null || java.nio.file.Files.exists(server.getWorldContainer().toPath().resolve(name))) {
             throw new IllegalStateException("Instance world already exists: " + name);
         }
@@ -157,10 +159,10 @@ public final class GeneratedVoidWorldInstanceAdapter implements WorldInstancePor
      * chunk touched by the complete room build prevents getBlockAt/setType from synchronously
      * waiting on chunk generation and freezing the server watchdog.
      */
-    private CompletionStage<World> preloadBuildChunks(World world) {
+    private CompletionStage<World> preloadBuildChunks(World world, MapPack mapPack) {
         return mainThread.call(() -> {
             List<CompletableFuture<Chunk>> loads = new ArrayList<>();
-            for (ChunkCoordinate chunk : buildChunks()) {
+            for (ChunkCoordinate chunk : buildChunks(mapPack)) {
                 loads.add(world.getChunkAtAsync(chunk.x(), chunk.z(), true));
             }
             CompletableFuture<?>[] futures = loads.toArray(CompletableFuture[]::new);
@@ -168,7 +170,7 @@ public final class GeneratedVoidWorldInstanceAdapter implements WorldInstancePor
         }).thenCompose(stage -> stage);
     }
 
-    private Set<ChunkCoordinate> buildChunks() {
+    private Set<ChunkCoordinate> buildChunks(MapPack mapPack) {
         Set<ChunkCoordinate> chunks = new LinkedHashSet<>();
         for (MapPack.RoomDefinition room : mapPack.rooms()) {
             MapPack.Bounds bounds = room.buildBounds();

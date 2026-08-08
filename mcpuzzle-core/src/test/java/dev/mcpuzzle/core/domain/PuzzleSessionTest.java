@@ -73,6 +73,18 @@ class PuzzleSessionTest {
     }
 
     @Test
+    void anyMemberDeathSuspendsWholeActiveSession() {
+        Fixture fixture = fixture(3, 5);
+        PuzzleSession session = activate(fixture);
+
+        assertSuccess(session.memberDied(fixture.members().get(1), START.plusSeconds(20)));
+
+        assertEquals(SessionState.SUSPENDED, session.state());
+        assertEquals(SuspendReason.MEMBER_DIED, session.lastSuspendReason().orElseThrow());
+        assertEquals(Duration.ofSeconds(20), session.metricsAt(START.plusSeconds(500)).activePlayTime());
+    }
+
+    @Test
     void queuedOrProvisioningMemberLossCancelsAdmissionWithoutCreatingSave() {
         Fixture queuedFixture = fixture(2, 5);
         assertSuccess(queuedFixture.session().queue(queuedFixture.leader()));

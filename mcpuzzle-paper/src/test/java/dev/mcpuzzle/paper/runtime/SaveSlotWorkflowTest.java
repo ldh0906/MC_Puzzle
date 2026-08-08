@@ -33,7 +33,7 @@ class SaveSlotWorkflowTest {
             Clock clock = Clock.fixed(start.plusSeconds(30), ZoneOffset.UTC);
             MapVersion version = new MapVersion("1.0.0-mvp");
             PuzzleSession session = suspendedAtRoomTwo(leader, member, version, start);
-            SaveSlotWorkflow workflow = new SaveSlotWorkflow(persistence, clock, "a-to-z-archive-20", version);
+            SaveSlotWorkflow workflow = new SaveSlotWorkflow(persistence, clock, "midnight-easy", version);
 
             workflow.store(1, leader, session.party().toRoster(), session).toCompletableFuture().join();
             assertTrue(workflow.find(leader, 1).toCompletableFuture().join().isPresent());
@@ -65,8 +65,37 @@ class SaveSlotWorkflowTest {
         }
     }
 
+    @Test
+    void removesAllSavesForTheMazeWhenTheirMapVersionIsObsolete() {
+        SQLitePersistence persistence = SQLitePersistence.open(directory.resolve("version-cleanup.db"))
+                .toCompletableFuture().join();
+        try {
+            UUID leader = UUID.randomUUID();
+            UUID member = UUID.randomUUID();
+            Instant start = Instant.parse("2026-08-05T00:00:00Z");
+            Clock clock = Clock.fixed(start.plusSeconds(30), ZoneOffset.UTC);
+            MapVersion oldVersion = new MapVersion("4.0.0-easy12");
+            MapVersion currentVersion = new MapVersion("5.4.0-easy12");
+            PuzzleSession oldSession = suspendedAtRoomTwo(leader, member, oldVersion, start);
+            SaveSlotWorkflow oldWorkflow = new SaveSlotWorkflow(
+                    persistence, clock, "midnight-easy", oldVersion);
+            oldWorkflow.store(1, leader, oldSession.party().toRoster(), oldSession).toCompletableFuture().join();
+            oldWorkflow.store(2, leader, oldSession.party().toRoster(), oldSession).toCompletableFuture().join();
+
+            SaveSlotWorkflow currentWorkflow = new SaveSlotWorkflow(
+                    persistence, clock, "midnight-easy", currentVersion);
+
+            assertTrue(currentWorkflow.find(leader, 1).toCompletableFuture().join().isEmpty());
+            assertTrue(currentWorkflow.list(leader).toCompletableFuture().join().isEmpty());
+            assertTrue(persistence.find(leader, "midnight-easy", 2, clock.instant())
+                    .toCompletableFuture().join().isEmpty());
+        } finally {
+            persistence.close();
+        }
+    }
+
     private PuzzleSession suspendedAtRoomTwo(UUID leader, UUID member, MapVersion version, Instant start) {
-        PuzzleSession session = PuzzleSession.create(SessionId.random(), "a-to-z-archive-20", version,
+        PuzzleSession session = PuzzleSession.create(SessionId.random(), "midnight-easy", version,
                 Party.of(leader, java.util.List.of(leader, member)), 5);
         session.queue(leader);
         session.beginProvisioning();

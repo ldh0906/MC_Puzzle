@@ -41,7 +41,9 @@ tasks.processResources {
     from(rootProject.file("map-packs")) {
         into("map-packs")
         include("schema/map-pack.schema.json")
-        include("a-to-z-archive-20/map.jsonc")
+        include("difficulty-mazes-30/easy.jsonc")
+        include("difficulty-mazes-30/normal.jsonc")
+        include("difficulty-mazes-30/hard.jsonc")
     }
     from(rootProject.file("resource-pack/build/MCPuzzle-1.0.0.zip")) {
         into("resource-pack")

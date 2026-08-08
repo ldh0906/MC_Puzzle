@@ -9,7 +9,7 @@ authors: [MCPuzzle]
 commands:
   maze:
     description: MCPuzzle main command
-    usage: /maze [party|start|queue|saves|resume|leave|delete|hint|leaderboard|answer|status|admin]
+    usage: /maze [party|accept|deny|start|queue|saves|resume|leave|delete|hint|leaderboard|answer|status|admin]
     aliases: [미궁]
     permission: mcpuzzle.use
 

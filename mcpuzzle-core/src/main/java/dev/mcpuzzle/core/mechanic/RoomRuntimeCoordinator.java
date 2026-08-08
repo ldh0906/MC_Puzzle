@@ -123,6 +123,12 @@ public final class RoomRuntimeCoordinator {
         return attempt;
     }
 
+    public synchronized Optional<MechanicStatus> mechanicStatus(MechanicId mechanicId) {
+        Objects.requireNonNull(mechanicId, "mechanicId");
+        RoomMechanic mechanic = mechanics.get(mechanicId);
+        return mechanic == null ? Optional.empty() : Optional.of(mechanic.status());
+    }
+
     private RoomRuntimeOutcome outcome(
             RoomRuntimeOutcomeType type,
             Optional<MechanicId> mechanicId,

@@ -6,6 +6,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+Add-Type -AssemblyName System.Net.Http
 $serverRoot = $PSScriptRoot
 $projectRoot = Split-Path -Parent $serverRoot
 $pluginSource = Join-Path $projectRoot "mcpuzzle-paper\build\libs\mcpuzzle-paper-0.1.0-SNAPSHOT.jar"
@@ -13,7 +14,11 @@ $pluginTarget = Join-Path $serverRoot "plugins\MCPuzzle.jar"
 $paperJar = Join-Path $serverRoot "paper-1.20.1-196.jar"
 $hashFile = Join-Path $projectRoot "resource-pack\build\MCPuzzle-1.0.0.sha1"
 $packUrl = "http://127.0.0.1:8123/MCPuzzle-1.0.0.zip"
-$activeMap = Join-Path $serverRoot "plugins\MCPuzzle\map-packs\a-to-z-archive-20\map.jsonc"
+$activeMaps = @(
+    @{ Path = Join-Path $serverRoot "plugins\MCPuzzle\map-packs\difficulty-mazes-30\easy.jsonc"; Version = "5.4.0-easy12"; Rooms = 12 },
+    @{ Path = Join-Path $serverRoot "plugins\MCPuzzle\map-packs\difficulty-mazes-30\normal.jsonc"; Version = "5.1.0-normal12"; Rooms = 12 },
+    @{ Path = Join-Path $serverRoot "plugins\MCPuzzle\map-packs\difficulty-mazes-30\hard.jsonc"; Version = "5.0.1-hard5"; Rooms = 5 }
+)
 $latestLog = Join-Path $serverRoot "logs\latest.log"
 
 foreach ($requiredFile in @($pluginSource, $paperJar, $hashFile)) {
@@ -61,16 +66,19 @@ try {
     while ([DateTime]::UtcNow -lt $deadline -and -not $serverProcess.HasExited -and -not ($resourcePackReady -and $pluginReady)) {
         if (-not $resourcePackReady) {
             try {
-            $httpClient = [System.Net.Http.HttpClient]::new()
-            $httpClient.Timeout = [TimeSpan]::FromSeconds(2)
-            try {
-                $download = $httpClient.GetByteArrayAsync($packUrl).GetAwaiter().GetResult()
-                if ($download.Length -gt 0) {
-                    $resourcePackReady = $true
+                $httpHandler = [System.Net.Http.HttpClientHandler]::new()
+                $httpHandler.UseProxy = $false
+                $httpClient = [System.Net.Http.HttpClient]::new($httpHandler)
+                $httpClient.Timeout = [TimeSpan]::FromSeconds(2)
+                try {
+                    $download = $httpClient.GetByteArrayAsync($packUrl).GetAwaiter().GetResult()
+                    if ($download.Length -gt 0) {
+                        $resourcePackReady = $true
+                    }
+                } finally {
+                    $httpClient.Dispose()
+                    $httpHandler.Dispose()
                 }
-            } finally {
-                $httpClient.Dispose()
-            }
             } catch {
                 # Startup polling intentionally tolerates connection refusal.
             }
@@ -79,7 +87,7 @@ try {
             $logInfo = Get-Item -LiteralPath $latestLog
             if ($logInfo.LastWriteTimeUtc -ge $startedAt.AddSeconds(-1)) {
                 $pluginReady = (Get-Content -Raw -LiteralPath $latestLog) -match [regex]::Escape(
-                    "MCPuzzle READY maze=a-to-z-archive-20 version=2.1.0-a20 rooms=20"
+                    "MCPuzzle READY mazes=3 rooms=29"
                 )
             }
         }
@@ -94,14 +102,16 @@ try {
         } else {
             "latest.log 없음"
         }
-        throw "MCPuzzle가 20개 방 준비 완료 상태에 도달하지 못했습니다.`n$startupTail"
+        throw "MCPuzzle가 3개 미궁·29개 방 준비 완료 상태에 도달하지 못했습니다.`n$startupTail"
     }
-    if (-not (Test-Path -LiteralPath $activeMap -PathType Leaf)) {
-        throw "배포된 활성 맵 파일이 없습니다: $activeMap"
-    }
-    $deployedMap = Get-Content -Raw -LiteralPath $activeMap | ConvertFrom-Json
-    if ($deployedMap.mapVersion -ne "2.1.0-a20" -or $deployedMap.rooms.Count -ne 20) {
-        throw "서버 데이터 폴더의 활성 맵 버전 또는 방 수가 빌드와 다릅니다."
+    foreach ($activeMap in $activeMaps) {
+        if (-not (Test-Path -LiteralPath $activeMap.Path -PathType Leaf)) {
+            throw "배포된 활성 맵 파일이 없습니다: $($activeMap.Path)"
+        }
+        $deployedMap = Get-Content -Raw -Encoding UTF8 -LiteralPath $activeMap.Path | ConvertFrom-Json
+        if ($deployedMap.mapVersion -ne $activeMap.Version -or $deployedMap.rooms.Count -ne $activeMap.Rooms) {
+            throw "서버 데이터 폴더의 활성 맵 버전 또는 방 수가 빌드와 다릅니다: $($activeMap.Path)"
+        }
     }
 
     $serverProcess.StandardInput.WriteLine("maze admin verify-world")
@@ -112,14 +122,14 @@ try {
     while ([DateTime]::UtcNow -lt $verifyDeadline -and -not $serverProcess.HasExited -and -not ($worldVerifyPassed -or $worldVerifyFailed)) {
         if (Test-Path -LiteralPath $latestLog -PathType Leaf) {
             $verifyLog = Get-Content -Raw -LiteralPath $latestLog
-            $worldVerifyPassed = $verifyLog -match "MCPuzzle WORLD_VERIFY PASS rooms=20"
+            $worldVerifyPassed = $verifyLog -match "MCPuzzle WORLD_VERIFY PASS rooms=29"
             $worldVerifyFailed = $verifyLog -match "MCPuzzle WORLD_VERIFY FAIL"
         }
         if (-not ($worldVerifyPassed -or $worldVerifyFailed)) { Start-Sleep -Milliseconds 500 }
     }
     if (-not $worldVerifyPassed) {
         $verifyTail = (Get-Content -Tail 60 -LiteralPath $latestLog) -join "`n"
-        throw "20방 임시 월드 생성 검증에 실패했거나 시간 초과했습니다.`n$verifyTail"
+        throw "3개 미궁·29방 임시 월드 생성 검증에 실패했거나 시간 초과했습니다.`n$verifyTail"
     }
 
     $sha1 = [System.Security.Cryptography.SHA1]::Create()

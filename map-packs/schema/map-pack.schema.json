@@ -144,6 +144,7 @@
         "spawn": { "$ref": "#/$defs/position" },
         "checkpoint": { "$ref": "#/$defs/position" },
         "visual": { "$ref": "#/$defs/visualBlueprint" },
+        "structure": { "$ref": "#/$defs/structureBlueprint" },
         "completionMode": { "enum": ["ALL_MECHANICS", "ANY_MECHANIC"] },
         "mechanics": {
           "type": "array",
@@ -155,6 +156,10 @@
               { "$ref": "#/$defs/destructibleTarget" },
               { "$ref": "#/$defs/numericKeypad" },
               { "$ref": "#/$defs/logicAnswer" },
+              { "$ref": "#/$defs/clueRegions" },
+              { "$ref": "#/$defs/orderedInput" },
+              { "$ref": "#/$defs/choiceInput" },
+              { "$ref": "#/$defs/toggleInput" },
               { "$ref": "#/$defs/proximityEscort" },
               { "$ref": "#/$defs/dynamicPartyPadsAndTarget" }
             ]
@@ -199,6 +204,49 @@
           "minItems": 1,
           "items": { "type": "integer", "minimum": 0, "maximum": 65535 }
         }
+      },
+      "additionalProperties": false
+    },
+    "structureBlock": {
+      "type": "object",
+      "required": ["position", "material"],
+      "properties": {
+        "position": { "$ref": "#/$defs/position" },
+        "material": { "$ref": "#/$defs/material" }
+      },
+      "additionalProperties": false
+    },
+    "structureCuboid": {
+      "type": "object",
+      "required": ["bounds", "material"],
+      "properties": {
+        "bounds": { "$ref": "#/$defs/region" },
+        "material": { "$ref": "#/$defs/material" }
+      },
+      "additionalProperties": false
+    },
+    "structureSign": {
+      "type": "object",
+      "required": ["position", "facing", "lines"],
+      "properties": {
+        "position": { "$ref": "#/$defs/position" },
+        "facing": { "enum": ["NORTH", "SOUTH", "EAST", "WEST"] },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string", "minLength": 1, "maxLength": 80 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "structureBlueprint": {
+      "type": "object",
+      "required": ["blocks", "cuboids", "signs"],
+      "properties": {
+        "blocks": { "type": "array", "items": { "$ref": "#/$defs/structureBlock" } },
+        "cuboids": { "type": "array", "items": { "$ref": "#/$defs/structureCuboid" } },
+        "signs": { "type": "array", "items": { "$ref": "#/$defs/structureSign" } }
       },
       "additionalProperties": false
     },
@@ -339,10 +387,15 @@
           "minItems": 1,
           "maxItems": 8,
           "items": {
-            "type": "string",
-            "minLength": 1,
-            "maxLength": 240,
-            "pattern": ".*\\S.*"
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240,
+                "pattern": ".*\\S.*"
+              },
+              { "$ref": "#/$defs/bookPage" }
+            ]
           }
         },
         "answerFormat": { "$ref": "#/$defs/nonBlankText" },
@@ -373,7 +426,112 @@
             "maxLength": 64,
             "pattern": ".*\\S.*"
           }
+        },
+        "submissionMode": { "enum": ["CHAT", "DEVICE_ONLY"] },
+        "requires": {
+          "type": "array",
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/id" }
         }
+      },
+      "additionalProperties": false
+    },
+    "bookPage": {
+      "type": "object",
+      "required": ["layout", "text"],
+      "properties": {
+        "layout": { "enum": ["PROSE", "GRID"] },
+        "text": { "type": "string", "minLength": 1, "maxLength": 240, "pattern": ".*\\S.*" }
+      },
+      "additionalProperties": false
+    },
+    "control": {
+      "type": "object",
+      "required": ["id", "token", "label", "activation", "position", "material"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "token": { "type": "string", "maxLength": 64 },
+        "label": { "$ref": "#/$defs/nonBlankText" },
+        "activation": { "enum": ["STEP", "CLICK"] },
+        "position": { "$ref": "#/$defs/position" },
+        "material": { "$ref": "#/$defs/material" },
+        "indicator": { "$ref": "#/$defs/position" }
+      },
+      "additionalProperties": false
+    },
+    "expectedStep": {
+      "type": "object",
+      "required": ["control"],
+      "properties": {
+        "control": { "$ref": "#/$defs/id" },
+        "display": { "type": "string", "maxLength": 64 }
+      },
+      "additionalProperties": false
+    },
+    "clueRegion": {
+      "type": "object",
+      "required": ["id", "bounds", "message"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "bounds": { "$ref": "#/$defs/region" },
+        "message": { "$ref": "#/$defs/nonBlankText" },
+        "sound": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$" },
+        "pitch": { "type": "number", "exclusiveMinimum": 0, "maximum": 2 }
+      },
+      "additionalProperties": false
+    },
+    "clueRegions": {
+      "type": "object",
+      "required": ["id", "type", "regions"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "CLUE_REGIONS" },
+        "regions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/clueRegion" } }
+      },
+      "additionalProperties": false
+    },
+    "orderedInput": {
+      "type": "object",
+      "required": ["id", "type", "controls", "expected", "groups", "operatorLockSeconds", "resultText"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "ORDERED_INPUT" },
+        "controls": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/control" } },
+        "expected": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/expectedStep" } },
+        "groups": { "type": "array", "items": { "type": "integer", "minimum": 1, "maximum": 64 } },
+        "operatorLockSeconds": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "resultText": { "$ref": "#/$defs/nonBlankText" },
+        "clearButton": { "$ref": "#/$defs/position" }
+      },
+      "additionalProperties": false
+    },
+    "choiceInput": {
+      "type": "object",
+      "required": ["id", "type", "controls", "correctControl", "operatorLockSeconds", "resultText"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "CHOICE_INPUT" },
+        "controls": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/control" } },
+        "correctControl": { "$ref": "#/$defs/id" },
+        "operatorLockSeconds": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "resultText": { "$ref": "#/$defs/nonBlankText" }
+      },
+      "additionalProperties": false
+    },
+    "toggleInput": {
+      "type": "object",
+      "required": ["id", "type", "controls", "expectedActive", "maxSelections", "operatorLockSeconds", "submitButton", "clearButton", "resultText"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "const": "TOGGLE_INPUT" },
+        "controls": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/control" } },
+        "expectedActive": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/id" } },
+        "maxSelections": { "type": "integer", "minimum": 1 },
+        "operatorLockSeconds": { "type": "integer", "minimum": 1, "maximum": 60 },
+        "submitButton": { "$ref": "#/$defs/position" },
+        "clearButton": { "$ref": "#/$defs/position" },
+        "resultText": { "$ref": "#/$defs/nonBlankText" }
       },
       "additionalProperties": false
     },

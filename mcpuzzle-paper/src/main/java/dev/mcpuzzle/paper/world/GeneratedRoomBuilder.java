@@ -5,7 +5,11 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.sign.Side;
+import org.bukkit.block.sign.SignSide;
 import org.bukkit.block.data.type.Switch;
+import org.bukkit.block.data.Rotatable;
+import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -34,6 +38,7 @@ public final class GeneratedRoomBuilder {
         for (MapPack.RoomDefinition room : pack.rooms()) {
             planShell(shell, pack.world(), room);
             room.visual().ifPresent(visual -> planVisual(shell, visual));
+            room.structure().ifPresent(structure -> planStructure(shell, structure));
         }
         CompletableFuture<Void> completion = new CompletableFuture<>();
         new BukkitRunnable() {
@@ -48,6 +53,7 @@ public final class GeneratedRoomBuilder {
 
                     for (MapPack.RoomDefinition room : pack.rooms()) {
                         room.mechanics().forEach(mechanic -> buildMechanic(world, mechanic));
+                        room.structure().ifPresent(structure -> structure.signs().forEach(sign -> placeStructureSign(world, sign)));
                         placeSign(world, room);
                     }
                     MapPack.Position first = pack.room(1).spawn();
@@ -121,6 +127,25 @@ public final class GeneratedRoomBuilder {
         }
     }
 
+    private void planStructure(List<BlockPlacement> plan, MapPack.StructureBlueprint structure) {
+        for (MapPack.StructureBlock block : structure.blocks()) {
+            MapPack.Position position = block.position();
+            plan.add(new BlockPlacement(floor(position.x()), floor(position.y()), floor(position.z()),
+                    requireMaterial(block.material())));
+        }
+        for (MapPack.StructureCuboid cuboid : structure.cuboids()) {
+            Material material = requireMaterial(cuboid.material());
+            MapPack.Bounds bounds = cuboid.bounds();
+            for (int x = floor(bounds.min().x()); x <= floor(bounds.max().x()); x++) {
+                for (int y = floor(bounds.min().y()); y <= floor(bounds.max().y()); y++) {
+                    for (int z = floor(bounds.min().z()); z <= floor(bounds.max().z()); z++) {
+                        plan.add(new BlockPlacement(x, y, z, material));
+                    }
+                }
+            }
+        }
+    }
+
     private void buildMechanic(World world, MapPack.MechanicDefinition mechanic) {
         if (mechanic instanceof MapPack.PadMechanic pads) {
             for (MapPack.Position pos : pads.pads()) {
@@ -140,6 +165,24 @@ public final class GeneratedRoomBuilder {
             placeButton(world, keypad.clearButton());
             return;
         }
+        if (mechanic instanceof MapPack.OrderedInput ordered) {
+            ordered.controls().forEach(control -> placeControl(world, control));
+            ordered.clearButton().ifPresent(position -> placeButton(world, position, Material.POLISHED_BLACKSTONE));
+            return;
+        }
+        if (mechanic instanceof MapPack.ChoiceInput choice) {
+            choice.controls().forEach(control -> placeControl(world, control));
+            return;
+        }
+        if (mechanic instanceof MapPack.ToggleInput toggle) {
+            toggle.controls().forEach(control -> {
+                placeControl(world, control);
+                control.indicator().ifPresent(position -> set(world, position, Material.RED_STAINED_GLASS));
+            });
+            placeButton(world, toggle.submitButton(), Material.EMERALD_BLOCK);
+            placeButton(world, toggle.clearButton(), Material.REDSTONE_BLOCK);
+            return;
+        }
         if (mechanic instanceof MapPack.Escort escort) {
             for (MapPack.Position pos : escort.checkpoints()) {
                 set(world, (int) pos.x(), (int) pos.y() - 1, (int) pos.z(), Material.YELLOW_CONCRETE);
@@ -157,6 +200,16 @@ public final class GeneratedRoomBuilder {
         }
     }
 
+    private void placeControl(World world, MapPack.Control control) {
+        if (control.activation().equals("STEP")) {
+            MapPack.Position position = control.position();
+            set(world, floor(position.x()), floor(position.y()) - 1, floor(position.z()), requireMaterial(control.material()));
+            set(world, floor(position.x()), floor(position.y()), floor(position.z()), Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
+        } else {
+            placeButton(world, control.position(), requireMaterial(control.material()));
+        }
+    }
+
     private void placePad(World world, MapPack.Position pos, Material plate, Material base) {
         int x = floor(pos.x());
         int y = floor(pos.y());
@@ -171,23 +224,58 @@ public final class GeneratedRoomBuilder {
         MapPack.Position spawn = room.spawn();
         Block block = world.getBlockAt(floor(spawn.x()), floor(spawn.y()), floor(spawn.z()) + 2);
         block.setType(Material.OAK_SIGN, false);
+        orientStandingSign(block, BlockFace.NORTH);
         if (block.getState() instanceof Sign sign) {
-            sign.setLine(0, "§1[방 " + room.sequence() + "]");
-            sign.setLine(1, shorten(room.title()));
-            sign.setLine(2, "§0/maze hint");
-            sign.update(true, false);
+            writeReadableSign(sign, List.of(
+                    "§1[방 " + room.sequence() + "]",
+                    shorten(room.title()),
+                    "§0/maze hint"
+            ));
         }
     }
 
     private void placeButton(World world, MapPack.Position pos) {
+        placeButton(world, pos, Material.POLISHED_BLACKSTONE);
+    }
+
+    private void placeButton(World world, MapPack.Position pos, Material supportMaterial) {
         Block support = world.getBlockAt((int) pos.x(), (int) pos.y(), (int) pos.z() + 1);
-        support.setType(Material.POLISHED_BLACKSTONE, false);
+        support.setType(supportMaterial, false);
         Block button = world.getBlockAt((int) pos.x(), (int) pos.y(), (int) pos.z());
         button.setType(Material.STONE_BUTTON, false);
         if (button.getBlockData() instanceof Switch data) {
             data.setFace(Switch.Face.WALL);
             data.setFacing(org.bukkit.block.BlockFace.NORTH);
             button.setBlockData(data, false);
+        }
+    }
+
+    private void placeStructureSign(World world, MapPack.StructureSign definition) {
+        MapPack.Position position = definition.position();
+        Block block = world.getBlockAt(floor(position.x()), floor(position.y()), floor(position.z()));
+        block.setType(Material.OAK_SIGN, false);
+        orientStandingSign(block, BlockFace.valueOf(definition.facing()));
+        if (block.getState() instanceof Sign sign) {
+            writeReadableSign(sign, definition.lines());
+        }
+    }
+
+    private void writeReadableSign(Sign sign, List<String> lines) {
+        for (Side side : Side.values()) {
+            SignSide signSide = sign.getSide(side);
+            for (int index = 0; index < 4; index++) {
+                signSide.setLine(index, index < lines.size() ? lines.get(index) : "");
+            }
+            signSide.setGlowingText(true);
+        }
+        sign.setWaxed(true);
+        sign.update(true, false);
+    }
+
+    private void orientStandingSign(Block block, BlockFace facing) {
+        if (block.getBlockData() instanceof Rotatable rotation) {
+            rotation.setRotation(facing);
+            block.setBlockData(rotation, false);
         }
     }
 

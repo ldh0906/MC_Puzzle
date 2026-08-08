@@ -84,6 +84,7 @@ public final class MazeMenu implements Listener {
         statusLore.add(party == null ? "§7파티: §8없음" : "§7파티: §f" + party.members().size() + "명 · " + role(player, party));
         statusLore.add(run == null ? "§7미궁: §8대기 중" : "§7미궁: §f" + stateName(run.state()));
         if (run != null) {
+            statusLore.add("§7종류: §f" + run.mazeName());
             statusLore.add("§7진행: §d" + run.room() + "§7/§f" + run.roomCount() + "번 방");
             statusLore.add("§7슬롯: §b" + run.slot());
         }
@@ -94,7 +95,7 @@ public final class MazeMenu implements Listener {
                         party == null ? "§7함께 도전할 파티를 만듭니다." : "§7명단, 초대, 추방을 관리합니다.",
                         "", "§e클릭해서 열기")));
         inventory.setItem(22, items.model(PuzzleItemModel.SAVES, "§b세이브 · 미궁 입장",
-                MazeMenuAction.of(MazeMenuAction.Type.SAVES), List.of("§7새 미궁 시작과 진행 재개", "§7슬롯 상세 정보를 확인합니다.", "", "§b클릭해서 열기")));
+                MazeMenuAction.of(MazeMenuAction.Type.MAZES), List.of("§7쉬움·보통·어려움 미궁을 고르고", "§7새 시작 또는 진행 재개를 합니다.", "", "§b클릭해서 열기")));
         inventory.setItem(24, items.model(PuzzleItemModel.HINT, "§d힌트 보관소",
                 MazeMenuAction.of(MazeMenuAction.Type.HINTS), List.of("§7현재 방의 힌트를 요청하거나", "§7이미 열린 힌트를 다시 봅니다.", "", "§d클릭해서 열기")));
         inventory.setItem(30, items.material(Material.GOLDEN_HELMET, "§6명예의 전당",
@@ -107,7 +108,7 @@ public final class MazeMenu implements Listener {
 
         if (run == null) {
             inventory.setItem(40, items.model(PuzzleItemModel.START, "§a도전 준비",
-                    MazeMenuAction.of(MazeMenuAction.Type.SAVES), List.of("§7파티를 구성하고 슬롯을 골라", "§7새 미궁을 시작합니다.", "", "§a클릭해서 슬롯 선택")));
+                    MazeMenuAction.of(MazeMenuAction.Type.MAZES), List.of("§7파티를 구성하고 난이도와 슬롯을 골라", "§7새 미궁을 시작합니다.", "", "§a클릭해서 선택")));
         } else if (dashboardActions(run.state()).contains(MazeMenuAction.Type.QUEUE_CANCEL)) {
             inventory.setItem(40, items.material(Material.BARRIER, "§c입장 대기 취소",
                     MazeMenuAction.of(MazeMenuAction.Type.QUEUE_CANCEL), List.of("§7파티장만 취소할 수 있습니다.", "", "§c클릭 후 확인")));
@@ -233,30 +234,52 @@ public final class MazeMenu implements Listener {
     }
 
     public void openSaves(Player player) {
-        openSaves(player, player.getUniqueId());
+        openMazes(player);
     }
 
-    private void openSaves(Player player, UUID ownerId) {
-        openSaves(player, ownerId, false);
+    public void openMazes(Player player) {
+        MenuHolder holder = create(player, MenuType.MAZES, player.getUniqueId(), 0, 45, "§1도전할 미궁 선택");
+        Inventory inventory = holder.inventory;
+        decorate(inventory);
+        int[] slots = {11, 22, 33};
+        Material[] materials = {Material.EMERALD_BLOCK, Material.AMETHYST_BLOCK, Material.NETHERITE_BLOCK};
+        String[] colors = {"§a", "§d", "§c"};
+        List<MazeRuntimeService.MazeOption> mazes = runtime.mazes();
+        for (int index = 0; index < mazes.size(); index++) {
+            MazeRuntimeService.MazeOption maze = mazes.get(index);
+            inventory.setItem(slots[index], items.material(materials[index], colors[index] + "§l" + maze.displayName(),
+                    MazeMenuAction.of(MazeMenuAction.Type.SAVES, maze.mazeId(), player.getUniqueId().toString()),
+                    List.of("§7총 §f" + maze.roomCount() + "§7개 방", "§7미궁별 세이브 슬롯 3개", "", colors[index] + "클릭해서 슬롯 보기")));
+        }
+        back(inventory, 40, MazeMenuAction.of(MazeMenuAction.Type.MAIN));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
+        player.openInventory(inventory);
     }
 
-    private void openSaves(Player player, UUID ownerId, boolean administrator) {
+    private void openSaves(Player player, String mazeId, UUID ownerId) {
+        openSaves(player, mazeId, ownerId, false);
+    }
+
+    private void openSaves(Player player, String mazeId, UUID ownerId, boolean administrator) {
         if (administrator && !requireAdmin(player)) return;
+        MazeRuntimeService.MazeOption selected = runtime.mazes().stream().filter(maze -> maze.mazeId().equals(mazeId))
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("알 수 없는 미궁입니다."));
         MenuHolder holder = create(player, administrator ? MenuType.ADMIN_SAVES : MenuType.SAVES,
-                ownerId, 0, 54, administrator ? "§5관리자 세이브 · " + displayName(Bukkit.getOfflinePlayer(ownerId)) : "§1미궁 세이브 슬롯");
+                ownerId, 0, 54, administrator ? "§5관리자 세이브 · " + displayName(Bukkit.getOfflinePlayer(ownerId))
+                        : "§1" + selected.displayName(), mazeId);
         Inventory inventory = holder.inventory;
         decorate(inventory);
         MazeMenuAction refresh = administrator
-                ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, ownerId.toString())
-                : MazeMenuAction.of(MazeMenuAction.Type.SAVES, ownerId.toString());
+                ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, mazeId, ownerId.toString())
+                : MazeMenuAction.of(MazeMenuAction.Type.SAVES, mazeId, ownerId.toString());
         inventory.setItem(22, items.material(Material.CLOCK, "§e세이브를 불러오는 중...", refresh, List.of("§7잠시만 기다려 주세요.")));
         back(inventory, 49, administrator
                 ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_PLAYERS, "0")
-                : MazeMenuAction.of(MazeMenuAction.Type.MAIN));
+                : MazeMenuAction.of(MazeMenuAction.Type.MAZES));
         items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
         player.openInventory(inventory);
 
-        runtime.saves(player, ownerId).whenComplete((saves, failure) -> onMain(() -> {
+        runtime.saves(player, mazeId, ownerId).whenComplete((saves, failure) -> onMain(() -> {
             if (!isCurrent(player, holder)) return;
             if (failure != null) {
                 inventory.setItem(22, items.material(Material.BARRIER, "§c세이브를 불러오지 못했습니다",
@@ -334,7 +357,7 @@ public final class MazeMenu implements Listener {
         inventory.setItem(20, items.material(Material.REPEATER, "§e설정·맵 리로드",
                 MazeMenuAction.of(MazeMenuAction.Type.ADMIN_RELOAD), List.of("§7현재 정상 레지스트리를 유지하며", "§7새 설정과 맵을 검증합니다.", "", "§e클릭 후 확인")));
         inventory.setItem(22, items.material(Material.STRUCTURE_BLOCK, "§b생성 월드 검증",
-                MazeMenuAction.of(MazeMenuAction.Type.ADMIN_VERIFY_WORLD), List.of("§7임시 20방 월드를 생성·검사하고", "§7완료 후 자동으로 정리합니다.", "", "§b클릭해서 실행")));
+                MazeMenuAction.of(MazeMenuAction.Type.ADMIN_VERIFY_WORLD), List.of("§7임시 전체 방 월드를 생성·검사하고", "§7완료 후 자동으로 정리합니다.", "", "§b클릭해서 실행")));
         inventory.setItem(24, items.material(Material.BLAZE_ROD, "§6제작 완드 지급",
                 MazeMenuAction.of(MazeMenuAction.Type.ADMIN_WAND), List.of("§7두 모서리를 선택하는 완드를 받습니다.")));
         inventory.setItem(30, items.material(Material.FILLED_MAP, "§a선택 영역 출력",
@@ -359,7 +382,7 @@ public final class MazeMenu implements Listener {
         for (int index = start; index < Math.min(start + CONTENT_SLOTS.length, players.size()); index++) {
             Player target = players.get(index);
             inventory.setItem(CONTENT_SLOTS[index - start], items.playerHead(target, "§d" + target.getName(),
-                    MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, target.getUniqueId().toString()),
+                    MazeMenuAction.of(MazeMenuAction.Type.ADMIN_MAZES, target.getUniqueId().toString()),
                     List.of("§7이 플레이어가 소유한 세이브를 엽니다.")));
         }
         pagination(inventory, safePage, players.size(), MazeMenuAction.Type.ADMIN_PLAYERS);
@@ -368,35 +391,52 @@ public final class MazeMenu implements Listener {
         player.openInventory(inventory);
     }
 
-    private void openAdminTransfer(Player player, UUID ownerId, int slot) {
+    private void openAdminMazes(Player player, UUID ownerId) {
         if (!requireAdmin(player)) return;
-        MenuHolder holder = create(player, MenuType.ADMIN_TRANSFER, ownerId, slot, 54, "§5새 세이브 소유자 선택");
+        MenuHolder holder = create(player, MenuType.ADMIN_MAZES, ownerId, 0, 45, "§5관리할 미궁 선택");
+        Inventory inventory = holder.inventory;
+        items.frame(inventory, Material.PURPLE_STAINED_GLASS_PANE);
+        int[] slots = {11, 22, 33};
+        for (int index = 0; index < runtime.mazes().size(); index++) {
+            MazeRuntimeService.MazeOption maze = runtime.mazes().get(index);
+            inventory.setItem(slots[index], items.material(Material.ENDER_CHEST, "§d" + maze.displayName(),
+                    MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, maze.mazeId(), ownerId.toString()),
+                    List.of("§7" + maze.roomCount() + "개 방의 세이브를 관리합니다.")));
+        }
+        back(inventory, 40, MazeMenuAction.of(MazeMenuAction.Type.ADMIN_PLAYERS, "0"));
+        items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
+        player.openInventory(inventory);
+    }
+
+    private void openAdminTransfer(Player player, String mazeId, UUID ownerId, int slot) {
+        if (!requireAdmin(player)) return;
+        MenuHolder holder = create(player, MenuType.ADMIN_TRANSFER, ownerId, slot, 54, "§5새 세이브 소유자 선택", mazeId);
         Inventory inventory = holder.inventory;
         items.frame(inventory, Material.PURPLE_STAINED_GLASS_PANE);
         inventory.setItem(22, items.material(Material.CLOCK, "§e원래 파티 명단을 불러오는 중...",
-                MazeMenuAction.of(MazeMenuAction.Type.ADMIN_TRANSFER_PICK, ownerId.toString(), Integer.toString(slot)), List.of()));
-        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, ownerId.toString()));
+                MazeMenuAction.of(MazeMenuAction.Type.ADMIN_TRANSFER_PICK, mazeId, ownerId.toString(), Integer.toString(slot)), List.of()));
+        back(inventory, 49, MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, mazeId, ownerId.toString()));
         items.fillEmpty(inventory, Material.BLACK_STAINED_GLASS_PANE);
         player.openInventory(inventory);
 
-        runtime.saves(player, ownerId).whenComplete((saves, failure) -> onMain(() -> {
+        runtime.saves(player, mazeId, ownerId).whenComplete((saves, failure) -> onMain(() -> {
             if (!isCurrent(player, holder)) return;
             if (failure != null) {
                 inventory.setItem(22, items.material(Material.BARRIER, "§c세이브를 불러오지 못했습니다",
-                        MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, ownerId.toString()), List.of("§7" + rootMessage(failure))));
+                        MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, mazeId, ownerId.toString()), List.of("§7" + rootMessage(failure))));
                 return;
             }
             SaveGame save = saves.stream().filter(candidate -> candidate.slot().number() == slot).findFirst().orElse(null);
             if (save == null) {
                 inventory.setItem(22, items.material(Material.BARRIER, "§c해당 세이브가 없습니다",
-                        MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, ownerId.toString()), List.of("§7목록으로 돌아가 새로고침하세요.")));
+                        MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, mazeId, ownerId.toString()), List.of("§7목록으로 돌아가 새로고침하세요.")));
                 return;
             }
             int targetSlot = 20;
             for (UUID memberId : save.slot().roster().members()) {
                 OfflinePlayer member = Bukkit.getOfflinePlayer(memberId);
                 inventory.setItem(targetSlot++, items.playerHead(member, "§d" + displayName(member),
-                        MazeMenuAction.of(MazeMenuAction.Type.ADMIN_TRANSFER, ownerId.toString(), Integer.toString(slot), memberId.toString()),
+                        MazeMenuAction.of(MazeMenuAction.Type.ADMIN_TRANSFER, mazeId, ownerId.toString(), Integer.toString(slot), memberId.toString()),
                         List.of(memberId.equals(ownerId) ? "§7현재 소유자" : "§7저장 당시 파티원", "", "§d클릭 후 이전 확인")));
             }
         }));
@@ -466,7 +506,11 @@ public final class MazeMenu implements Listener {
             case PARTY_ACCEPT -> handleInvitation(player, event, action, true);
             case PARTY_DECLINE -> handleInvitation(player, event, action, false);
             case PARTY_KICK, PARTY_LEAVE, PARTY_DISBAND, SAVE_DELETE, RUN_LEAVE, QUEUE_CANCEL -> openConfirm(player, action);
-            case SAVES -> openSaves(player, action.uuid(0).orElse(player.getUniqueId()));
+            case MAZES -> openMazes(player);
+            case SAVES -> {
+                if (action.arguments().size() < 2) openMazes(player);
+                else openSaves(player, action.arguments().get(0), action.uuid(1).orElse(player.getUniqueId()));
+            }
             case SAVE_START -> openConfirm(player, action);
             case SAVE_RESUME -> handleSave(player, event, action);
             case HINTS -> openHints(player);
@@ -484,13 +528,15 @@ public final class MazeMenu implements Listener {
             case ADMIN_WAND -> { if (requireAdmin(player)) { player.closeInventory(); authoring.give(player); } }
             case ADMIN_SELECTION -> { if (requireAdmin(player)) { player.closeInventory(); authoring.printSelection(player); } }
             case ADMIN_PLAYERS -> openAdminPlayers(player, integer(action, 0, 0, 100));
+            case ADMIN_MAZES -> openAdminMazes(player, action.uuid(0).orElse(player.getUniqueId()));
             case ADMIN_SAVES -> {
                 if (!requireAdmin(player)) return;
-                if (action.arguments().size() == 1) openSaves(player, action.uuid(0).orElse(player.getUniqueId()), true);
+                if (action.arguments().size() == 2) openSaves(player, action.arguments().get(0),
+                        action.uuid(1).orElse(player.getUniqueId()), true);
                 else handleAdminSave(player, event, action);
             }
             case ADMIN_TRANSFER_PICK -> openAdminTransfer(player,
-                    action.uuid(0).orElse(player.getUniqueId()), integer(action, 1, 1, 3));
+                    action.arguments().get(0), action.uuid(1).orElse(player.getUniqueId()), integer(action, 2, 1, 3));
             case CONFIRM -> confirm(player, action);
             case CANCEL -> openCancelDestination(player, action);
             default -> invalid(player);
@@ -512,26 +558,29 @@ public final class MazeMenu implements Listener {
     }
 
     private void handleSave(Player player, InventoryClickEvent event, MazeMenuAction action) {
-        int slot = integer(action, 0, 1, 3);
-        UUID owner = action.uuid(1).orElse(player.getUniqueId());
+        if (action.arguments().size() < 2) { invalid(player); return; }
+        String mazeId = action.arguments().get(0);
+        int slot = integer(action, 1, 1, 3);
+        UUID owner = action.uuid(2).orElse(player.getUniqueId());
         if (event.isShiftClick()) {
-            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.SAVE_DELETE, Integer.toString(slot), owner.toString()));
+            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.SAVE_DELETE, mazeId, Integer.toString(slot), owner.toString()));
         } else if (event.isRightClick()) {
-            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.SAVE_START, Integer.toString(slot)));
+            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.SAVE_START, mazeId, Integer.toString(slot)));
         } else {
             player.closeInventory();
-            runtime.requestResume(player, slot, owner);
+            runtime.requestResume(player, mazeId, slot, owner);
         }
     }
 
     private void handleAdminSave(Player player, InventoryClickEvent event, MazeMenuAction action) {
-        UUID ownerId = action.uuid(0).orElse(null);
-        int slot = integer(action, 1, 1, 3);
+        String mazeId = action.arguments().get(0);
+        UUID ownerId = action.uuid(1).orElse(null);
+        int slot = integer(action, 2, 1, 3);
         if (ownerId == null) { invalid(player); return; }
         if (event.isShiftClick()) {
-            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.ADMIN_DELETE, ownerId.toString(), Integer.toString(slot)));
+            openConfirm(player, MazeMenuAction.of(MazeMenuAction.Type.ADMIN_DELETE, mazeId, ownerId.toString(), Integer.toString(slot)));
         } else if (event.isRightClick()) {
-            openAdminTransfer(player, ownerId, slot);
+            openAdminTransfer(player, mazeId, ownerId, slot);
         }
     }
 
@@ -567,19 +616,20 @@ public final class MazeMenu implements Listener {
             case PARTY_KICK -> player(requested, 0).ifPresentOrElse(target -> runtime.kick(player, target), () -> invalid(player));
             case PARTY_LEAVE -> runtime.leaveOpenParty(player);
             case PARTY_DISBAND -> runtime.disbandParty(player);
-            case SAVE_START -> runtime.requestStart(player, integer(requested, 0, 1, 3), true);
-            case SAVE_DELETE -> runtime.deleteSave(player, requested.uuid(1).orElse(player.getUniqueId()), integer(requested, 0, 1, 3));
+            case SAVE_START -> runtime.requestStart(player, requested.arguments().get(0), integer(requested, 1, 1, 3), true);
+            case SAVE_DELETE -> runtime.deleteSave(player, requested.arguments().get(0),
+                    requested.uuid(2).orElse(player.getUniqueId()), integer(requested, 1, 1, 3));
             case RUN_LEAVE -> runtime.leave(player);
             case QUEUE_CANCEL -> runtime.cancelQueue(player);
             case ADMIN_RELOAD -> { if (requireAdmin(player)) reloadAction.accept(player); }
             case ADMIN_DELETE -> {
-                if (requireAdmin(player)) runtime.deleteSave(player,
-                        requested.uuid(0).orElse(player.getUniqueId()), integer(requested, 1, 1, 3));
+                if (requireAdmin(player)) runtime.deleteSave(player, requested.arguments().get(0),
+                        requested.uuid(1).orElse(player.getUniqueId()), integer(requested, 2, 1, 3));
             }
             case ADMIN_TRANSFER -> {
-                if (requireAdmin(player) && requested.uuid(0).isPresent() && requested.uuid(2).isPresent()) {
-                    runtime.transferOwnership(player, requested.uuid(0).orElseThrow(),
-                            integer(requested, 1, 1, 3), requested.uuid(2).orElseThrow());
+                if (requireAdmin(player) && requested.uuid(1).isPresent() && requested.uuid(3).isPresent()) {
+                    runtime.transferOwnership(player, requested.arguments().get(0), requested.uuid(1).orElseThrow(),
+                            integer(requested, 2, 1, 3), requested.uuid(3).orElseThrow());
                 }
             }
             default -> invalid(player);
@@ -610,8 +660,8 @@ public final class MazeMenu implements Listener {
             int position = 18 + slot * 2;
             if (save == null) {
                 inventory.setItem(position, items.model(saveSlotModel(slot), administrator ? "§7빈 슬롯 " + slot : "§a빈 슬롯 " + slot,
-                        administrator ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, holder.subjectId.toString())
-                                : MazeMenuAction.of(MazeMenuAction.Type.SAVE_START, Integer.toString(slot)),
+                        administrator ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, holder.mazeId, holder.subjectId.toString())
+                                : MazeMenuAction.of(MazeMenuAction.Type.SAVE_START, holder.mazeId, Integer.toString(slot)),
                         administrator ? List.of("§8관리할 세이브가 없습니다.")
                                 : List.of("§7새 미궁을 처음부터 시작합니다.", "", "§a클릭 후 확인")));
             } else {
@@ -632,13 +682,13 @@ public final class MazeMenu implements Listener {
                 }
                 inventory.setItem(position, items.model(saveSlotModel(slot), "§e슬롯 " + slot + " · 저장됨",
                         administrator
-                                ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, holder.subjectId.toString(), Integer.toString(slot))
-                                : MazeMenuAction.of(MazeMenuAction.Type.SAVE_RESUME, Integer.toString(slot), save.slot().ownerId().toString()), lore));
+                                ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, holder.mazeId, holder.subjectId.toString(), Integer.toString(slot))
+                                : MazeMenuAction.of(MazeMenuAction.Type.SAVE_RESUME, holder.mazeId, Integer.toString(slot), save.slot().ownerId().toString()), lore));
             }
         }
         inventory.setItem(31, items.material(Material.WRITABLE_BOOK, administrator ? "§d관리자 슬롯 안내" : "§7슬롯 사용 안내",
-                administrator ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, holder.subjectId.toString())
-                        : MazeMenuAction.of(MazeMenuAction.Type.SAVES, holder.subjectId.toString()),
+                administrator ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES, holder.mazeId, holder.subjectId.toString())
+                        : MazeMenuAction.of(MazeMenuAction.Type.SAVES, holder.mazeId, holder.subjectId.toString()),
                 administrator ? List.of("§d우클릭 §7소유권 이전", "§cShift+클릭 §7세이브 삭제")
                         : List.of("§a좌클릭 §7진행 재개", "§6우클릭 §7새로 시작", "§cShift+클릭 §7세이브 삭제")));
     }
@@ -673,16 +723,23 @@ public final class MazeMenu implements Listener {
     private MazeMenuAction cancelAction(MazeMenuAction action) {
         return switch (action.type()) {
             case PARTY_KICK, PARTY_LEAVE, PARTY_DISBAND -> MazeMenuAction.of(MazeMenuAction.Type.PARTY);
-            case SAVE_START, SAVE_DELETE -> MazeMenuAction.of(MazeMenuAction.Type.SAVES);
+            case SAVE_START, SAVE_DELETE -> MazeMenuAction.of(MazeMenuAction.Type.MAZES);
             case ADMIN_RELOAD -> MazeMenuAction.of(MazeMenuAction.Type.ADMIN);
-            case ADMIN_DELETE, ADMIN_TRANSFER -> MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES,
-                    action.arguments().isEmpty() ? "" : action.arguments().get(0));
+            case ADMIN_DELETE, ADMIN_TRANSFER -> action.arguments().size() < 2
+                    ? MazeMenuAction.of(MazeMenuAction.Type.ADMIN_PLAYERS, "0")
+                    : MazeMenuAction.of(MazeMenuAction.Type.ADMIN_SAVES,
+                            action.arguments().get(0), action.arguments().get(1));
             default -> MazeMenuAction.of(MazeMenuAction.Type.MAIN);
         };
     }
 
     private MenuHolder create(Player player, MenuType type, UUID subjectId, int value, int size, String title) {
-        MenuHolder holder = new MenuHolder(player.getUniqueId(), type, subjectId, value);
+        return create(player, type, subjectId, value, size, title, null);
+    }
+
+    private MenuHolder create(Player player, MenuType type, UUID subjectId, int value, int size, String title,
+                              String mazeId) {
+        MenuHolder holder = new MenuHolder(player.getUniqueId(), type, subjectId, value, mazeId);
         holder.inventory = Bukkit.createInventory(holder, size, title);
         return holder;
     }
@@ -798,8 +855,8 @@ public final class MazeMenu implements Listener {
     }
 
     private enum MenuType {
-        MAIN, PARTY, INVITATIONS, INVITE_PLAYERS, SAVES, HINTS, LEADERBOARD, CONFIRM,
-        ADMIN, ADMIN_PLAYERS, ADMIN_SAVES, ADMIN_TRANSFER
+        MAIN, PARTY, INVITATIONS, INVITE_PLAYERS, MAZES, SAVES, HINTS, LEADERBOARD, CONFIRM,
+        ADMIN, ADMIN_PLAYERS, ADMIN_MAZES, ADMIN_SAVES, ADMIN_TRANSFER
     }
 
     private static final class MenuHolder implements InventoryHolder {
@@ -807,13 +864,15 @@ public final class MazeMenu implements Listener {
         private final MenuType type;
         private final UUID subjectId;
         private final int value;
+        private final String mazeId;
         private Inventory inventory;
 
-        private MenuHolder(UUID playerId, MenuType type, UUID subjectId, int value) {
+        private MenuHolder(UUID playerId, MenuType type, UUID subjectId, int value, String mazeId) {
             this.playerId = playerId;
             this.type = type;
             this.subjectId = subjectId;
             this.value = value;
+            this.mazeId = mazeId;
         }
 
         @Override

@@ -24,10 +24,7 @@ public record MCPuzzleConfig(
         int afk = config.getInt("instances.afk-timeout-minutes", 10);
         if (afk != 10) throw new IllegalArgumentException("MVP AFK timeout is fixed at 10 minutes");
         String world = config.getString("lobby.world", "world");
-        ConfiguredLobbyDestination lobby = new ConfiguredLobbyDestination(world,
-                config.getDouble("lobby.spawn.x", 0.5), config.getDouble("lobby.spawn.y", 80),
-                config.getDouble("lobby.spawn.z", 0.5), (float) config.getDouble("lobby.spawn.yaw", 0),
-                (float) config.getDouble("lobby.spawn.pitch", 0));
+        ConfiguredLobbyDestination lobby = new ConfiguredLobbyDestination(world);
         boolean opBypass = config.getBoolean("containment.operator-bypass", false);
         Set<String> commands = Set.copyOf(config.getStringList("containment.allowed-commands"));
         if (commands.isEmpty()) commands = Set.of("maze", "미궁");

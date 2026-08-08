@@ -136,10 +136,12 @@ class AnalysisMapImporterTest {
         invalidDraft.put("unexpectedRuntimeFlag", true);
         assertFalse(schema.validate(invalidDraft).isEmpty(), "The strict schema must reject unknown root properties");
 
-        Path committedPack = repositoryRoot.resolve("map-packs/a-to-z-archive-20/map.jsonc");
-        if (Files.isRegularFile(committedPack)) {
-            Set<ValidationMessage> packErrors = schema.validate(MAPPER.readTree(committedPack.toFile()));
-            assertTrue(packErrors.isEmpty(), () -> "Committed pack schema errors: " + packErrors);
+        for (String level : List.of("easy", "normal", "hard")) {
+            Path committedPack = repositoryRoot.resolve("map-packs/difficulty-mazes-30/" + level + ".jsonc");
+            if (Files.isRegularFile(committedPack)) {
+                Set<ValidationMessage> packErrors = schema.validate(MAPPER.readTree(committedPack.toFile()));
+                assertTrue(packErrors.isEmpty(), () -> "Committed pack schema errors: " + packErrors);
+            }
         }
     }
 

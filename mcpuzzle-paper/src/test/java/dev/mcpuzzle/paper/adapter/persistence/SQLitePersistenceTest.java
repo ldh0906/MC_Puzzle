@@ -180,6 +180,35 @@ class SQLitePersistenceTest {
     }
 
     @Test
+    void purgeIncompatibleVersionsDeletesOnlyObsoleteProgressForKnownMazes() {
+        persistence = open("version-purge.db");
+        UUID owner = uuid(1);
+        MapVersion obsoleteVersion = new MapVersion("0.9.0");
+        SaveGame compatible = save(1, owner, MAZE, List.of(owner), sessionId(510), BASE);
+        SaveGame incompatible = withVersion(
+                save(2, owner, MAZE, List.of(owner), sessionId(511), BASE), obsoleteVersion);
+        SaveGame unknownMaze = withVersion(
+                save(1, owner, "retired-maze", List.of(owner), sessionId(512), BASE), obsoleteVersion);
+        for (SaveGame game : List.of(compatible, incompatible, unknownMaze)) {
+            join(persistence.save(game.snapshot()));
+            join(persistence.upsert(game));
+        }
+        CompletedRun oldHistory = run(513, MAZE, obsoleteVersion,
+                new PartyRoster(owner, List.of(owner)), Duration.ofSeconds(5), BASE, 0, 0);
+        join(persistence.record(oldHistory));
+
+        assertEquals(1, join(persistence.purgeIncompatibleVersions(Map.of(MAZE, VERSION))));
+
+        assertTrue(join(persistence.find(owner, MAZE, 1, BASE)).isPresent());
+        assertTrue(join(persistence.find(owner, MAZE, 2, BASE)).isEmpty());
+        assertTrue(join(persistence.find(owner, "retired-maze", 1, BASE)).isPresent());
+        assertTrue(join(persistence.findById(compatible.snapshot().id())).isPresent());
+        assertTrue(join(persistence.findById(incompatible.snapshot().id())).isEmpty());
+        assertTrue(join(persistence.findById(unknownMaze.snapshot().id())).isPresent());
+        assertEquals(oldHistory, join(persistence.find(oldHistory.runId())).orElseThrow());
+    }
+
+    @Test
     void restartRecoveryDiscardsTransientAndInterruptedSessionsButRetainsSuspended() {
         persistence = open("recovery.db");
         PuzzleSessionSnapshot waiting = stateSnapshot(sessionId(601), SessionState.WAITING);
@@ -359,6 +388,23 @@ class SQLitePersistenceTest {
                 snapshot.roster(),
                 snapshot.checkpoint().orElseThrow(),
                 capturedAt
+        );
+        return new SaveGame(slot, snapshot);
+    }
+
+    private static SaveGame withVersion(SaveGame source, MapVersion version) {
+        PuzzleSessionSnapshot original = source.snapshot();
+        PuzzleSessionSnapshot snapshot = new PuzzleSessionSnapshot(
+                original.id(), original.mazeId(), version, original.state(), original.roster(),
+                original.rosterLocked(), original.currentRoom(), original.roomCount(),
+                original.roomAttemptRevision(), original.metrics(), original.hintProgress(),
+                original.checkpoint(), original.activeSince(), original.lastActivityAt(),
+                original.lastSuspendReason(), original.abandonReason(), original.capturedAt()
+        );
+        SaveSlot originalSlot = source.slot();
+        SaveSlot slot = new SaveSlot(
+                originalSlot.number(), originalSlot.ownerId(), originalSlot.mazeId(), version,
+                originalSlot.roster(), originalSlot.checkpoint(), originalSlot.updatedAt()
         );
         return new SaveGame(slot, snapshot);
     }
