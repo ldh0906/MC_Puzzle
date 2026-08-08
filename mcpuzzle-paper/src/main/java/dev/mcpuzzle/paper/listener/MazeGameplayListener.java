@@ -40,7 +40,7 @@ public final class MazeGameplayListener implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         if (registry.sessionOfPlayer(event.getPlayer().getUniqueId()).isEmpty()) return;
         Material held = event.getItem() == null ? Material.AIR : event.getItem().getType();
-        if (allowsEvidenceBook(event.getAction(), held)) {
+        if (allowsMazeBook(event.getAction(), held)) {
             runtime.recordActivity(event.getPlayer());
             return;
         }
@@ -84,7 +84,7 @@ public final class MazeGameplayListener implements Listener {
     public void onRespawn(PlayerRespawnEvent event) {
         runtime.respawnLocation(event.getPlayer()).ifPresent(location -> {
             event.setRespawnLocation(location);
-            plugin.getServer().getScheduler().runTask(plugin, () -> runtime.onUnexpectedRespawn(event.getPlayer()));
+            plugin.getServer().getScheduler().runTask(plugin, () -> runtime.onMazeDeath(event.getPlayer()));
         });
     }
 
@@ -93,7 +93,8 @@ public final class MazeGameplayListener implements Listener {
                 && a.getBlockY() == b.getBlockY() && a.getBlockZ() == b.getBlockZ();
     }
 
-    static boolean allowsEvidenceBook(Action action, Material held) {
-        return action == Action.RIGHT_CLICK_AIR && held == Material.WRITTEN_BOOK;
+    static boolean allowsMazeBook(Action action, Material held) {
+        return action == Action.RIGHT_CLICK_AIR
+                && (held == Material.WRITTEN_BOOK || held == Material.WRITABLE_BOOK);
     }
 }

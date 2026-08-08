@@ -1,0 +1,8510 @@
+{
+  "$schema": "https://mcpuzzle.dev/schema/map-pack.schema.json",
+  "schemaVersion": 1,
+  "mapVersion": "5.1.0-normal12",
+  "mazeId": "midnight-normal",
+  "displayName": "보통 미궁 · 뒤엉킨 관측소",
+  "description": "3·4단계 퍼즐만 모은 추론형 미궁",
+  "locale": "ko-KR",
+  "party": {
+    "minPlayers": 1,
+    "maxPlayers": 4
+  },
+  "world": {
+    "mode": "GENERATED_VOID",
+    "environment": "NORMAL",
+    "bounds": {
+      "min": {
+        "x": -128,
+        "y": 48,
+        "z": -16,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "max": {
+        "x": 128,
+        "y": 96,
+        "z": 192,
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    "floorY": 64,
+    "generator": {
+      "type": "ROOM_STACK",
+      "roomSpacing": 64,
+      "floorMaterial": "POLISHED_DEEPSLATE",
+      "wallMaterial": "DEEPSLATE_BRICKS",
+      "ceilingMaterial": "BLACK_CONCRETE",
+      "lightMaterial": "SEA_LANTERN"
+    }
+  },
+  "partySpawns": [
+    {
+      "x": -99,
+      "y": 65,
+      "z": 4,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "x": -97,
+      "y": 65,
+      "z": 4,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "x": -95,
+      "y": 65,
+      "z": 4,
+      "yaw": 0.0,
+      "pitch": 0.0
+    },
+    {
+      "x": -93,
+      "y": 65,
+      "z": 4,
+      "yaw": 0.0,
+      "pitch": 0.0
+    }
+  ],
+  "source": {
+    "format": "심야의 미궁 난이도 컬렉션 30",
+    "sha256": "5a43f214bba54335e2d39c07c61afc9fd844e00e48bcfbf2a438fed2cbb2cebb"
+  },
+  "rooms": [
+    {
+      "id": "archive-a",
+      "sequence": 1,
+      "originalStage": 1,
+      "title": "철자 보존 법칙",
+      "buildBounds": {
+        "min": {
+          "x": -120,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -72,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": -120,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -72,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": -96,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": -96,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": -111,
+          "y": 64,
+          "z": 10,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "PURPUR_BLOCK"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          2,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-a",
+          "type": "LOGIC_ANSWER",
+          "question": "남은 문자 타일을 빈 슬롯에 SPELLER가 되도록 왼쪽부터 순서대로 꽂으세요.",
+          "pages": [
+            "남은 문자 타일을 빈 슬롯에 SPELLER가 되도록 왼쪽부터 순서대로 꽂으세요."
+          ],
+          "answerFormat": "영어 7글자",
+          "answers": [
+            "speller"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 16,
+          "difficulty": 4,
+          "inspiration": "심야의 기록보관소 · 철자 보존 법칙",
+          "solutionExplanation": "WILLIAMSHAKESPEARE와 IAMAWEAKISHSPELLER는 같은 문자 빈도를 가진다. 남은 문자를 재배열하면 SPELLER다.",
+          "wrongAnswerSamples": [
+            "speaker",
+            "spellar",
+            "letters"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "speller-slots",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "tile-1-s",
+              "token": "S",
+              "label": "S",
+              "activation": "CLICK",
+              "position": {
+                "x": -112,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-2-p",
+              "token": "P",
+              "label": "P",
+              "activation": "CLICK",
+              "position": {
+                "x": -108,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-3-e",
+              "token": "E",
+              "label": "E",
+              "activation": "CLICK",
+              "position": {
+                "x": -104,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-4-l",
+              "token": "L",
+              "label": "L",
+              "activation": "CLICK",
+              "position": {
+                "x": -100,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-5-l",
+              "token": "L",
+              "label": "L",
+              "activation": "CLICK",
+              "position": {
+                "x": -96,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-6-e",
+              "token": "E",
+              "label": "E",
+              "activation": "CLICK",
+              "position": {
+                "x": -92,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-7-r",
+              "token": "R",
+              "label": "R",
+              "activation": "CLICK",
+              "position": {
+                "x": -88,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-a",
+              "token": "A",
+              "label": "A",
+              "activation": "CLICK",
+              "position": {
+                "x": -84,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "tile-t",
+              "token": "T",
+              "label": "T",
+              "activation": "CLICK",
+              "position": {
+                "x": -80,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "tile-1-s",
+              "display": "S"
+            },
+            {
+              "control": "tile-2-p",
+              "display": "P"
+            },
+            {
+              "control": "tile-3-e",
+              "display": "E"
+            },
+            {
+              "control": "tile-4-l",
+              "display": "L"
+            },
+            {
+              "control": "tile-5-l",
+              "display": "L"
+            },
+            {
+              "control": "tile-6-e",
+              "display": "E"
+            },
+            {
+              "control": "tile-7-r",
+              "display": "R"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "SPELLER"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "문자 빈도를 세어 보세요."
+        },
+        {
+          "tier": 2,
+          "text": "남은 글자는 EEllPRS입니다."
+        },
+        {
+          "tier": 3,
+          "text": "S로 시작하고 '철자를 쓰는 사람'을 뜻합니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 남은 문자 타일을 빈 슬롯에 SPELLER가 되도록 왼쪽부터 순서대로 꽂으세요.",
+        "completion": "철자 보존 법칙 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": -116,
+                "y": 65,
+                "z": 46,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": -76,
+                "y": 70,
+                "z": 47,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": -96,
+              "y": 65,
+              "z": 8,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": -112,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "S"
+            ]
+          },
+          {
+            "position": {
+              "x": -108,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "P"
+            ]
+          },
+          {
+            "position": {
+              "x": -104,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "E"
+            ]
+          },
+          {
+            "position": {
+              "x": -100,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "L"
+            ]
+          },
+          {
+            "position": {
+              "x": -96,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "L"
+            ]
+          },
+          {
+            "position": {
+              "x": -92,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "E"
+            ]
+          },
+          {
+            "position": {
+              "x": -88,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "R"
+            ]
+          },
+          {
+            "position": {
+              "x": -84,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "A"
+            ]
+          },
+          {
+            "position": {
+              "x": -80,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "T"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-d",
+      "sequence": 2,
+      "originalStage": 4,
+      "title": "점과 선의 통역",
+      "buildBounds": {
+        "min": {
+          "x": -56,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -8,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": -56,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -8,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": -32,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": -32,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": -47,
+          "y": 64,
+          "z": 10,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "WHITE_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          3,
+          0,
+          3,
+          0,
+          3,
+          3,
+          3,
+          0,
+          3,
+          0,
+          3,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-d",
+          "type": "LOGIC_ANSWER",
+          "question": "점과 선 장치로 LOVE의 모스 신호를 입력해 네 글자를 점등하세요. 그 뒤 연상되는 제목을 채팅으로 제출하세요.",
+          "pages": [
+            "점과 선 장치로 LOVE의 모스 신호를 입력해 네 글자를 점등하세요. 그 뒤 연상되는 제목을 채팅으로 제출하세요."
+          ],
+          "answerFormat": "띄어쓰기 없는 한글",
+          "answers": [
+            "사랑과전쟁"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 점과 선의 통역",
+          "solutionExplanation": "모스는 LOVE, 번역하면 사랑이다. 뒤 자모는 전쟁이고 &는 과이므로 사랑과전쟁이다.",
+          "wrongAnswerSamples": [
+            "loveandwar",
+            "사랑전쟁",
+            "러브와전쟁"
+          ],
+          "submissionMode": "CHAT",
+          "requires": [
+            "love-signal"
+          ]
+        },
+        {
+          "id": "love-signal",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "dot",
+              "token": ".",
+              "label": "점 ·",
+              "activation": "CLICK",
+              "position": {
+                "x": -34,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "dash",
+              "token": "-",
+              "label": "선 —",
+              "activation": "CLICK",
+              "position": {
+                "x": -30,
+                "y": 67,
+                "z": 36,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "dot",
+              "display": "."
+            },
+            {
+              "control": "dash",
+              "display": "-"
+            },
+            {
+              "control": "dot",
+              "display": "."
+            },
+            {
+              "control": "dot",
+              "display": "."
+            },
+            {
+              "control": "dash",
+              "display": "-"
+            },
+            {
+              "control": "dash",
+              "display": "-"
+            },
+            {
+              "control": "dash",
+              "display": "-"
+            },
+            {
+              "control": "dot",
+              "display": "."
+            },
+            {
+              "control": "dot",
+              "display": "."
+            },
+            {
+              "control": "dot",
+              "display": "."
+            },
+            {
+              "control": "dash",
+              "display": "-"
+            },
+            {
+              "control": "dot",
+              "display": "."
+            }
+          ],
+          "groups": [
+            4,
+            3,
+            4,
+            1
+          ],
+          "operatorLockSeconds": 10,
+          "resultText": "LOVE"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "앞 모스는 LOVE입니다."
+        },
+        {
+          "tier": 2,
+          "text": "LOVE를 한글 두 글자로 번역하세요."
+        },
+        {
+          "tier": 3,
+          "text": "&를 '과'로 읽어 사랑+과+전쟁을 합치세요."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 점과 선 장치로 LOVE의 모스 신호를 입력해 네 글자를 점등하세요. 그 뒤 연상되는 제목을 채팅으로 제출하세요.",
+        "completion": "점과 선의 통역 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": -52,
+                "y": 65,
+                "z": 46,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": -12,
+                "y": 70,
+                "z": 47,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": -32,
+              "y": 65,
+              "z": 8,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": -34,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "점 ·"
+            ]
+          },
+          {
+            "position": {
+              "x": -30,
+              "y": 65,
+              "z": 36,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "선 —"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-f",
+      "sequence": 3,
+      "originalStage": 6,
+      "title": "꽃과 돌의 좌표",
+      "buildBounds": {
+        "min": {
+          "x": 8,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 56,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": 8,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 56,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": 32,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": 32,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": 17,
+          "y": 64,
+          "z": 10,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "GOLD_BLOCK"
+          },
+          {
+            "tile": 3,
+            "material": "PURPUR_BLOCK"
+          },
+          {
+            "tile": 4,
+            "material": "RED_CONCRETE"
+          },
+          {
+            "tile": 5,
+            "material": "WHITE_CONCRETE"
+          },
+          {
+            "tile": 6,
+            "material": "BLUE_CONCRETE"
+          },
+          {
+            "tile": 7,
+            "material": "LIME_CONCRETE"
+          },
+          {
+            "tile": 8,
+            "material": "YELLOW_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          2,
+          0,
+          6,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          7,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-f",
+          "type": "LOGIC_ANSWER",
+          "question": "6×6 격자에서 기록된 여섯 좌표를 순서대로 밟으세요. 좌표는 (열,행)입니다.",
+          "pages": [
+            "6×6 격자에서 기록된 여섯 좌표를 순서대로 밟으세요. 좌표는 (열,행)입니다."
+          ],
+          "answerFormat": "영어 6글자",
+          "answers": [
+            "flower"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 꽃과 돌의 좌표",
+          "solutionExplanation": "여섯 달의 꽃 행과 돌 열은 (1,4),(2,2),(3,6),(4,1),(5,3),(6,5)이며 F-L-O-W-E-R다.",
+          "wrongAnswerSamples": [
+            "flawer",
+            "garden",
+            "stone"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "flower-grid",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "c1-1",
+              "token": "1,1",
+              "label": "(1,1)",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 14,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c2-1",
+              "token": "2,1",
+              "label": "(2,1)",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 14,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c3-1",
+              "token": "3,1",
+              "label": "(3,1)",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 14,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c4-1",
+              "token": "4,1",
+              "label": "(4,1)",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 14,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c5-1",
+              "token": "5,1",
+              "label": "(5,1)",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 14,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c6-1",
+              "token": "6,1",
+              "label": "(6,1)",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 14,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c1-2",
+              "token": "1,2",
+              "label": "(1,2)",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 19,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c2-2",
+              "token": "2,2",
+              "label": "(2,2)",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 19,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c3-2",
+              "token": "3,2",
+              "label": "(3,2)",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 19,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c4-2",
+              "token": "4,2",
+              "label": "(4,2)",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 19,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c5-2",
+              "token": "5,2",
+              "label": "(5,2)",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 19,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c6-2",
+              "token": "6,2",
+              "label": "(6,2)",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 19,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c1-3",
+              "token": "1,3",
+              "label": "(1,3)",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 24,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c2-3",
+              "token": "2,3",
+              "label": "(2,3)",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 24,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c3-3",
+              "token": "3,3",
+              "label": "(3,3)",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 24,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c4-3",
+              "token": "4,3",
+              "label": "(4,3)",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 24,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c5-3",
+              "token": "5,3",
+              "label": "(5,3)",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 24,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c6-3",
+              "token": "6,3",
+              "label": "(6,3)",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 24,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c1-4",
+              "token": "1,4",
+              "label": "(1,4)",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 29,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c2-4",
+              "token": "2,4",
+              "label": "(2,4)",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 29,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c3-4",
+              "token": "3,4",
+              "label": "(3,4)",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 29,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c4-4",
+              "token": "4,4",
+              "label": "(4,4)",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 29,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c5-4",
+              "token": "5,4",
+              "label": "(5,4)",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 29,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c6-4",
+              "token": "6,4",
+              "label": "(6,4)",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 29,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c1-5",
+              "token": "1,5",
+              "label": "(1,5)",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 34,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c2-5",
+              "token": "2,5",
+              "label": "(2,5)",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 34,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c3-5",
+              "token": "3,5",
+              "label": "(3,5)",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 34,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c4-5",
+              "token": "4,5",
+              "label": "(4,5)",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 34,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c5-5",
+              "token": "5,5",
+              "label": "(5,5)",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 34,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c6-5",
+              "token": "6,5",
+              "label": "(6,5)",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 34,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c1-6",
+              "token": "1,6",
+              "label": "(1,6)",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 39,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c2-6",
+              "token": "2,6",
+              "label": "(2,6)",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 39,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c3-6",
+              "token": "3,6",
+              "label": "(3,6)",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 39,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c4-6",
+              "token": "4,6",
+              "label": "(4,6)",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 39,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c5-6",
+              "token": "5,6",
+              "label": "(5,6)",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 39,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            },
+            {
+              "id": "c6-6",
+              "token": "6,6",
+              "label": "(6,6)",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 39,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIGHT_BLUE_CONCRETE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "c1-4",
+              "display": "F"
+            },
+            {
+              "control": "c2-2",
+              "display": "L"
+            },
+            {
+              "control": "c3-6",
+              "display": "O"
+            },
+            {
+              "control": "c4-1",
+              "display": "W"
+            },
+            {
+              "control": "c5-3",
+              "display": "E"
+            },
+            {
+              "control": "c6-5",
+              "display": "R"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "FLOWER"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "꽃 번호는 행, 돌 번호는 열입니다."
+        },
+        {
+          "tier": 2,
+          "text": "첫 두 좌표는 (1,4), (2,2)입니다."
+        },
+        {
+          "tier": 3,
+          "text": "좌표 글자는 F-L-O-W-E-R입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 6×6 격자에서 기록된 여섯 좌표를 순서대로 밟으세요. 좌표는 (열,행)입니다.",
+        "completion": "꽃과 돌의 좌표 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": 12,
+                "y": 65,
+                "z": 46,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 52,
+                "y": 70,
+                "z": 47,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": 32,
+              "y": 65,
+              "z": 8,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": 32,
+              "y": 65,
+              "z": 44,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "열 1 2 3 4 5 6"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-i",
+      "sequence": 4,
+      "originalStage": 9,
+      "title": "백 번째 순환",
+      "buildBounds": {
+        "min": {
+          "x": 72,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 120,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": 72,
+          "y": 60,
+          "z": 0,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 120,
+          "y": 78,
+          "z": 48,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": 96,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": 96,
+        "y": 65,
+        "z": 4,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": 81,
+          "y": 64,
+          "z": 10,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "GOLD_BLOCK"
+          },
+          {
+            "tile": 4,
+            "material": "WHITE_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          0,
+          0,
+          2,
+          4,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-i",
+          "type": "LOGIC_ANSWER",
+          "question": "원형 숫자 궤도에서 규칙에 맞는 여섯 숫자를 순서대로 밟으세요.",
+          "pages": [
+            "원형 숫자 궤도에서 규칙에 맞는 여섯 숫자를 순서대로 밟으세요."
+          ],
+          "answerFormat": "숫자 6자리",
+          "answers": [
+            "857142"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 백 번째 순환",
+          "solutionExplanation": "순환마디는 142857이고 100=6×16+4이므로 4번째부터 한 주기는 857142다.",
+          "wrongAnswerSamples": [
+            "142857",
+            "714285",
+            "571428"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "number-orbit",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "number-1",
+              "token": "1",
+              "label": "1",
+              "activation": "STEP",
+              "position": {
+                "x": 107,
+                "y": 65,
+                "z": 27,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "ORANGE_CONCRETE"
+            },
+            {
+              "id": "number-2",
+              "token": "2",
+              "label": "2",
+              "activation": "STEP",
+              "position": {
+                "x": 102,
+                "y": 65,
+                "z": 37,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "ORANGE_CONCRETE"
+            },
+            {
+              "id": "number-4",
+              "token": "4",
+              "label": "4",
+              "activation": "STEP",
+              "position": {
+                "x": 90,
+                "y": 65,
+                "z": 37,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "ORANGE_CONCRETE"
+            },
+            {
+              "id": "number-5",
+              "token": "5",
+              "label": "5",
+              "activation": "STEP",
+              "position": {
+                "x": 85,
+                "y": 65,
+                "z": 27,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "ORANGE_CONCRETE"
+            },
+            {
+              "id": "number-7",
+              "token": "7",
+              "label": "7",
+              "activation": "STEP",
+              "position": {
+                "x": 90,
+                "y": 65,
+                "z": 17,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "ORANGE_CONCRETE"
+            },
+            {
+              "id": "number-8",
+              "token": "8",
+              "label": "8",
+              "activation": "STEP",
+              "position": {
+                "x": 102,
+                "y": 65,
+                "z": 17,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "ORANGE_CONCRETE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "number-8",
+              "display": "8"
+            },
+            {
+              "control": "number-5",
+              "display": "5"
+            },
+            {
+              "control": "number-7",
+              "display": "7"
+            },
+            {
+              "control": "number-1",
+              "display": "1"
+            },
+            {
+              "control": "number-4",
+              "display": "4"
+            },
+            {
+              "control": "number-2",
+              "display": "2"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "857142"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "반복되는 최소 묶음의 길이를 찾으세요."
+        },
+        {
+          "tier": 2,
+          "text": "100을 순환 길이 6으로 나눈 나머지는 4입니다."
+        },
+        {
+          "tier": 3,
+          "text": "4번째 숫자부터 한 주기는 857142입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 원형 숫자 궤도에서 규칙에 맞는 여섯 숫자를 순서대로 밟으세요.",
+        "completion": "백 번째 순환 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": 76,
+                "y": 65,
+                "z": 46,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 116,
+                "y": 70,
+                "z": 47,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": 96,
+              "y": 65,
+              "z": 8,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": 107,
+              "y": 65,
+              "z": 25,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "WEST",
+            "lines": [
+              "1"
+            ]
+          },
+          {
+            "position": {
+              "x": 102,
+              "y": 65,
+              "z": 35,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "2"
+            ]
+          },
+          {
+            "position": {
+              "x": 90,
+              "y": 65,
+              "z": 35,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "4"
+            ]
+          },
+          {
+            "position": {
+              "x": 85,
+              "y": 65,
+              "z": 25,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "EAST",
+            "lines": [
+              "5"
+            ]
+          },
+          {
+            "position": {
+              "x": 90,
+              "y": 65,
+              "z": 19,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "SOUTH",
+            "lines": [
+              "7"
+            ]
+          },
+          {
+            "position": {
+              "x": 102,
+              "y": 65,
+              "z": 19,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "SOUTH",
+            "lines": [
+              "8"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-l",
+      "sequence": 5,
+      "originalStage": 12,
+      "title": "일곱 선분 기록",
+      "buildBounds": {
+        "min": {
+          "x": -120,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -72,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": -120,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -72,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": -96,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": -96,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": -111,
+          "y": 64,
+          "z": 74,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "RED_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-l",
+          "type": "LOGIC_ANSWER",
+          "question": "다섯 일곱 선분 패널의 모양을 읽고 대응하는 영문자를 차례대로 누르세요.",
+          "pages": [
+            "다섯 일곱 선분 패널의 모양을 읽고 대응하는 영문자를 차례대로 누르세요."
+          ],
+          "answerFormat": "영어 5글자",
+          "answers": [
+            "sound"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 일곱 선분 기록",
+          "solutionExplanation": "점등 모양은 차례대로 S,O,U,n,d이므로 SOUND다.",
+          "wrongAnswerSamples": [
+            "south",
+            "round",
+            "seven"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "segment-entry",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "s",
+              "token": "S",
+              "label": "S",
+              "activation": "CLICK",
+              "position": {
+                "x": -112,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "o",
+              "token": "O",
+              "label": "O",
+              "activation": "CLICK",
+              "position": {
+                "x": -108,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "u",
+              "token": "U",
+              "label": "U",
+              "activation": "CLICK",
+              "position": {
+                "x": -104,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "n",
+              "token": "N",
+              "label": "N",
+              "activation": "CLICK",
+              "position": {
+                "x": -100,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "d",
+              "token": "D",
+              "label": "D",
+              "activation": "CLICK",
+              "position": {
+                "x": -96,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "a",
+              "token": "A",
+              "label": "A",
+              "activation": "CLICK",
+              "position": {
+                "x": -92,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "b",
+              "token": "B",
+              "label": "B",
+              "activation": "CLICK",
+              "position": {
+                "x": -88,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "c",
+              "token": "C",
+              "label": "C",
+              "activation": "CLICK",
+              "position": {
+                "x": -84,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "e",
+              "token": "E",
+              "label": "E",
+              "activation": "CLICK",
+              "position": {
+                "x": -80,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "s",
+              "display": "S"
+            },
+            {
+              "control": "o",
+              "display": "O"
+            },
+            {
+              "control": "u",
+              "display": "U"
+            },
+            {
+              "control": "n",
+              "display": "N"
+            },
+            {
+              "control": "d",
+              "display": "D"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "SOUND"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "첫 글자는 S입니다."
+        },
+        {
+          "tier": 2,
+          "text": "가운데 세 글자는 O-U-N입니다."
+        },
+        {
+          "tier": 3,
+          "text": "S O U N D로 읽힙니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 다섯 일곱 선분 패널의 모양을 읽고 대응하는 영문자를 차례대로 누르세요.",
+        "completion": "일곱 선분 기록 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": -116,
+                "y": 65,
+                "z": 110,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": -76,
+                "y": 70,
+                "z": 111,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": -96,
+              "y": 65,
+              "z": 72,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": -108,
+              "y": 65,
+              "z": 84,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "패널 1"
+            ]
+          },
+          {
+            "position": {
+              "x": -102,
+              "y": 65,
+              "z": 84,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "패널 2"
+            ]
+          },
+          {
+            "position": {
+              "x": -96,
+              "y": 65,
+              "z": 84,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "패널 3"
+            ]
+          },
+          {
+            "position": {
+              "x": -90,
+              "y": 65,
+              "z": 84,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "패널 4"
+            ]
+          },
+          {
+            "position": {
+              "x": -84,
+              "y": 65,
+              "z": 84,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "패널 5"
+            ]
+          },
+          {
+            "position": {
+              "x": -112,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "S"
+            ]
+          },
+          {
+            "position": {
+              "x": -108,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "O"
+            ]
+          },
+          {
+            "position": {
+              "x": -104,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "U"
+            ]
+          },
+          {
+            "position": {
+              "x": -100,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "N"
+            ]
+          },
+          {
+            "position": {
+              "x": -96,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "D"
+            ]
+          },
+          {
+            "position": {
+              "x": -92,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "A"
+            ]
+          },
+          {
+            "position": {
+              "x": -88,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "B"
+            ]
+          },
+          {
+            "position": {
+              "x": -84,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "C"
+            ]
+          },
+          {
+            "position": {
+              "x": -80,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "E"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-m",
+      "sequence": 6,
+      "originalStage": 13,
+      "title": "두 악보의 먹이",
+      "buildBounds": {
+        "min": {
+          "x": -56,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -8,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": -56,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -8,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": -32,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": -32,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": -47,
+          "y": 64,
+          "z": 74,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "PURPUR_BLOCK"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          2,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-m",
+          "type": "LOGIC_ANSWER",
+          "question": "다섯 음표·음절 발판을 모두 직접 밟아 FEED와 BA-NA-NA를 확인한 뒤 먹이를 떠올려 동물 이름을 채팅으로 제출하세요.",
+          "pages": [
+            "다섯 음표·음절 발판을 모두 직접 밟아 FEED와 BA-NA-NA를 확인한 뒤 먹이를 떠올려 동물 이름을 채팅으로 제출하세요."
+          ],
+          "answerFormat": "영어 동물 이름",
+          "answers": [
+            "monkey",
+            "원숭이"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 두 악보의 먹이",
+          "solutionExplanation": "파미미레=FEED, 파시시=BANANA다. FEED BANANA가 가리키는 대표 동물은 MONKEY다.",
+          "wrongAnswerSamples": [
+            "banana",
+            "gorilla",
+            "feed"
+          ],
+          "submissionMode": "CHAT",
+          "requires": [
+            "food-sounds"
+          ]
+        },
+        {
+          "id": "food-sounds",
+          "type": "CLUE_REGIONS",
+          "regions": [
+            {
+              "id": "feed-f",
+              "bounds": {
+                "min": {
+                  "x": -45,
+                  "y": 64,
+                  "z": 91,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                },
+                "max": {
+                  "x": -43,
+                  "y": 67,
+                  "z": 93,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                }
+              },
+              "message": "첫 장치: F",
+              "sound": "BLOCK_NOTE_BLOCK_HARP",
+              "pitch": 0.7
+            },
+            {
+              "id": "feed-eed",
+              "bounds": {
+                "min": {
+                  "x": -39,
+                  "y": 64,
+                  "z": 91,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                },
+                "max": {
+                  "x": -37,
+                  "y": 67,
+                  "z": 93,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                }
+              },
+              "message": "둘째 장치: EED",
+              "sound": "BLOCK_NOTE_BLOCK_HARP",
+              "pitch": 0.9
+            },
+            {
+              "id": "banana-ba",
+              "bounds": {
+                "min": {
+                  "x": -33,
+                  "y": 64,
+                  "z": 91,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                },
+                "max": {
+                  "x": -31,
+                  "y": 67,
+                  "z": 93,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                }
+              },
+              "message": "셋째 장치: BA",
+              "sound": "BLOCK_NOTE_BLOCK_HARP",
+              "pitch": 1.0
+            },
+            {
+              "id": "banana-na1",
+              "bounds": {
+                "min": {
+                  "x": -27,
+                  "y": 64,
+                  "z": 91,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                },
+                "max": {
+                  "x": -25,
+                  "y": 67,
+                  "z": 93,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                }
+              },
+              "message": "넷째 장치: NA",
+              "sound": "BLOCK_NOTE_BLOCK_HARP",
+              "pitch": 1.2
+            },
+            {
+              "id": "banana-na2",
+              "bounds": {
+                "min": {
+                  "x": -21,
+                  "y": 64,
+                  "z": 91,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                },
+                "max": {
+                  "x": -19,
+                  "y": 67,
+                  "z": 93,
+                  "yaw": 0.0,
+                  "pitch": 0.0
+                }
+              },
+              "message": "다섯째 장치: NA",
+              "sound": "BLOCK_NOTE_BLOCK_HARP",
+              "pitch": 1.4
+            }
+          ]
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "첫 악보는 FEED입니다."
+        },
+        {
+          "tier": 2,
+          "text": "두 번째 악보는 BANANA입니다."
+        },
+        {
+          "tier": 3,
+          "text": "바나나를 먹는 대표 동물을 떠올리세요."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 다섯 음표·음절 발판을 모두 직접 밟아 FEED와 BA-NA-NA를 확인한 뒤 먹이를 떠올려 동물 이름을 채팅으로 제출하세요.",
+        "completion": "두 악보의 먹이 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [
+          {
+            "position": {
+              "x": -44,
+              "y": 64,
+              "z": 92,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "material": "NOTE_BLOCK"
+          },
+          {
+            "position": {
+              "x": -38,
+              "y": 64,
+              "z": 92,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "material": "NOTE_BLOCK"
+          },
+          {
+            "position": {
+              "x": -32,
+              "y": 64,
+              "z": 92,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "material": "NOTE_BLOCK"
+          },
+          {
+            "position": {
+              "x": -26,
+              "y": 64,
+              "z": 92,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "material": "NOTE_BLOCK"
+          },
+          {
+            "position": {
+              "x": -20,
+              "y": 64,
+              "z": 92,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "material": "NOTE_BLOCK"
+          }
+        ],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": -52,
+                "y": 65,
+                "z": 110,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": -12,
+                "y": 70,
+                "z": 111,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": -32,
+              "y": 65,
+              "z": 72,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": -44,
+              "y": 65,
+              "z": 94,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "F 음"
+            ]
+          },
+          {
+            "position": {
+              "x": -38,
+              "y": 65,
+              "z": 94,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "EED 음"
+            ]
+          },
+          {
+            "position": {
+              "x": -32,
+              "y": 65,
+              "z": 94,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "BA"
+            ]
+          },
+          {
+            "position": {
+              "x": -26,
+              "y": 65,
+              "z": 94,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "NA"
+            ]
+          },
+          {
+            "position": {
+              "x": -20,
+              "y": 65,
+              "z": 94,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "NA"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-q",
+      "sequence": 7,
+      "originalStage": 17,
+      "title": "오른쪽으로 밀린 기록",
+      "buildBounds": {
+        "min": {
+          "x": 8,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 56,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": 8,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 56,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": 32,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": 32,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": 17,
+          "y": 64,
+          "z": 74,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "GOLD_BLOCK"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-q",
+          "type": "LOGIC_ANSWER",
+          "question": "대형 QWERTY 바닥에서 제시된 각 글자의 바로 왼쪽 키를 이어서 밟으세요.",
+          "pages": [
+            "대형 QWERTY 바닥에서 제시된 각 글자의 바로 왼쪽 키를 이어서 밟으세요."
+          ],
+          "answerFormat": "영어 6글자",
+          "answers": [
+            "qwerty"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 오른쪽으로 밀린 기록",
+          "solutionExplanation": "W,E,R,T,Y,U의 왼쪽 이웃은 차례대로 Q,W,E,R,T,Y이므로 QWERTY다.",
+          "wrongAnswerSamples": [
+            "wertyu",
+            "asdfgh",
+            "qwertyuiop"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "keyboard-route",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "key-q",
+              "token": "Q",
+              "label": "Q",
+              "activation": "STEP",
+              "position": {
+                "x": 14,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-w",
+              "token": "W",
+              "label": "W",
+              "activation": "STEP",
+              "position": {
+                "x": 18,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-e",
+              "token": "E",
+              "label": "E",
+              "activation": "STEP",
+              "position": {
+                "x": 22,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-r",
+              "token": "R",
+              "label": "R",
+              "activation": "STEP",
+              "position": {
+                "x": 26,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-t",
+              "token": "T",
+              "label": "T",
+              "activation": "STEP",
+              "position": {
+                "x": 30,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-y",
+              "token": "Y",
+              "label": "Y",
+              "activation": "STEP",
+              "position": {
+                "x": 34,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-u",
+              "token": "U",
+              "label": "U",
+              "activation": "STEP",
+              "position": {
+                "x": 38,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-i",
+              "token": "I",
+              "label": "I",
+              "activation": "STEP",
+              "position": {
+                "x": 42,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-o",
+              "token": "O",
+              "label": "O",
+              "activation": "STEP",
+              "position": {
+                "x": 46,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            },
+            {
+              "id": "key-p",
+              "token": "P",
+              "label": "P",
+              "activation": "STEP",
+              "position": {
+                "x": 50,
+                "y": 65,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "WHITE_CONCRETE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "key-q",
+              "display": "Q"
+            },
+            {
+              "control": "key-w",
+              "display": "W"
+            },
+            {
+              "control": "key-e",
+              "display": "E"
+            },
+            {
+              "control": "key-r",
+              "display": "R"
+            },
+            {
+              "control": "key-t",
+              "display": "T"
+            },
+            {
+              "control": "key-y",
+              "display": "Y"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "QWERTY"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "검산문 TEST→YRDY에서 이동 방향을 확인하세요."
+        },
+        {
+          "tier": 2,
+          "text": "기록 W의 왼쪽은 Q, E의 왼쪽은 W입니다."
+        },
+        {
+          "tier": 3,
+          "text": "복원 결과는 Q-W-E-R-T-Y입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 대형 QWERTY 바닥에서 제시된 각 글자의 바로 왼쪽 키를 이어서 밟으세요.",
+        "completion": "오른쪽으로 밀린 기록 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": 12,
+                "y": 65,
+                "z": 110,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 52,
+                "y": 70,
+                "z": 111,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": 32,
+              "y": 65,
+              "z": 72,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": 32,
+              "y": 65,
+              "z": 98,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "Q W E R T",
+              "Y U I O P"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-s",
+      "sequence": 8,
+      "originalStage": 19,
+      "title": "여덟 번째 궤도",
+      "buildBounds": {
+        "min": {
+          "x": 72,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 120,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": 72,
+          "y": 60,
+          "z": 64,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 120,
+          "y": 78,
+          "z": 112,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": 96,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": 96,
+        "y": 65,
+        "z": 68,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": 81,
+          "y": 64,
+          "z": 74,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "PURPUR_BLOCK"
+          },
+          {
+            "tile": 4,
+            "material": "BLUE_CONCRETE"
+          },
+          {
+            "tile": 5,
+            "material": "YELLOW_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          3,
+          3,
+          3,
+          3,
+          3,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          3,
+          0,
+          4,
+          4,
+          4,
+          4,
+          4,
+          0,
+          3,
+          0,
+          0,
+          1,
+          1,
+          0,
+          3,
+          0,
+          4,
+          4,
+          0,
+          0,
+          0,
+          4,
+          4,
+          0,
+          3,
+          0,
+          1,
+          1,
+          3,
+          0,
+          4,
+          4,
+          0,
+          2,
+          2,
+          2,
+          0,
+          4,
+          4,
+          0,
+          3,
+          1,
+          1,
+          3,
+          0,
+          4,
+          0,
+          2,
+          2,
+          0,
+          2,
+          2,
+          0,
+          4,
+          0,
+          3,
+          1,
+          1,
+          3,
+          0,
+          4,
+          0,
+          2,
+          0,
+          5,
+          0,
+          2,
+          0,
+          4,
+          0,
+          3,
+          1,
+          1,
+          3,
+          0,
+          4,
+          0,
+          2,
+          2,
+          0,
+          2,
+          2,
+          0,
+          4,
+          0,
+          3,
+          1,
+          1,
+          3,
+          0,
+          4,
+          4,
+          0,
+          2,
+          2,
+          2,
+          0,
+          4,
+          4,
+          0,
+          3,
+          1,
+          1,
+          0,
+          3,
+          0,
+          4,
+          4,
+          0,
+          0,
+          0,
+          4,
+          4,
+          0,
+          3,
+          0,
+          1,
+          1,
+          0,
+          0,
+          3,
+          0,
+          4,
+          4,
+          4,
+          4,
+          4,
+          0,
+          3,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          3,
+          3,
+          3,
+          3,
+          3,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-s",
+          "type": "LOGIC_ANSWER",
+          "question": "여덟 번째 행성 전시를 보고 이름을 이루는 세 한자 봉인을 순서대로 여세요.",
+          "pages": [
+            "여덟 번째 행성 전시를 보고 이름을 이루는 세 한자 봉인을 순서대로 여세요."
+          ],
+          "answerFormat": "한글 행성 이름 3글자",
+          "answers": [
+            "해왕성"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 여덟 번째 궤도",
+          "solutionExplanation": "여덟 번째 얼음 거대 행성의 이름 봉인 海王星을 각각 해·왕·성으로 읽는다.",
+          "wrongAnswerSamples": [
+            "천왕성",
+            "명왕성",
+            "수성"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "planet-seals",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "sea",
+              "token": "海",
+              "label": "海",
+              "activation": "CLICK",
+              "position": {
+                "x": 86,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "king",
+              "token": "王",
+              "label": "王",
+              "activation": "CLICK",
+              "position": {
+                "x": 90,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "star",
+              "token": "星",
+              "label": "星",
+              "activation": "CLICK",
+              "position": {
+                "x": 94,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "sky",
+              "token": "天",
+              "label": "天",
+              "activation": "CLICK",
+              "position": {
+                "x": 98,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "earth",
+              "token": "地",
+              "label": "地",
+              "activation": "CLICK",
+              "position": {
+                "x": 102,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "sun",
+              "token": "日",
+              "label": "日",
+              "activation": "CLICK",
+              "position": {
+                "x": 106,
+                "y": 67,
+                "z": 100,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "sea",
+              "display": "海"
+            },
+            {
+              "control": "king",
+              "display": "王"
+            },
+            {
+              "control": "star",
+              "display": "星"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "海王星"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "궤도 목록의 마지막 칸입니다."
+        },
+        {
+          "tier": 2,
+          "text": "봉인 문양은 海-王-星 세 글자입니다."
+        },
+        {
+          "tier": 3,
+          "text": "각 음은 해-왕-성입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 여덟 번째 행성 전시를 보고 이름을 이루는 세 한자 봉인을 순서대로 여세요.",
+        "completion": "여덟 번째 궤도 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": 76,
+                "y": 65,
+                "z": 110,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 116,
+                "y": 70,
+                "z": 111,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          },
+          {
+            "bounds": {
+              "min": {
+                "x": 88,
+                "y": 65,
+                "z": 86,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 104,
+                "y": 70,
+                "z": 92,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "BLUE_ICE"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": 96,
+              "y": 65,
+              "z": 72,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": 96,
+              "y": 65,
+              "z": 83,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "여덟 번째 행성"
+            ]
+          },
+          {
+            "position": {
+              "x": 86,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "海"
+            ]
+          },
+          {
+            "position": {
+              "x": 90,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "王"
+            ]
+          },
+          {
+            "position": {
+              "x": 94,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "星"
+            ]
+          },
+          {
+            "position": {
+              "x": 98,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "天"
+            ]
+          },
+          {
+            "position": {
+              "x": 102,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "地"
+            ]
+          },
+          {
+            "position": {
+              "x": 106,
+              "y": 65,
+              "z": 100,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "日"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-t",
+      "sequence": 9,
+      "originalStage": 20,
+      "title": "열두 지지의 합성",
+      "buildBounds": {
+        "min": {
+          "x": -120,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -72,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": -120,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -72,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": -96,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": -96,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": -111,
+          "y": 64,
+          "z": 138,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "GOLD_BLOCK"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          3,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          3,
+          2,
+          0,
+          0,
+          0,
+          2,
+          3,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          1,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          3,
+          0,
+          0,
+          0,
+          2,
+          3,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          3,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-t",
+          "type": "LOGIC_ANSWER",
+          "question": "열두 지지 글자와 동물 제단을 비교하고 같은 자리를 뜻하는 글자와 동물을 차례로 고르세요.",
+          "pages": [
+            "열두 지지 글자와 동물 제단을 비교하고 같은 자리를 뜻하는 글자와 동물을 차례로 고르세요."
+          ],
+          "answerFormat": "한글 2글자",
+          "answers": [
+            "축소"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 열두 지지의 합성",
+          "solutionExplanation": "수수께끼의 순번은 둘째다. 지지의 둘째는 축, 동물의 둘째는 소이므로 축소다.",
+          "wrongAnswerSamples": [
+            "소축",
+            "축우",
+            "자쥐"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "zodiac-altars",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "altar-0",
+              "token": "자",
+              "label": "자",
+              "activation": "CLICK",
+              "position": {
+                "x": -110,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-1",
+              "token": "축",
+              "label": "축",
+              "activation": "CLICK",
+              "position": {
+                "x": -106,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-2",
+              "token": "인",
+              "label": "인",
+              "activation": "CLICK",
+              "position": {
+                "x": -102,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-3",
+              "token": "묘",
+              "label": "묘",
+              "activation": "CLICK",
+              "position": {
+                "x": -98,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-4",
+              "token": "진",
+              "label": "진",
+              "activation": "CLICK",
+              "position": {
+                "x": -94,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-5",
+              "token": "사",
+              "label": "사",
+              "activation": "CLICK",
+              "position": {
+                "x": -90,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-6",
+              "token": "오",
+              "label": "오",
+              "activation": "CLICK",
+              "position": {
+                "x": -86,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-7",
+              "token": "미",
+              "label": "미",
+              "activation": "CLICK",
+              "position": {
+                "x": -82,
+                "y": 67,
+                "z": 154,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-8",
+              "token": "신",
+              "label": "신",
+              "activation": "CLICK",
+              "position": {
+                "x": -110,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-9",
+              "token": "유",
+              "label": "유",
+              "activation": "CLICK",
+              "position": {
+                "x": -106,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-10",
+              "token": "술",
+              "label": "술",
+              "activation": "CLICK",
+              "position": {
+                "x": -102,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-11",
+              "token": "해",
+              "label": "해",
+              "activation": "CLICK",
+              "position": {
+                "x": -98,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-12",
+              "token": "쥐",
+              "label": "쥐",
+              "activation": "CLICK",
+              "position": {
+                "x": -94,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-13",
+              "token": "소",
+              "label": "소",
+              "activation": "CLICK",
+              "position": {
+                "x": -90,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-14",
+              "token": "호랑이",
+              "label": "호랑이",
+              "activation": "CLICK",
+              "position": {
+                "x": -86,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-15",
+              "token": "토끼",
+              "label": "토끼",
+              "activation": "CLICK",
+              "position": {
+                "x": -82,
+                "y": 67,
+                "z": 160,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-16",
+              "token": "용",
+              "label": "용",
+              "activation": "CLICK",
+              "position": {
+                "x": -110,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-17",
+              "token": "뱀",
+              "label": "뱀",
+              "activation": "CLICK",
+              "position": {
+                "x": -106,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-18",
+              "token": "말",
+              "label": "말",
+              "activation": "CLICK",
+              "position": {
+                "x": -102,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-19",
+              "token": "양",
+              "label": "양",
+              "activation": "CLICK",
+              "position": {
+                "x": -98,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-20",
+              "token": "원숭이",
+              "label": "원숭이",
+              "activation": "CLICK",
+              "position": {
+                "x": -94,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-21",
+              "token": "닭",
+              "label": "닭",
+              "activation": "CLICK",
+              "position": {
+                "x": -90,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-22",
+              "token": "개",
+              "label": "개",
+              "activation": "CLICK",
+              "position": {
+                "x": -86,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "altar-23",
+              "token": "돼지",
+              "label": "돼지",
+              "activation": "CLICK",
+              "position": {
+                "x": -82,
+                "y": 67,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "altar-1",
+              "display": "축"
+            },
+            {
+              "control": "altar-13",
+              "display": "소"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "축소"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "두 줄에서 같은 순번을 사용합니다."
+        },
+        {
+          "tier": 2,
+          "text": "수수께끼는 둘째를 뜻합니다."
+        },
+        {
+          "tier": 3,
+          "text": "지지 둘째 뒤에 동물 둘째를 붙이세요."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 열두 지지 글자와 동물 제단을 비교하고 같은 자리를 뜻하는 글자와 동물을 차례로 고르세요.",
+        "completion": "열두 지지의 합성 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": -116,
+                "y": 65,
+                "z": 174,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": -76,
+                "y": 70,
+                "z": 175,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": -96,
+              "y": 65,
+              "z": 136,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": -110,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "자"
+            ]
+          },
+          {
+            "position": {
+              "x": -106,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "축"
+            ]
+          },
+          {
+            "position": {
+              "x": -102,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "인"
+            ]
+          },
+          {
+            "position": {
+              "x": -98,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "묘"
+            ]
+          },
+          {
+            "position": {
+              "x": -94,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "진"
+            ]
+          },
+          {
+            "position": {
+              "x": -90,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "사"
+            ]
+          },
+          {
+            "position": {
+              "x": -86,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "오"
+            ]
+          },
+          {
+            "position": {
+              "x": -82,
+              "y": 65,
+              "z": 154,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "미"
+            ]
+          },
+          {
+            "position": {
+              "x": -110,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "신"
+            ]
+          },
+          {
+            "position": {
+              "x": -106,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "유"
+            ]
+          },
+          {
+            "position": {
+              "x": -102,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "술"
+            ]
+          },
+          {
+            "position": {
+              "x": -98,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "해"
+            ]
+          },
+          {
+            "position": {
+              "x": -94,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "쥐"
+            ]
+          },
+          {
+            "position": {
+              "x": -90,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "소"
+            ]
+          },
+          {
+            "position": {
+              "x": -86,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "호랑이"
+            ]
+          },
+          {
+            "position": {
+              "x": -82,
+              "y": 65,
+              "z": 160,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "토끼"
+            ]
+          },
+          {
+            "position": {
+              "x": -110,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "용"
+            ]
+          },
+          {
+            "position": {
+              "x": -106,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "뱀"
+            ]
+          },
+          {
+            "position": {
+              "x": -102,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "말"
+            ]
+          },
+          {
+            "position": {
+              "x": -98,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "양"
+            ]
+          },
+          {
+            "position": {
+              "x": -94,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "원숭이"
+            ]
+          },
+          {
+            "position": {
+              "x": -90,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "닭"
+            ]
+          },
+          {
+            "position": {
+              "x": -86,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "개"
+            ]
+          },
+          {
+            "position": {
+              "x": -82,
+              "y": 65,
+              "z": 166,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "돼지"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-w",
+      "sequence": 10,
+      "originalStage": 23,
+      "title": "요일 교차 행렬",
+      "buildBounds": {
+        "min": {
+          "x": -56,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -8,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": -56,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": -8,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": -32,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": -32,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": -47,
+          "y": 64,
+          "z": 138,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "GOLD_BLOCK"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2,
+          2,
+          2,
+          2,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          2,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-w",
+          "type": "LOGIC_ANSWER",
+          "question": "요일 행렬에서 기록된 행과 열의 교차 칸을 차례로 밟아 네 글자를 완성하세요.",
+          "pages": [
+            "요일 행렬에서 기록된 행과 열의 교차 칸을 차례로 밟아 네 글자를 완성하세요."
+          ],
+          "answerFormat": "영어 4글자",
+          "answers": [
+            "mist"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 16,
+          "difficulty": 4,
+          "inspiration": "심야의 기록보관소 · 요일 교차 행렬",
+          "solutionExplanation": "좌표값은 M,I,S,T이므로 MIST다.",
+          "wrongAnswerSamples": [
+            "mars",
+            "mice",
+            "most"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "weekday-matrix",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "cell-0-0",
+              "token": "M",
+              "label": "M",
+              "activation": "STEP",
+              "position": {
+                "x": -38,
+                "y": 65,
+                "z": 150,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-0-1",
+              "token": "A",
+              "label": "A",
+              "activation": "STEP",
+              "position": {
+                "x": -34,
+                "y": 65,
+                "z": 150,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-0-2",
+              "token": "R",
+              "label": "R",
+              "activation": "STEP",
+              "position": {
+                "x": -30,
+                "y": 65,
+                "z": 150,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-0-3",
+              "token": "T",
+              "label": "T",
+              "activation": "STEP",
+              "position": {
+                "x": -26,
+                "y": 65,
+                "z": 150,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-1-0",
+              "token": "O",
+              "label": "O",
+              "activation": "STEP",
+              "position": {
+                "x": -38,
+                "y": 65,
+                "z": 156,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-1-1",
+              "token": "I",
+              "label": "I",
+              "activation": "STEP",
+              "position": {
+                "x": -34,
+                "y": 65,
+                "z": 156,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-1-2",
+              "token": "B",
+              "label": "B",
+              "activation": "STEP",
+              "position": {
+                "x": -30,
+                "y": 65,
+                "z": 156,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-1-3",
+              "token": "C",
+              "label": "C",
+              "activation": "STEP",
+              "position": {
+                "x": -26,
+                "y": 65,
+                "z": 156,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-2-0",
+              "token": "D",
+              "label": "D",
+              "activation": "STEP",
+              "position": {
+                "x": -38,
+                "y": 65,
+                "z": 162,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-2-1",
+              "token": "E",
+              "label": "E",
+              "activation": "STEP",
+              "position": {
+                "x": -34,
+                "y": 65,
+                "z": 162,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-2-2",
+              "token": "S",
+              "label": "S",
+              "activation": "STEP",
+              "position": {
+                "x": -30,
+                "y": 65,
+                "z": 162,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            },
+            {
+              "id": "cell-2-3",
+              "token": "F",
+              "label": "F",
+              "activation": "STEP",
+              "position": {
+                "x": -26,
+                "y": 65,
+                "z": 162,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "CYAN_CONCRETE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "cell-0-0",
+              "display": "M"
+            },
+            {
+              "control": "cell-1-1",
+              "display": "I"
+            },
+            {
+              "control": "cell-2-2",
+              "display": "S"
+            },
+            {
+              "control": "cell-0-3",
+              "display": "T"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "MIST"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "행과 열 순서를 바꾸지 마세요."
+        },
+        {
+          "tier": 2,
+          "text": "첫 두 좌표는 M, I입니다."
+        },
+        {
+          "tier": 3,
+          "text": "마지막 두 좌표는 S, T입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 요일 행렬에서 기록된 행과 열의 교차 칸을 차례로 밟아 네 글자를 완성하세요.",
+        "completion": "요일 교차 행렬 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": -52,
+                "y": 65,
+                "z": 174,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": -12,
+                "y": 70,
+                "z": 175,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": -32,
+              "y": 65,
+              "z": 136,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": -32,
+              "y": 65,
+              "z": 170,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "월/화/수/목 행렬"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-x",
+      "sequence": 11,
+      "originalStage": 24,
+      "title": "세 축의 항해",
+      "buildBounds": {
+        "min": {
+          "x": 8,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 56,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": 8,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 56,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": 32,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": 32,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": 17,
+          "y": 64,
+          "z": 138,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "GOLD_BLOCK"
+          },
+          {
+            "tile": 3,
+            "material": "RED_CONCRETE"
+          },
+          {
+            "tile": 4,
+            "material": "BLUE_CONCRETE"
+          },
+          {
+            "tile": 5,
+            "material": "LIME_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-x",
+          "type": "LOGIC_ANSWER",
+          "question": "여섯 축 버튼으로 중앙 표식을 이동시키세요. 매 이동에서 드러나는 글자가 액션바에 기록됩니다.",
+          "pages": [
+            "여섯 축 버튼으로 중앙 표식을 이동시키세요. 매 이동에서 드러나는 글자가 액션바에 기록됩니다."
+          ],
+          "answerFormat": "영어 6글자",
+          "answers": [
+            "vector"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 14,
+          "difficulty": 3,
+          "inspiration": "심야의 기록보관소 · 세 축의 항해",
+          "solutionExplanation": "각 착지 좌표의 글자는 V,E,C,T,O,R이므로 VECTOR다.",
+          "wrongAnswerSamples": [
+            "vertex",
+            "factor",
+            "sector"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "vector-controls",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "plus-x",
+              "token": "+X",
+              "label": "+X",
+              "activation": "CLICK",
+              "position": {
+                "x": 22,
+                "y": 67,
+                "z": 164,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "plus-y",
+              "token": "+Y",
+              "label": "+Y",
+              "activation": "CLICK",
+              "position": {
+                "x": 26,
+                "y": 67,
+                "z": 164,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "minus-z",
+              "token": "-Z",
+              "label": "-Z",
+              "activation": "CLICK",
+              "position": {
+                "x": 30,
+                "y": 67,
+                "z": 164,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "minus-x",
+              "token": "-X",
+              "label": "-X",
+              "activation": "CLICK",
+              "position": {
+                "x": 34,
+                "y": 67,
+                "z": 164,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "minus-y",
+              "token": "-Y",
+              "label": "-Y",
+              "activation": "CLICK",
+              "position": {
+                "x": 38,
+                "y": 67,
+                "z": 164,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            },
+            {
+              "id": "plus-z",
+              "token": "+Z",
+              "label": "+Z",
+              "activation": "CLICK",
+              "position": {
+                "x": 42,
+                "y": 67,
+                "z": 164,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "POLISHED_BLACKSTONE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "plus-x",
+              "display": "V"
+            },
+            {
+              "control": "plus-y",
+              "display": "E"
+            },
+            {
+              "control": "minus-z",
+              "display": "C"
+            },
+            {
+              "control": "minus-x",
+              "display": "T"
+            },
+            {
+              "control": "minus-y",
+              "display": "O"
+            },
+            {
+              "control": "plus-z",
+              "display": "R"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "VECTOR"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "명령은 이전 좌표에 누적합니다."
+        },
+        {
+          "tier": 2,
+          "text": "첫 세 착지는 (2,0,0),(2,3,0),(2,3,-2)입니다."
+        },
+        {
+          "tier": 3,
+          "text": "착지 글자는 V-E-C-T-O-R입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: 여섯 축 버튼으로 중앙 표식을 이동시키세요. 매 이동에서 드러나는 글자가 액션바에 기록됩니다.",
+        "completion": "세 축의 항해 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": 12,
+                "y": 65,
+                "z": 174,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 52,
+                "y": 70,
+                "z": 175,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          },
+          {
+            "bounds": {
+              "min": {
+                "x": 29,
+                "y": 65,
+                "z": 148,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 35,
+                "y": 70,
+                "z": 152,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "AMETHYST_BLOCK"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": 32,
+              "y": 65,
+              "z": 136,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": 22,
+              "y": 65,
+              "z": 164,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "+X"
+            ]
+          },
+          {
+            "position": {
+              "x": 26,
+              "y": 65,
+              "z": 164,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "+Y"
+            ]
+          },
+          {
+            "position": {
+              "x": 30,
+              "y": 65,
+              "z": 164,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "-Z"
+            ]
+          },
+          {
+            "position": {
+              "x": 34,
+              "y": 65,
+              "z": 164,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "-X"
+            ]
+          },
+          {
+            "position": {
+              "x": 38,
+              "y": 65,
+              "z": 164,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "-Y"
+            ]
+          },
+          {
+            "position": {
+              "x": 42,
+              "y": 65,
+              "z": 164,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "+Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "archive-y",
+      "sequence": 12,
+      "originalStage": 25,
+      "title": "되돌아오는 길",
+      "buildBounds": {
+        "min": {
+          "x": 72,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 120,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "playBounds": {
+        "min": {
+          "x": 72,
+          "y": 60,
+          "z": 128,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "max": {
+          "x": 120,
+          "y": 78,
+          "z": 176,
+          "yaw": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "spawn": {
+        "x": 96,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "checkpoint": {
+        "x": 96,
+        "y": 65,
+        "z": 132,
+        "yaw": 0.0,
+        "pitch": 0.0
+      },
+      "visual": {
+        "origin": {
+          "x": 81,
+          "y": 64,
+          "z": 138,
+          "yaw": 0.0,
+          "pitch": 0.0
+        },
+        "scale": 2,
+        "width": 15,
+        "height": 15,
+        "palette": [
+          {
+            "tile": 0,
+            "material": "BLACK_CONCRETE"
+          },
+          {
+            "tile": 1,
+            "material": "DEEPSLATE_TILES"
+          },
+          {
+            "tile": 2,
+            "material": "CYAN_CONCRETE"
+          },
+          {
+            "tile": 3,
+            "material": "RED_CONCRETE"
+          },
+          {
+            "tile": 4,
+            "material": "LIME_CONCRETE"
+          }
+        ],
+        "cells": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          0,
+          4,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "completionMode": "ALL_MECHANICS",
+      "mechanics": [
+        {
+          "id": "archive-y",
+          "type": "LOGIC_ANSWER",
+          "question": "START에서 길을 따라 END까지 간 뒤 같은 길로 돌아오세요. 귀환 첫 V는 중복 기록하지 않습니다.",
+          "pages": [
+            "START에서 길을 따라 END까지 간 뒤 같은 길로 돌아오세요. 귀환 첫 V는 중복 기록하지 않습니다."
+          ],
+          "answerFormat": "영어 9글자 회문",
+          "answers": [
+            "rotavator"
+          ],
+          "normalization": "LETTERS_AND_DIGITS",
+          "cooldownSeconds": 16,
+          "difficulty": 4,
+          "inspiration": "심야의 기록보관소 · 되돌아오는 길",
+          "solutionExplanation": "유일한 전진 길은 R-O-T-A-V다. V를 중복하지 않은 귀환 A-T-O-R을 붙이면 ROTAVATOR다.",
+          "wrongAnswerSamples": [
+            "rotavvator",
+            "rotator",
+            "rotavatora"
+          ],
+          "submissionMode": "DEVICE_ONLY",
+          "requires": []
+        },
+        {
+          "id": "return-route",
+          "type": "ORDERED_INPUT",
+          "controls": [
+            {
+              "id": "r",
+              "token": "R",
+              "label": "R",
+              "activation": "STEP",
+              "position": {
+                "x": 84,
+                "y": 65,
+                "z": 144,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIME_CONCRETE"
+            },
+            {
+              "id": "o",
+              "token": "O",
+              "label": "O",
+              "activation": "STEP",
+              "position": {
+                "x": 92,
+                "y": 65,
+                "z": 144,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIME_CONCRETE"
+            },
+            {
+              "id": "t",
+              "token": "T",
+              "label": "T",
+              "activation": "STEP",
+              "position": {
+                "x": 100,
+                "y": 65,
+                "z": 144,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIME_CONCRETE"
+            },
+            {
+              "id": "a",
+              "token": "A",
+              "label": "A",
+              "activation": "STEP",
+              "position": {
+                "x": 108,
+                "y": 65,
+                "z": 144,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIME_CONCRETE"
+            },
+            {
+              "id": "v",
+              "token": "V",
+              "label": "V",
+              "activation": "STEP",
+              "position": {
+                "x": 108,
+                "y": 65,
+                "z": 155,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "LIME_CONCRETE"
+            },
+            {
+              "id": "end",
+              "token": "END",
+              "label": "END",
+              "activation": "STEP",
+              "position": {
+                "x": 108,
+                "y": 65,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "RED_CONCRETE"
+            },
+            {
+              "id": "e",
+              "token": "E",
+              "label": "E",
+              "activation": "STEP",
+              "position": {
+                "x": 84,
+                "y": 65,
+                "z": 155,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "RED_CONCRETE"
+            },
+            {
+              "id": "k",
+              "token": "K",
+              "label": "K",
+              "activation": "STEP",
+              "position": {
+                "x": 84,
+                "y": 65,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "RED_CONCRETE"
+            },
+            {
+              "id": "i",
+              "token": "I",
+              "label": "I",
+              "activation": "STEP",
+              "position": {
+                "x": 100,
+                "y": 65,
+                "z": 155,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "RED_CONCRETE"
+            },
+            {
+              "id": "n",
+              "token": "N",
+              "label": "N",
+              "activation": "STEP",
+              "position": {
+                "x": 100,
+                "y": 65,
+                "z": 166,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "material": "RED_CONCRETE"
+            }
+          ],
+          "expected": [
+            {
+              "control": "r",
+              "display": "R"
+            },
+            {
+              "control": "o",
+              "display": "O"
+            },
+            {
+              "control": "t",
+              "display": "T"
+            },
+            {
+              "control": "a",
+              "display": "A"
+            },
+            {
+              "control": "v",
+              "display": "V"
+            },
+            {
+              "control": "end",
+              "display": ""
+            },
+            {
+              "control": "v",
+              "display": ""
+            },
+            {
+              "control": "a",
+              "display": "A"
+            },
+            {
+              "control": "t",
+              "display": "T"
+            },
+            {
+              "control": "o",
+              "display": "O"
+            },
+            {
+              "control": "r",
+              "display": "R"
+            }
+          ],
+          "groups": [],
+          "operatorLockSeconds": 10,
+          "resultText": "ROTAVATOR"
+        }
+      ],
+      "hints": [
+        {
+          "tier": 1,
+          "text": "R에서 E 쪽은 막다른 길입니다."
+        },
+        {
+          "tier": 2,
+          "text": "전진 기록은 R-O-T-A-V입니다."
+        },
+        {
+          "tier": 3,
+          "text": "귀환은 V를 빼고 A-T-O-R입니다."
+        }
+      ],
+      "messages": {
+        "intro": "문제: START에서 길을 따라 END까지 간 뒤 같은 길로 돌아오세요. 귀환 첫 V는 중복 기록하지 않습니다.",
+        "completion": "되돌아오는 길 해독 완료.",
+        "failure": "방 상태가 안전하게 복구되었습니다. 기록서를 다시 확인하세요."
+      },
+      "reset": {
+        "scope": "ROOM",
+        "teleportPartyToCheckpoint": true,
+        "restoreBlocks": true,
+        "removeOwnedEntities": true,
+        "clearMechanicState": true
+      },
+      "structure": {
+        "blocks": [],
+        "cuboids": [
+          {
+            "bounds": {
+              "min": {
+                "x": 76,
+                "y": 65,
+                "z": 174,
+                "yaw": 0.0,
+                "pitch": 0.0
+              },
+              "max": {
+                "x": 116,
+                "y": 70,
+                "z": 175,
+                "yaw": 0.0,
+                "pitch": 0.0
+              }
+            },
+            "material": "POLISHED_BLACKSTONE_BRICKS"
+          }
+        ],
+        "signs": [
+          {
+            "position": {
+              "x": 96,
+              "y": 65,
+              "z": 136,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "[안내]",
+              "장치를 관찰하고",
+              "직접 조작하세요"
+            ]
+          },
+          {
+            "position": {
+              "x": 78,
+              "y": 65,
+              "z": 144,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "START"
+            ]
+          },
+          {
+            "position": {
+              "x": 84,
+              "y": 65,
+              "z": 146,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "R"
+            ]
+          },
+          {
+            "position": {
+              "x": 92,
+              "y": 65,
+              "z": 146,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "O"
+            ]
+          },
+          {
+            "position": {
+              "x": 100,
+              "y": 65,
+              "z": 146,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "T"
+            ]
+          },
+          {
+            "position": {
+              "x": 108,
+              "y": 65,
+              "z": 146,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "A"
+            ]
+          },
+          {
+            "position": {
+              "x": 108,
+              "y": 65,
+              "z": 157,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "V"
+            ]
+          },
+          {
+            "position": {
+              "x": 108,
+              "y": 65,
+              "z": 168,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "END"
+            ]
+          },
+          {
+            "position": {
+              "x": 84,
+              "y": 65,
+              "z": 157,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "E"
+            ]
+          },
+          {
+            "position": {
+              "x": 84,
+              "y": 65,
+              "z": 168,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "K"
+            ]
+          },
+          {
+            "position": {
+              "x": 100,
+              "y": 65,
+              "z": 157,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "I"
+            ]
+          },
+          {
+            "position": {
+              "x": 100,
+              "y": 65,
+              "z": 168,
+              "yaw": 0.0,
+              "pitch": 0.0
+            },
+            "facing": "NORTH",
+            "lines": [
+              "N"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

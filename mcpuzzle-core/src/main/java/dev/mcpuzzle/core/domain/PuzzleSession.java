@@ -207,8 +207,21 @@ public final class PuzzleSession {
     }
 
     public synchronized OperationResult<SessionFailure> memberDisconnected(UUID memberId, Instant at) {
+        return memberUnavailable(memberId, at, SuspendReason.MEMBER_DISCONNECTED);
+    }
+
+    public synchronized OperationResult<SessionFailure> memberDied(UUID memberId, Instant at) {
+        return memberUnavailable(memberId, at, SuspendReason.MEMBER_DIED);
+    }
+
+    private OperationResult<SessionFailure> memberUnavailable(
+            UUID memberId,
+            Instant at,
+            SuspendReason reason
+    ) {
         Objects.requireNonNull(memberId, "memberId");
         Objects.requireNonNull(at, "at");
+        Objects.requireNonNull(reason, "reason");
         if (!party.contains(memberId)) {
             return OperationResult.failure(SessionFailure.NOT_MEMBER);
         }
@@ -221,7 +234,7 @@ public final class PuzzleSession {
         if (state != SessionState.ACTIVE) {
             return OperationResult.failure(SessionFailure.INVALID_STATE);
         }
-        suspend(at, SuspendReason.MEMBER_DISCONNECTED);
+        suspend(at, reason);
         return OperationResult.success();
     }
 

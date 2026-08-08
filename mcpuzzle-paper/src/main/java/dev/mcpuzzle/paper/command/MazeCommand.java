@@ -21,8 +21,10 @@ import java.util.UUID;
 import java.util.function.Consumer;
 
 public final class MazeCommand implements CommandExecutor, TabCompleter {
-    private static final List<String> ROOT = List.of("help", "status", "party", "start", "queue", "saves",
-            "resume", "leave", "delete", "hint", "leaderboard", "answer", "admin");
+    static final List<String> ROOT = List.of("help", "status", "party", "accept", "deny", "decline",
+            "start", "queue", "saves", "resume", "leave", "delete", "hint", "leaderboard", "answer", "admin");
+    static final List<String> PARTY = List.of("create", "invite", "accept", "deny", "decline", "kick",
+            "status", "leave", "disband");
     private final MazeRuntimeService runtime;
     private final MazeMenu menu;
     private final PluginReadiness readiness;
@@ -57,19 +59,35 @@ public final class MazeCommand implements CommandExecutor, TabCompleter {
         try {
             switch (root) {
                 case "party" -> party((Player) sender, args);
-                case "start" -> runtime.requestStart((Player) sender, slot(args, 1, 1));
+                case "accept" -> runtime.accept((Player) sender, online(args, 1));
+                case "deny", "decline" -> runtime.decline((Player) sender, online(args, 1));
+                case "start" -> {
+                    boolean namedMaze = args.length >= 2 && !args[1].matches("[1-3]");
+                    String mazeId = namedMaze ? mazeId(args[1]) : "midnight-easy";
+                    runtime.requestStart((Player) sender, mazeId, slot(args, namedMaze ? 2 : 1, 1));
+                }
                 case "queue" -> {
                     if (args.length >= 2 && args[1].equalsIgnoreCase("cancel")) runtime.cancelQueue((Player) sender);
                     else sender.sendMessage("§e/" + label + " queue cancel");
                 }
                 case "saves" -> menu.openSaves((Player) sender);
-                case "resume" -> runtime.requestResume((Player) sender, slot(args, 1, -1),
-                        args.length >= 3 ? identity(args[2]) : ((Player) sender).getUniqueId());
+                case "resume" -> {
+                    boolean namedMaze = args.length >= 2 && !args[1].matches("[1-3]");
+                    int slotIndex = namedMaze ? 2 : 1;
+                    int ownerIndex = namedMaze ? 3 : 2;
+                    runtime.requestResume((Player) sender, namedMaze ? mazeId(args[1]) : "midnight-easy",
+                            slot(args, slotIndex, -1), args.length > ownerIndex
+                                    ? identity(args[ownerIndex]) : ((Player) sender).getUniqueId());
+                }
                 case "leave" -> runtime.leave((Player) sender);
                 case "delete" -> runtime.deleteSave((Player) sender,
                         args.length >= 3 ? identity(args[2]) : ((Player) sender).getUniqueId(), slot(args, 1, -1));
                 case "hint" -> hint((Player) sender, args);
-                case "leaderboard" -> runtime.leaderboard((Player) sender, args.length >= 2 ? integer(args[1], 1, 4, "파티 인원") : 1);
+                case "leaderboard" -> {
+                    boolean namedMaze = args.length >= 2 && !args[1].matches("[1-4]");
+                    runtime.leaderboard((Player) sender, namedMaze ? mazeId(args[1]) : "midnight-easy",
+                            args.length >= (namedMaze ? 3 : 2) ? integer(args[namedMaze ? 2 : 1], 1, 4, "파티 인원") : 1);
+                }
                 case "answer" -> {
                     if (args.length < 2) sender.sendMessage("§e/" + label + " answer <정답>");
                     else runtime.submitAnswer((Player) sender, String.join(" ", java.util.Arrays.copyOfRange(args, 1, args.length)));
@@ -93,9 +111,9 @@ public final class MazeCommand implements CommandExecutor, TabCompleter {
             case "leave" -> runtime.leaveOpenParty(player);
             case "invite" -> runtime.invite(player, online(args, 2));
             case "accept" -> runtime.accept(player, online(args, 2));
-            case "decline" -> runtime.decline(player, online(args, 2));
+            case "deny", "decline" -> runtime.decline(player, online(args, 2));
             case "kick" -> runtime.kick(player, online(args, 2));
-            default -> player.sendMessage("§e/maze party <create|invite|accept|decline|kick|status|leave|disband>");
+            default -> player.sendMessage("§e/maze party <create|invite|accept|deny|kick|status|leave|disband>");
         }
     }
 
@@ -144,7 +162,7 @@ public final class MazeCommand implements CommandExecutor, TabCompleter {
     private void status(CommandSender sender) {
         sender.sendMessage("§6[MCPuzzle] §f" + readiness.state() + " §7- " + readiness.detail());
         if (sender instanceof Player player) {
-            runtime.run(player.getUniqueId()).ifPresentOrElse(run -> sender.sendMessage("§f미궁: " + run.state()
+            runtime.run(player.getUniqueId()).ifPresentOrElse(run -> sender.sendMessage("§f미궁: " + run.mazeName() + " / " + run.state()
                     + " / 방 " + run.room() + " / 슬롯 " + run.slot()), () -> sender.sendMessage("§7활성 미궁 없음"));
         }
     }
@@ -160,11 +178,13 @@ public final class MazeCommand implements CommandExecutor, TabCompleter {
     private void help(CommandSender sender, String label) {
         sender.sendMessage("§6[MCPuzzle 명령어]");
         sender.sendMessage("§e/" + label + " §7- 미궁 GUI");
-        sender.sendMessage("§e/" + label + " party <create|invite|accept|decline|kick|status|leave|disband>");
-        sender.sendMessage("§e/" + label + " start [1-3] §7- 새 시작 / §e/" + label + " resume <1-3> [현재소유자 UUID/이름]");
+        sender.sendMessage("§e/" + label + " accept <파티장> | deny <파티장> §7- 초대 응답");
+        sender.sendMessage("§e/" + label + " party <create|invite|kick|status|leave|disband>");
+        sender.sendMessage("§e/" + label + " start <easy|normal|hard> [1-3] §7- 새 시작");
+        sender.sendMessage("§e/" + label + " resume <easy|normal|hard> <1-3> [현재소유자 UUID/이름]");
         sender.sendMessage("§e/" + label + " saves | leave | queue cancel | delete <1-3> [현재소유자 UUID/이름]");
         sender.sendMessage("§e/" + label + " hint <request|confirm|decline|view 1-3>");
-        sender.sendMessage("§e/" + label + " answer <정답> | leaderboard [1-4] | status");
+        sender.sendMessage("§e/" + label + " answer <정답> | leaderboard [easy|normal|hard] [1-4] | status");
     }
 
     private Player online(String[] args, int index) {
@@ -195,15 +215,26 @@ public final class MazeCommand implements CommandExecutor, TabCompleter {
         catch (IllegalArgumentException ignored) { return Bukkit.getOfflinePlayer(value).getUniqueId(); }
     }
 
+    private String mazeId(String value) {
+        return switch (value.toLowerCase(Locale.ROOT)) {
+            case "easy", "쉬움" -> "midnight-easy";
+            case "normal", "보통" -> "midnight-normal";
+            case "hard", "어려움" -> "midnight-hard";
+            default -> throw new IllegalArgumentException("미궁은 easy, normal, hard 중 하나여야 합니다.");
+        };
+    }
+
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                  @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) return prefix(ROOT, args[0]);
         if (args.length == 2) {
             return switch (args[0].toLowerCase(Locale.ROOT)) {
-                case "party" -> prefix(List.of("create", "invite", "accept", "decline", "kick", "status", "leave", "disband"), args[1]);
+                case "party" -> prefix(PARTY, args[1]);
+                case "accept", "deny", "decline" -> prefix(Bukkit.getOnlinePlayers().stream().map(Player::getName).toList(), args[1]);
                 case "queue" -> prefix(List.of("cancel"), args[1]);
-                case "start", "resume", "delete" -> prefix(List.of("1", "2", "3"), args[1]);
+                case "start", "resume" -> prefix(List.of("easy", "normal", "hard", "1", "2", "3"), args[1]);
+                case "delete" -> prefix(List.of("1", "2", "3"), args[1]);
                 case "hint" -> prefix(List.of("request", "confirm", "decline", "view"), args[1]);
                 case "leaderboard" -> prefix(List.of("1", "2", "3", "4"), args[1]);
                 case "admin" -> sender.hasPermission("mcpuzzle.admin")
@@ -213,8 +244,11 @@ public final class MazeCommand implements CommandExecutor, TabCompleter {
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("hint") && args[1].equalsIgnoreCase("view"))
             return prefix(List.of("1", "2", "3"), args[2]);
+        if (args.length == 3 && List.of("start", "resume").contains(args[0].toLowerCase(Locale.ROOT))
+                && List.of("easy", "normal", "hard").contains(args[1].toLowerCase(Locale.ROOT)))
+            return prefix(List.of("1", "2", "3"), args[2]);
         if (args.length == 3 && args[0].equalsIgnoreCase("party")
-                && List.of("invite", "accept", "decline", "kick").contains(args[1].toLowerCase(Locale.ROOT)))
+                && List.of("invite", "accept", "deny", "decline", "kick").contains(args[1].toLowerCase(Locale.ROOT)))
             return prefix(Bukkit.getOnlinePlayers().stream().map(Player::getName).toList(), args[2]);
         if (args.length == 3 && List.of("resume", "delete").contains(args[0].toLowerCase(Locale.ROOT)))
             return prefix(Bukkit.getOnlinePlayers().stream().map(Player::getName).toList(), args[2]);

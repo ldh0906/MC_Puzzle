@@ -11,6 +11,7 @@ import dev.mcpuzzle.paper.adapter.persistence.SQLitePersistence;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
@@ -31,15 +32,18 @@ public final class SaveSlotWorkflow {
     }
 
     public CompletionStage<Optional<SaveGame>> find(UUID owner, int slot) {
-        return persistence.find(owner, mazeId, slot, clock.instant());
+        return purgeIncompatibleVersion()
+                .thenCompose(ignored -> persistence.find(owner, mazeId, slot, clock.instant()));
     }
 
     public CompletionStage<List<SaveGame>> list(UUID owner) {
-        return persistence.listVisible(owner, mazeId, clock.instant());
+        return purgeIncompatibleVersion()
+                .thenCompose(ignored -> persistence.listVisible(owner, mazeId, clock.instant()));
     }
 
     public CompletionStage<List<SaveGame>> listForPrincipal(UUID principal) {
-        return persistence.listVisibleToPrincipal(principal, mazeId, clock.instant());
+        return purgeIncompatibleVersion()
+                .thenCompose(ignored -> persistence.listVisibleToPrincipal(principal, mazeId, clock.instant()));
     }
 
     public CompletionStage<List<SaveGame>> listForViewer(UUID viewer, boolean operator, UUID owner) {
@@ -68,5 +72,9 @@ public final class SaveSlotWorkflow {
         SaveSlot slot = new SaveSlot(slotNumber, owner, mazeId, mapVersion, roster,
                 snapshot.checkpoint().orElseThrow(), now);
         return persistence.upsert(new SaveGame(slot, snapshot));
+    }
+
+    private CompletionStage<Integer> purgeIncompatibleVersion() {
+        return persistence.purgeIncompatibleVersions(Map.of(mazeId, mapVersion));
     }
 }

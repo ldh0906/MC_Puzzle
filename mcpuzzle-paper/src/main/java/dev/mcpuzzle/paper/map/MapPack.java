@@ -68,6 +68,15 @@ public record MapPack(
         }
     }
 
+    public enum PageLayout { PROSE, GRID }
+
+    public record BookPage(PageLayout layout, String text) {
+        public BookPage {
+            Objects.requireNonNull(layout, "book page layout");
+            text = requireText(text, "book page text");
+        }
+    }
+
     /** A server-side block mosaic translated from the source map's room terrain. */
     public record VisualBlueprint(Position origin, int scale, int width, int height,
                                   List<Integer> cells, Map<Integer, String> palette) {
@@ -86,8 +95,41 @@ public record MapPack(
         }
     }
 
+    public record StructureBlock(Position position, String material) {
+        public StructureBlock {
+            Objects.requireNonNull(position, "structure block position");
+            material = requireText(material, "structure block material");
+        }
+    }
+
+    public record StructureCuboid(Bounds bounds, String material) {
+        public StructureCuboid {
+            Objects.requireNonNull(bounds, "structure cuboid bounds");
+            material = requireText(material, "structure cuboid material");
+        }
+    }
+
+    public record StructureSign(Position position, String facing, List<String> lines) {
+        public StructureSign {
+            Objects.requireNonNull(position, "structure sign position");
+            facing = requireText(facing, "structure sign facing");
+            lines = List.copyOf(lines);
+            if (lines.isEmpty() || lines.size() > 4) throw new IllegalArgumentException("structure sign requires 1..4 lines");
+        }
+    }
+
+    public record StructureBlueprint(List<StructureBlock> blocks, List<StructureCuboid> cuboids,
+                                     List<StructureSign> signs) {
+        public StructureBlueprint {
+            blocks = List.copyOf(blocks);
+            cuboids = List.copyOf(cuboids);
+            signs = List.copyOf(signs);
+        }
+    }
+
     public sealed interface MechanicDefinition permits PadMechanic, DestructibleTarget,
-            NumericKeypad, LogicAnswer, Escort, DynamicPartyPads {
+            NumericKeypad, LogicAnswer, Escort, DynamicPartyPads, ClueRegions,
+            OrderedInput, ChoiceInput, ToggleInput {
         String id();
         String type();
     }
@@ -131,10 +173,11 @@ public record MapPack(
         }
     }
 
-    public record LogicAnswer(String id, String type, String question, List<String> pages,
+    public record LogicAnswer(String id, String type, String question, List<BookPage> pages,
                               String answerFormat, List<String> answers, int cooldownSeconds,
                               int difficulty, String inspiration, String solutionExplanation,
-                              List<String> wrongAnswerSamples) implements MechanicDefinition {
+                              List<String> wrongAnswerSamples, String submissionMode,
+                              List<String> requires) implements MechanicDefinition {
         public LogicAnswer {
             id = requireText(id, "mechanic.id");
             type = requireText(type, "mechanic.type");
@@ -154,6 +197,102 @@ public record MapPack(
             if (wrongAnswerSamples.size() < 2) {
                 throw new IllegalArgumentException("at least two wrongAnswerSamples are required");
             }
+            submissionMode = requireText(submissionMode, "submissionMode");
+            if (!submissionMode.equals("CHAT") && !submissionMode.equals("DEVICE_ONLY")) {
+                throw new IllegalArgumentException("submissionMode must be CHAT or DEVICE_ONLY");
+            }
+            requires = List.copyOf(requires);
+        }
+
+        public boolean chatSubmissionEnabled() { return submissionMode.equals("CHAT"); }
+    }
+
+    public record Control(String id, String token, String label, String activation, Position position,
+                          String material, Optional<Position> indicator) {
+        public Control {
+            id = requireText(id, "control.id");
+            token = Objects.requireNonNull(token, "control.token");
+            label = requireText(label, "control.label");
+            activation = requireText(activation, "control.activation");
+            if (!activation.equals("STEP") && !activation.equals("CLICK")) {
+                throw new IllegalArgumentException("control.activation must be STEP or CLICK");
+            }
+            Objects.requireNonNull(position, "control.position");
+            material = requireText(material, "control.material");
+            indicator = Objects.requireNonNull(indicator, "control.indicator");
+        }
+    }
+
+    public record ExpectedStep(String controlId, String display) {
+        public ExpectedStep {
+            controlId = requireText(controlId, "expected.control");
+            display = Objects.requireNonNull(display, "expected.display");
+        }
+    }
+
+    public record ClueRegion(String id, Bounds bounds, String message, Optional<String> sound, float pitch) {
+        public ClueRegion {
+            id = requireText(id, "clue.id");
+            Objects.requireNonNull(bounds, "clue.bounds");
+            message = requireText(message, "clue.message");
+            sound = Objects.requireNonNull(sound, "clue.sound");
+            if (pitch < 0.5f || pitch > 2.0f) throw new IllegalArgumentException("clue.pitch must be 0.5..2.0");
+        }
+    }
+
+    public record ClueRegions(String id, String type, List<ClueRegion> regions)
+            implements MechanicDefinition {
+        public ClueRegions {
+            id = requireText(id, "mechanic.id");
+            type = requireText(type, "mechanic.type");
+            regions = List.copyOf(regions);
+            if (regions.isEmpty()) throw new IllegalArgumentException("clue regions must not be empty");
+        }
+    }
+
+    public record OrderedInput(String id, String type, List<Control> controls, List<ExpectedStep> expected,
+                               List<Integer> groups, int operatorLockSeconds, String resultText,
+                               Optional<Position> clearButton) implements MechanicDefinition {
+        public OrderedInput {
+            id = requireText(id, "mechanic.id");
+            type = requireText(type, "mechanic.type");
+            controls = List.copyOf(controls);
+            expected = List.copyOf(expected);
+            groups = List.copyOf(groups);
+            if (controls.isEmpty() || expected.isEmpty()) throw new IllegalArgumentException("ordered input requires controls and expected steps");
+            if (operatorLockSeconds < 1 || operatorLockSeconds > 60) throw new IllegalArgumentException("operatorLockSeconds must be 1..60");
+            resultText = requireText(resultText, "resultText");
+            clearButton = Objects.requireNonNull(clearButton, "clearButton");
+        }
+    }
+
+    public record ChoiceInput(String id, String type, List<Control> controls, String correctControl,
+                              int operatorLockSeconds, String resultText) implements MechanicDefinition {
+        public ChoiceInput {
+            id = requireText(id, "mechanic.id");
+            type = requireText(type, "mechanic.type");
+            controls = List.copyOf(controls);
+            if (controls.size() < 2) throw new IllegalArgumentException("choice input requires at least two controls");
+            correctControl = requireText(correctControl, "correctControl");
+            if (operatorLockSeconds < 1 || operatorLockSeconds > 60) throw new IllegalArgumentException("operatorLockSeconds must be 1..60");
+            resultText = requireText(resultText, "resultText");
+        }
+    }
+
+    public record ToggleInput(String id, String type, List<Control> controls, List<String> expectedActive,
+                              int maxSelections, int operatorLockSeconds, Position submitButton,
+                              Position clearButton, String resultText) implements MechanicDefinition {
+        public ToggleInput {
+            id = requireText(id, "mechanic.id");
+            type = requireText(type, "mechanic.type");
+            controls = List.copyOf(controls);
+            expectedActive = List.copyOf(expectedActive);
+            if (controls.isEmpty() || expectedActive.isEmpty()) throw new IllegalArgumentException("toggle input requires controls and expectedActive");
+            if (maxSelections < expectedActive.size() || maxSelections > controls.size()) throw new IllegalArgumentException("invalid maxSelections");
+            if (operatorLockSeconds < 1 || operatorLockSeconds > 60) throw new IllegalArgumentException("operatorLockSeconds must be 1..60");
+            Objects.requireNonNull(submitButton, "submitButton");
+            Objects.requireNonNull(clearButton, "clearButton");
+            resultText = requireText(resultText, "resultText");
         }
     }
 
@@ -200,7 +339,7 @@ public record MapPack(
 
     public record RoomDefinition(String id, int sequence, int originalStage, String title,
                                  Bounds buildBounds, Bounds playBounds, Position spawn, Position checkpoint,
-                                 Optional<VisualBlueprint> visual,
+                                 Optional<VisualBlueprint> visual, Optional<StructureBlueprint> structure,
                                  List<MechanicDefinition> mechanics, List<Hint> hints,
                                  String intro, String completion, String failure) {
         public RoomDefinition {
@@ -212,11 +351,20 @@ public record MapPack(
             Objects.requireNonNull(spawn, "spawn");
             Objects.requireNonNull(checkpoint, "checkpoint");
             visual = Objects.requireNonNull(visual, "visual");
+            structure = Objects.requireNonNull(structure, "structure");
             mechanics = List.copyOf(mechanics);
             hints = List.copyOf(hints);
             intro = requireText(intro, "messages.intro");
             completion = requireText(completion, "messages.completion");
             failure = requireText(failure, "messages.failure");
+        }
+
+        public RoomDefinition(String id, int sequence, int originalStage, String title,
+                              Bounds buildBounds, Bounds playBounds, Position spawn, Position checkpoint,
+                              Optional<VisualBlueprint> visual, List<MechanicDefinition> mechanics,
+                              List<Hint> hints, String intro, String completion, String failure) {
+            this(id, sequence, originalStage, title, buildBounds, playBounds, spawn, checkpoint,
+                    visual, Optional.empty(), mechanics, hints, intro, completion, failure);
         }
     }
 

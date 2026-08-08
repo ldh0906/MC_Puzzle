@@ -72,7 +72,7 @@ public final class MazeRuntimeService {
     private final Plugin plugin;
     private final Clock clock;
     private final PluginReadiness readiness;
-    private final MapPack map;
+    private final Map<String, MapPack> maps;
     private final PartyService parties;
     private final InstanceAdmissionQueue admissions;
     private final SQLitePersistence persistence;
@@ -83,7 +83,7 @@ public final class MazeRuntimeService {
     private final VisibilityIsolationService visibility;
     private final HintPolicy hints = new HintPolicy();
     private final RoomBriefingBookFactory briefingBooks = new RoomBriefingBookFactory();
-    private final SaveSlotWorkflow saveSlots;
+    private final Map<String, SaveSlotWorkflow> saveSlots;
     private final InstanceCleanupService cleanup;
     private final RunLifecyclePolicy lifecyclePolicy = new RunLifecyclePolicy();
     private final SaveAccessPolicy saveAccess = new SaveAccessPolicy();
@@ -92,7 +92,7 @@ public final class MazeRuntimeService {
     private final Map<UUID, PendingOverwrite> pendingOverwrites = new HashMap<>();
     private boolean stopping;
 
-    public MazeRuntimeService(Plugin plugin, Clock clock, PluginReadiness readiness, MapPack map,
+    public MazeRuntimeService(Plugin plugin, Clock clock, PluginReadiness readiness, Map<String, MapPack> maps,
                               PartyService parties, InstanceAdmissionQueue admissions,
                               SQLitePersistence persistence, GeneratedVoidWorldInstanceAdapter worlds,
                               PaperPlayerIsolationAdapter isolation, ResourcePackGate resourcePacks,
@@ -100,7 +100,8 @@ public final class MazeRuntimeService {
         this.plugin = Objects.requireNonNull(plugin, "plugin");
         this.clock = Objects.requireNonNull(clock, "clock");
         this.readiness = Objects.requireNonNull(readiness, "readiness");
-        this.map = Objects.requireNonNull(map, "map");
+        this.maps = Map.copyOf(Objects.requireNonNull(maps, "maps"));
+        if (this.maps.isEmpty()) throw new IllegalArgumentException("At least one maze is required");
         this.parties = Objects.requireNonNull(parties, "parties");
         this.admissions = Objects.requireNonNull(admissions, "admissions");
         this.persistence = Objects.requireNonNull(persistence, "persistence");
@@ -109,7 +110,8 @@ public final class MazeRuntimeService {
         this.resourcePacks = Objects.requireNonNull(resourcePacks, "resourcePacks");
         this.teleportPermits = Objects.requireNonNull(teleportPermits, "teleportPermits");
         this.visibility = Objects.requireNonNull(visibility, "visibility");
-        this.saveSlots = new SaveSlotWorkflow(persistence, clock, map.mazeId(), map.mapVersion());
+        this.saveSlots = this.maps.values().stream().collect(java.util.stream.Collectors.toUnmodifiableMap(
+                MapPack::mazeId, pack -> new SaveSlotWorkflow(persistence, clock, pack.mazeId(), pack.mapVersion())));
         this.cleanup = new InstanceCleanupService(isolation, worlds);
     }
 
@@ -125,7 +127,7 @@ public final class MazeRuntimeService {
             PartyView party = result.party().orElseThrow();
             leader.sendMessage("§a" + target.getName() + "님을 초대했습니다.");
             target.sendMessage("§e" + leader.getName() + "님의 미궁 파티 초대: §f/maze accept " + leader.getName());
-            target.sendMessage("§7거절: /maze decline " + leader.getName());
+            target.sendMessage("§7거절: /maze deny " + leader.getName());
         } else tellResult(leader, result, "");
         return result;
     }
@@ -185,47 +187,68 @@ public final class MazeRuntimeService {
         return value == null ? Optional.empty() : Optional.of(view(value));
     }
 
+    public List<MazeOption> mazes() {
+        return List.of("midnight-easy", "midnight-normal", "midnight-hard").stream()
+                .map(this::map)
+                .map(pack -> new MazeOption(pack.mazeId(), pack.displayName(), pack.rooms().size()))
+                .toList();
+    }
+
     public void requestStart(Player actor, int slot) {
-        requestStart(actor, slot, false);
+        requestStart(actor, "midnight-easy", slot, false);
     }
 
     public void requestStart(Player actor, int slot, boolean overwriteConfirmed) {
+        requestStart(actor, "midnight-easy", slot, overwriteConfirmed);
+    }
+
+    public void requestStart(Player actor, String mazeId, int slot) {
+        requestStart(actor, mazeId, slot, false);
+    }
+
+    public void requestStart(Player actor, String mazeId, int slot, boolean overwriteConfirmed) {
+        MapPack selected = map(mazeId);
         if (!checkEntryPreconditions(actor, slot)) return;
         Instant now = clock.instant();
         actor.sendMessage("§7세이브 슬롯을 확인하는 중입니다...");
-        saveSlots.find(actor.getUniqueId(), slot).whenComplete((save, failure) -> onMain(() -> {
+        saveSlots(mazeId).find(actor.getUniqueId(), slot).whenComplete((save, failure) -> onMain(() -> {
             if (failure != null) { asyncFailure(actor, "세이브 슬롯 확인", failure); return; }
             if (!checkEntryPreconditions(actor, slot)) return;
             PartyView current = parties.findByPlayer(actor.getUniqueId()).orElse(null);
             if (current == null || !current.leaderId().equals(actor.getUniqueId())) {
                 actor.sendMessage("§c파티가 변경되어 시작을 취소했습니다."); return;
             }
-            boolean confirmed = overwriteConfirmed || consumeOverwrite(actor.getUniqueId(), slot);
+            boolean confirmed = overwriteConfirmed || consumeOverwrite(actor.getUniqueId(), mazeId, slot);
             if (save.isPresent() && !confirmed) {
-                pendingOverwrites.put(actor.getUniqueId(), new PendingOverwrite(slot, now.plusSeconds(30)));
+                pendingOverwrites.put(actor.getUniqueId(), new PendingOverwrite(mazeId, slot, now.plusSeconds(30)));
                 actor.sendMessage("§e슬롯 " + slot + "의 기존 세이브를 덮어씁니다. 30초 안에 같은 명령을 다시 실행해 확인하세요.");
                 return;
             }
             if (save.isPresent()) {
-                saveSlots.delete(actor.getUniqueId(), slot).whenComplete((deleted, deleteFailure) -> onMain(() -> {
+                saveSlots(mazeId).delete(actor.getUniqueId(), slot).whenComplete((deleted, deleteFailure) -> onMain(() -> {
                     if (deleteFailure != null || !Boolean.TRUE.equals(deleted)) {
                         asyncFailure(actor, "기존 세이브 덮어쓰기", deleteFailure == null
                                 ? new IllegalStateException("세이브를 삭제하지 못했습니다") : deleteFailure);
                         return;
                     }
-                    beginNewRun(actor, current, slot);
+                    beginNewRun(actor, current, selected, slot);
                 }));
-            } else beginNewRun(actor, current, slot);
+            } else beginNewRun(actor, current, selected, slot);
         }));
     }
 
     public void requestResume(Player actor, int slot) {
-        requestResume(actor, slot, actor.getUniqueId());
+        requestResume(actor, "midnight-easy", slot, actor.getUniqueId());
     }
 
     public void requestResume(Player actor, int slot, UUID ownerId) {
+        requestResume(actor, "midnight-easy", slot, ownerId);
+    }
+
+    public void requestResume(Player actor, String mazeId, int slot, UUID ownerId) {
+        map(mazeId);
         if (!checkResumePreconditions(actor, slot)) return;
-        saveSlots.find(ownerId, slot).whenComplete((save, failure) -> onMain(() -> {
+        saveSlots(mazeId).find(ownerId, slot).whenComplete((save, failure) -> onMain(() -> {
             if (failure != null) { asyncFailure(actor, "세이브 읽기", failure); return; }
             if (!checkResumePreconditions(actor, slot)) return;
             if (save.isEmpty()) { actor.sendMessage("§c해당 슬롯에 유효한 세이브가 없습니다."); return; }
@@ -272,6 +295,7 @@ public final class MazeRuntimeService {
     public void onDisconnect(UUID playerId) {
         RunContext ctx = context(playerId);
         if (ctx == null) return;
+        if (ctx.room != null) ctx.room.releaseOperator(playerId);
         var impact = admissions.disconnect(playerId);
         if (impact.cancelledQueued().isPresent() || ctx.session.state() == SessionState.QUEUED
                 || ctx.session.state() == SessionState.PROVISIONING) {
@@ -305,7 +329,7 @@ public final class MazeRuntimeService {
         RunContext ctx = activeContext(player);
         if (ctx == null || ctx.room == null || !block.getWorld().getName().equals(ctx.handle.instanceName())) return false;
         recordActivity(player);
-        PaperRoomRuntime.Signal signal = destructive ? ctx.room.onBreak(block.getLocation()) : ctx.room.onInteract(block.getLocation());
+        PaperRoomRuntime.Signal signal = destructive ? ctx.room.onBreak(block.getLocation()) : ctx.room.onInteract(player, block.getLocation());
         if (destructive && signal != PaperRoomRuntime.Signal.NONE) block.setType(Material.AIR, false);
         applySignal(ctx, signal);
         return signal != PaperRoomRuntime.Signal.NONE;
@@ -329,6 +353,7 @@ public final class MazeRuntimeService {
                     + submission.retryAfterSeconds() + "초");
             case COOLDOWN -> player.sendMessage("§e파티 입력 잠금 중입니다. " + submission.retryAfterSeconds() + "초 후 다시 제출하세요.");
             case INVALID_FORMAT -> player.sendMessage("§c정답에는 한글·영문·숫자 중 하나 이상이 필요합니다.");
+            case PREREQUISITE -> player.sendMessage("§e먼저 방 안의 환경 단서와 장치를 모두 확인하세요.");
             case NOT_SUPPORTED -> player.sendMessage("§c현재 방에는 채팅 정답기가 없습니다.");
         }
     }
@@ -336,26 +361,19 @@ public final class MazeRuntimeService {
     public Optional<Location> respawnLocation(Player player) {
         RunContext ctx = activeContext(player);
         if (ctx == null || ctx.handle == null || ctx.room == null) return Optional.empty();
-        World world = plugin.getServer().getWorld(ctx.handle.instanceName());
-        if (world == null) return Optional.empty();
-        MapPack.Position spawn = ctx.room.room().checkpoint();
-        return Optional.of(new Location(world, spawn.x(), spawn.y(), spawn.z(), spawn.yaw(), spawn.pitch()));
+        return isolation.lobbySpawn();
     }
 
-    public void onUnexpectedRespawn(Player player) {
+    public void onMazeDeath(Player player) {
         RunContext ctx = activeContext(player);
-        if (ctx == null || ctx.room == null) return;
-        recordActivity(player);
-        String message = "예상치 못한 사망이 감지되어 방을 초기화했습니다.";
-        ctx.room.cleanup();
-        ctx.session.failCurrentRoom(clock.instant());
-        World world = plugin.getServer().getWorld(ctx.handle.instanceName());
-        if (world != null) ctx.room.restoreBlocks(world);
-        ctx.room = new PaperRoomRuntime(ctx.session.id(), ctx.session.roomAttemptRevision(),
-                map.room(ctx.session.currentRoom()), ctx.roster);
-        teleportToRoom(ctx);
-        broadcast(ctx.roster, "§c" + message);
-        persistSnapshot(ctx);
+        if (ctx == null) return;
+        OperationResult<SessionFailure> result = ctx.session.memberDied(player.getUniqueId(), clock.instant());
+        if (!result.succeeded()) {
+            plugin.getLogger().warning("사망한 미궁 참가자의 세션을 중단하지 못했습니다: "
+                    + player.getUniqueId() + " (" + result.failure().orElse(null) + ")");
+            return;
+        }
+        suspendOrDiscard(ctx, "§e" + player.getName() + "님이 사망하여 파티가 월드 스폰으로 나왔습니다.");
     }
 
     public void requestHint(Player player) {
@@ -387,22 +405,31 @@ public final class MazeRuntimeService {
         HintOutcome outcome = hints.viewUnlocked(hintContext(ctx), player.getUniqueId(), ctx.roster,
                 ctx.session.hintProgress(), tier);
         if (outcome.type() == HintOutcomeType.VIEWED_UNLOCKED) {
-            player.sendMessage("§d힌트 " + tier + ": §f" + ctx.room.room().hints().get(tier - 1).text());
+            broadcast(ctx.roster, "§d힌트 " + tier + ": §f" + ctx.room.room().hints().get(tier - 1).text());
         } else sendHintOutcome(player, outcome);
     }
 
     public void listSaves(Player player) {
-        listSaves(player, player.getUniqueId());
+        listSaves(player, "midnight-easy", player.getUniqueId());
     }
 
     public CompletionStage<List<SaveGame>> saves(Player viewer, UUID ownerId) {
-        return saveSlots.listForViewer(viewer.getUniqueId(), viewer.isOp(), ownerId);
+        return saves(viewer, "midnight-easy", ownerId);
+    }
+
+    public CompletionStage<List<SaveGame>> saves(Player viewer, String mazeId, UUID ownerId) {
+        return saveSlots(mazeId).listForViewer(viewer.getUniqueId(), viewer.isOp(), ownerId);
     }
 
     public void listSaves(Player viewer, UUID ownerId) {
-        saves(viewer, ownerId).whenComplete((saves, failure) -> onMain(() -> {
+        listSaves(viewer, "midnight-easy", ownerId);
+    }
+
+    public void listSaves(Player viewer, String mazeId, UUID ownerId) {
+        MapPack selected = map(mazeId);
+        saves(viewer, mazeId, ownerId).whenComplete((saves, failure) -> onMain(() -> {
             if (failure != null) { asyncFailure(viewer, "세이브 목록", failure); return; }
-            viewer.sendMessage("§6[미궁 세이브: " + map.displayName() + " / " + ownerId + "]");
+            viewer.sendMessage("§6[미궁 세이브: " + selected.displayName() + " / " + ownerId + "]");
             for (int slot = 1; slot <= 3; slot++) {
                 int currentSlot = slot;
                 List<SaveGame> matches = saves.stream().filter(save -> save.slot().number() == currentSlot).toList();
@@ -414,9 +441,13 @@ public final class MazeRuntimeService {
     }
 
     public void deleteSave(Player actor, UUID ownerId, int slot) {
+        deleteSave(actor, "midnight-easy", ownerId, slot);
+    }
+
+    public void deleteSave(Player actor, String mazeId, UUID ownerId, int slot) {
         UUID actorId = actor.getUniqueId();
         boolean operator = actor.isOp();
-        saveSlots.deleteAuthorized(ownerId, slot, actorId, operator).whenComplete((deleted, failure) -> onMain(() -> {
+        saveSlots(mazeId).deleteAuthorized(ownerId, slot, actorId, operator).whenComplete((deleted, failure) -> onMain(() -> {
             if (failure != null) asyncFailure(actor, "세이브 삭제", failure);
             else actor.sendMessage(deleted ? "§a세이브를 삭제했습니다."
                     : "§c세이브가 없거나 삭제 권한이 없습니다.");
@@ -424,16 +455,24 @@ public final class MazeRuntimeService {
     }
 
     public void transferOwnership(Player operator, UUID ownerId, int slot, UUID newOwner) {
+        transferOwnership(operator, "midnight-easy", ownerId, slot, newOwner);
+    }
+
+    public void transferOwnership(Player operator, String mazeId, UUID ownerId, int slot, UUID newOwner) {
         if (!operator.isOp()) { operator.sendMessage("§cOP만 소유권을 이전할 수 있습니다."); return; }
-        saveSlots.transfer(ownerId, slot, newOwner).whenComplete((changed, failure) -> onMain(() -> {
+        saveSlots(mazeId).transfer(ownerId, slot, newOwner).whenComplete((changed, failure) -> onMain(() -> {
             if (failure != null) asyncFailure(operator, "소유권 이전", failure);
             else operator.sendMessage(changed ? "§a세이브 소유권을 이전했습니다." : "§c세이브를 찾지 못했거나 새 소유자가 원래 명단에 없습니다.");
         }));
     }
 
     public void leaderboard(Player player, int partySize) {
+        leaderboard(player, "midnight-easy", partySize);
+    }
+
+    public void leaderboard(Player player, String mazeId, int partySize) {
         int size = Math.max(1, Math.min(4, partySize));
-        leaderboardEntries(size)
+        leaderboardEntries(mazeId, size)
                 .whenComplete((entries, failure) -> onMain(() -> {
                     if (failure != null) { asyncFailure(player, "순위표", failure); return; }
                     player.sendMessage("§6[" + size + "인 파티 순위표]");
@@ -445,8 +484,13 @@ public final class MazeRuntimeService {
     }
 
     public CompletionStage<List<LeaderboardEntry>> leaderboardEntries(int partySize) {
+        return leaderboardEntries("midnight-easy", partySize);
+    }
+
+    public CompletionStage<List<LeaderboardEntry>> leaderboardEntries(String mazeId, int partySize) {
+        MapPack selected = map(mazeId);
         int size = Math.max(1, Math.min(4, partySize));
-        return persistence.leaderboard(new LeaderboardQuery(map.mazeId(), map.mapVersion(), size, 10));
+        return persistence.leaderboard(new LeaderboardQuery(selected.mazeId(), selected.mapVersion(), size, 10));
     }
 
     public void tick() {
@@ -498,7 +542,7 @@ public final class MazeRuntimeService {
         return CompletableFuture.allOf(futures);
     }
 
-    private void beginNewRun(Player actor, PartyView party, int slot) {
+    private void beginNewRun(Player actor, PartyView party, MapPack map, int slot) {
         PartyServiceResult locked = parties.start(actor.getUniqueId());
         if (!locked.succeeded()) { tellResult(actor, locked, ""); return; }
         PartyView view = locked.party().orElseThrow();
@@ -564,6 +608,7 @@ public final class MazeRuntimeService {
         if (!ctx.session.beginProvisioning().succeeded()) { discard(ctx, "§c잘못된 인스턴스 상태입니다.", true); return; }
         broadcast(ctx.roster, "§7전용 미궁 공간과 방을 생성하는 중입니다. 로비에서 잠시 기다려 주세요...");
         persistSnapshot(ctx);
+        MapPack map = map(ctx);
         worlds.provision(ctx.session.id(), map.mazeId(), map.mapVersion(), ctx.roster)
                 .thenCompose(handle -> {
                     ctx.handle = handle;
@@ -582,7 +627,7 @@ public final class MazeRuntimeService {
         if (!ctx.session.activate(now).succeeded()) { discard(ctx, "§c세션 활성화에 실패했습니다.", true); return; }
         parties.markRunActive(ctx.partyId);
         ctx.afk.resumeActivePlay();
-        ctx.room = new PaperRoomRuntime(ctx.session.id(), ctx.session.roomAttemptRevision(), map.room(ctx.session.currentRoom()), ctx.roster);
+        ctx.room = new PaperRoomRuntime(ctx.session.id(), ctx.session.roomAttemptRevision(), map(ctx).room(ctx.session.currentRoom()), ctx.roster);
         teleportToRoom(ctx);
         broadcast(ctx.roster, "§6[방 " + ctx.session.currentRoom() + "] §f" + ctx.room.room().title());
         broadcast(ctx.roster, "§7" + ctx.room.room().intro());
@@ -601,7 +646,7 @@ public final class MazeRuntimeService {
             World world = plugin.getServer().getWorld(ctx.handle.instanceName());
             if (world != null) ctx.room.restoreBlocks(world);
             ctx.room = new PaperRoomRuntime(ctx.session.id(), ctx.session.roomAttemptRevision(),
-                    map.room(ctx.session.currentRoom()), ctx.roster);
+                    map(ctx).room(ctx.session.currentRoom()), ctx.roster);
             teleportToRoom(ctx);
             broadcast(ctx.roster, "§c" + message);
             persistSnapshot(ctx);
@@ -616,7 +661,7 @@ public final class MazeRuntimeService {
             return;
         }
         ctx.room = new PaperRoomRuntime(ctx.session.id(), ctx.session.roomAttemptRevision(),
-                map.room(ctx.session.currentRoom()), ctx.roster);
+                map(ctx).room(ctx.session.currentRoom()), ctx.roster);
         teleportToRoom(ctx);
         broadcast(ctx.roster, "§6[방 " + ctx.session.currentRoom() + "] §f" + ctx.room.room().title());
         broadcast(ctx.roster, "§7" + ctx.room.room().intro());
@@ -658,7 +703,7 @@ public final class MazeRuntimeService {
     }
 
     private CompletionStage<Void> save(RunContext ctx) {
-        return saveSlots.store(ctx.slot, ctx.saveOwner, ctx.roster, ctx.session);
+        return saveSlots(ctx.session.mazeId()).store(ctx.slot, ctx.saveOwner, ctx.roster, ctx.session);
     }
 
     private CompletionStage<Void> saveWithRetry(RunContext ctx, int attempts) {
@@ -701,7 +746,7 @@ public final class MazeRuntimeService {
     private CompletionStage<Void> durableCompletion(RunContext ctx, CompletedRun run) {
         return persistence.record(run)
                 .thenCompose(ignored -> ctx.resumed
-                        ? saveSlots.delete(ctx.saveOwner, ctx.slot).thenApply(deleted -> null)
+                        ? saveSlots(ctx.session.mazeId()).delete(ctx.saveOwner, ctx.slot).thenApply(deleted -> null)
                         : CompletableFuture.completedFuture(null))
                 .thenCompose(ignored -> persistence.delete(ctx.session.id()));
     }
@@ -790,6 +835,26 @@ public final class MazeRuntimeService {
         return id == null ? null : runs.get(id);
     }
 
+    private MapPack map(String mazeId) {
+        MapPack selected = maps.get(mazeId);
+        if (selected == null) throw new IllegalArgumentException("알 수 없는 미궁입니다: " + mazeId);
+        return selected;
+    }
+
+    private MapPack map(RunContext ctx) {
+        MapPack selected = map(ctx.session.mazeId());
+        if (!selected.mapVersion().equals(ctx.session.mapVersion())) {
+            throw new IllegalStateException("세션과 현재 미궁 버전이 다릅니다: " + ctx.session.mazeId());
+        }
+        return selected;
+    }
+
+    private SaveSlotWorkflow saveSlots(String mazeId) {
+        SaveSlotWorkflow workflow = saveSlots.get(mazeId);
+        if (workflow == null) throw new IllegalArgumentException("알 수 없는 미궁입니다: " + mazeId);
+        return workflow;
+    }
+
     private RunContext activeContext(Player player) {
         RunContext ctx = context(player.getUniqueId());
         return ctx != null && ctx.session.state() == SessionState.ACTIVE ? ctx : null;
@@ -837,9 +902,10 @@ public final class MazeRuntimeService {
         return true;
     }
 
-    private boolean consumeOverwrite(UUID leader, int slot) {
+    private boolean consumeOverwrite(UUID leader, String mazeId, int slot) {
         PendingOverwrite pending = pendingOverwrites.remove(leader);
-        return pending != null && pending.slot == slot && clock.instant().isBefore(pending.expiresAt);
+        return pending != null && pending.mazeId.equals(mazeId) && pending.slot == slot
+                && clock.instant().isBefore(pending.expiresAt);
     }
 
     private HintContextId hintContext(RunContext ctx) {
@@ -912,12 +978,16 @@ public final class MazeRuntimeService {
         return "%02d:%02d:%02d".formatted(seconds / 3600, seconds / 60 % 60, seconds % 60);
     }
 
-    public record RunView(SessionId sessionId, SessionState state, int room, int roomCount,
-                          int slot, PartyRoster roster, Set<Integer> unlockedHints) { }
+    public record MazeOption(String mazeId, String displayName, int roomCount) { }
+
+    public record RunView(SessionId sessionId, String mazeId, String mazeName, SessionState state,
+                          int room, int roomCount, int slot, PartyRoster roster, Set<Integer> unlockedHints) { }
 
     private RunView view(RunContext ctx) {
         int room = ctx.session.currentRoom();
-        return new RunView(ctx.session.id(), ctx.session.state(), room, ctx.session.roomCount(), ctx.slot, ctx.roster,
+        MapPack selected = map(ctx);
+        return new RunView(ctx.session.id(), selected.mazeId(), selected.displayName(), ctx.session.state(),
+                room, ctx.session.roomCount(), ctx.slot, ctx.roster,
                 Set.copyOf(ctx.session.hintProgress().unlockedByRoom().getOrDefault(room, Set.of())));
     }
 
@@ -940,5 +1010,5 @@ public final class MazeRuntimeService {
             this.resumed = resumed; this.saveOwner = saveOwner;
         }
     }
-    private record PendingOverwrite(int slot, Instant expiresAt) { }
+    private record PendingOverwrite(String mazeId, int slot, Instant expiresAt) { }
 }

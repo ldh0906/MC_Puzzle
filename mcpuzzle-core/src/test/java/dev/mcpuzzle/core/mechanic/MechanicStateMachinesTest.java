@@ -3,7 +3,11 @@ package dev.mcpuzzle.core.mechanic;
 import dev.mcpuzzle.core.domain.SessionId;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -172,6 +176,83 @@ class MechanicStateMachinesTest {
         assertTrue(target.destroyed());
         target.reset(second);
         assertFalse(target.destroyed());
+    }
+
+    @Test
+    void clueRegionsOnlyProgressOncePerRegionAndIgnoreStaleAttempts() {
+        RoomAttemptId first = attempt(0);
+        RoomAttemptId second = attempt(first.sessionId(), 1);
+        ClueRegionsMechanic clues = new ClueRegionsMechanic(
+                new MechanicId("clues"), first, List.of("red", "blue"));
+
+        assertEquals(MechanicOutcomeType.PROGRESSED,
+                clues.handle(first, new ClueRegionsMechanic.RegionEntered("red")).type());
+        assertEquals(MechanicOutcomeType.NO_CHANGE,
+                clues.handle(first, new ClueRegionsMechanic.RegionEntered("red")).type());
+        assertEquals(Set.of("red"), clues.discoveredRegions());
+        clues.reset(second);
+        assertEquals(MechanicOutcomeType.IGNORED_STALE_ATTEMPT,
+                clues.handle(first, new ClueRegionsMechanic.RegionEntered("blue")).type());
+        clues.handle(second, new ClueRegionsMechanic.RegionEntered("red"));
+        assertEquals(MechanicOutcomeType.COMPLETED,
+                clues.handle(second, new ClueRegionsMechanic.RegionEntered("blue")).type());
+    }
+
+    @Test
+    void orderedInputWrongStepClearsOnlyItsBufferAndAllowsRepeatedControls() {
+        RoomAttemptId attempt = attempt(0);
+        OrderedInputMechanic ordered = new OrderedInputMechanic(
+                new MechanicId("ordered"), attempt, List.of("h", "h", "o"));
+
+        ordered.handle(attempt, new OrderedInputMechanic.ControlEntered("h"));
+        assertEquals(1, ordered.cursor());
+        assertEquals(MechanicOutcomeType.NO_CHANGE,
+                ordered.handle(attempt, new OrderedInputMechanic.ControlEntered("o")).type());
+        assertEquals(0, ordered.cursor());
+        ordered.handle(attempt, new OrderedInputMechanic.ControlEntered("h"));
+        ordered.handle(attempt, new OrderedInputMechanic.ControlEntered("h"));
+        assertEquals(MechanicOutcomeType.COMPLETED,
+                ordered.handle(attempt, new OrderedInputMechanic.ControlEntered("o")).type());
+    }
+
+    @Test
+    void choiceAndToggleWrongInputsSoftResetWithoutFailingTheRoom() {
+        RoomAttemptId attempt = attempt(0);
+        ChoiceInputMechanic choice = new ChoiceInputMechanic(new MechanicId("choice"), attempt, "zeus");
+        assertEquals(MechanicOutcomeType.NO_CHANGE,
+                choice.handle(attempt, new ChoiceInputMechanic.ChoiceSelected("hades")).type());
+        assertEquals(MechanicStatus.ACTIVE, choice.status());
+        assertEquals(MechanicOutcomeType.COMPLETED,
+                choice.handle(attempt, new ChoiceInputMechanic.ChoiceSelected("zeus")).type());
+
+        ToggleInputMechanic toggle = new ToggleInputMechanic(
+                new MechanicId("toggle"), attempt, List.of("a", "b", "c"), List.of("a", "c"), 2);
+        toggle.handle(attempt, new ToggleInputMechanic.TogglePressed("a"));
+        assertEquals(MechanicOutcomeType.NO_CHANGE,
+                toggle.handle(attempt, new ToggleInputMechanic.SubmitPressed()).type());
+        assertTrue(toggle.selected().isEmpty());
+        toggle.handle(attempt, new ToggleInputMechanic.TogglePressed("a"));
+        toggle.handle(attempt, new ToggleInputMechanic.TogglePressed("c"));
+        assertEquals(MechanicOutcomeType.COMPLETED,
+                toggle.handle(attempt, new ToggleInputMechanic.SubmitPressed()).type());
+    }
+
+    @Test
+    void operatorLockRefreshesExpiresAndReleasesByOwner() {
+        InputOperatorLock lock = new InputOperatorLock();
+        UUID first = UUID.randomUUID();
+        UUID second = UUID.randomUUID();
+        Instant now = Instant.parse("2026-08-06T00:00:00Z");
+
+        assertTrue(lock.acquire(first, now, Duration.ofSeconds(10)));
+        assertFalse(lock.acquire(second, now.plusSeconds(9), Duration.ofSeconds(10)));
+        assertTrue(lock.acquire(first, now.plusSeconds(9), Duration.ofSeconds(10)));
+        assertFalse(lock.acquire(second, now.plusSeconds(18), Duration.ofSeconds(10)));
+        assertTrue(lock.acquire(second, now.plusSeconds(19), Duration.ofSeconds(10)));
+        lock.release(first);
+        assertEquals(second, lock.owner(now.plusSeconds(20)).orElseThrow());
+        lock.release(second);
+        assertTrue(lock.owner(now.plusSeconds(20)).isEmpty());
     }
 
     private static RoomAttemptId attempt(long revision) {

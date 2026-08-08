@@ -25,7 +25,8 @@ import java.util.Set;
 public final class JsoncMapPackLoader {
     private static final Set<String> SUPPORTED_MECHANICS = Set.of(
             "LATCHING_PRESSURE_PADS", "CORNER_OBJECTIVES", "DESTRUCTIBLE_TARGET",
-            "NUMERIC_KEYPAD", "LOGIC_ANSWER", "PROXIMITY_ESCORT", "DYNAMIC_PARTY_PADS_AND_TARGET"
+            "NUMERIC_KEYPAD", "LOGIC_ANSWER", "CLUE_REGIONS", "ORDERED_INPUT",
+            "CHOICE_INPUT", "TOGGLE_INPUT", "PROXIMITY_ESCORT", "DYNAMIC_PARTY_PADS_AND_TARGET"
     );
 
     public MapPack load(Path path) throws MapPackLoadException {
@@ -92,7 +93,7 @@ public final class JsoncMapPackLoader {
             String path = "$.rooms[" + i + "]";
             JsonObject room = requireObject(roomArray.get(i), path);
             rejectUnknown(room, path, "id", "sequence", "originalStage", "title", "buildBounds", "playBounds",
-                    "spawn", "checkpoint", "visual", "completionMode", "mechanics", "hints", "messages", "reset", "source");
+                    "spawn", "checkpoint", "visual", "structure", "completionMode", "mechanics", "hints", "messages", "reset", "source");
             exactText(room, "completionMode", path, "ALL_MECHANICS");
             String id = text(room, "id", path);
             int sequence = integer(room, "sequence", path, 1, roomArray.size());
@@ -107,6 +108,7 @@ public final class JsoncMapPackLoader {
             requireInBounds(play, spawn, path + ".spawn");
             requireInBounds(play, checkpoint, path + ".checkpoint");
             Optional<MapPack.VisualBlueprint> visual = visual(room, build, path);
+            Optional<MapPack.StructureBlueprint> structure = structure(room, build, path);
             List<MapPack.MechanicDefinition> mechanics = mechanics(room, build, path);
             List<MapPack.Hint> hints = hints(room, path);
             JsonObject messages = object(room, "messages", path);
@@ -114,7 +116,7 @@ public final class JsoncMapPackLoader {
             validateReset(object(room, "reset", path), path + ".reset");
             rooms.add(new MapPack.RoomDefinition(id, sequence,
                     integer(room, "originalStage", path, 1, Integer.MAX_VALUE), text(room, "title", path),
-                    build, play, spawn, checkpoint, visual, mechanics, hints,
+                    build, play, spawn, checkpoint, visual, structure, mechanics, hints,
                     text(messages, "intro", path + ".messages"),
                     text(messages, "completion", path + ".messages"),
                     text(messages, "failure", path + ".messages")));
@@ -181,6 +183,48 @@ public final class JsoncMapPackLoader {
         return Optional.of(new MapPack.VisualBlueprint(origin, scale, width, height, cells, palette));
     }
 
+    private Optional<MapPack.StructureBlueprint> structure(JsonObject room, MapPack.Bounds bounds, String roomPath)
+            throws MapPackLoadException {
+        if (!room.has("structure")) return Optional.empty();
+        String path = roomPath + ".structure";
+        JsonObject value = object(room, "structure", roomPath);
+        rejectUnknown(value, path, "blocks", "cuboids", "signs");
+        List<MapPack.StructureBlock> blocks = new ArrayList<>();
+        JsonArray blockValues = array(value, "blocks", path);
+        for (int index = 0; index < blockValues.size(); index++) {
+            String itemPath = path + ".blocks[" + index + "]";
+            JsonObject item = requireObject(blockValues.get(index), itemPath);
+            rejectUnknown(item, itemPath, "position", "material");
+            MapPack.Position position = position(object(item, "position", itemPath), itemPath + ".position");
+            requireInBounds(bounds, position, itemPath + ".position");
+            blocks.add(new MapPack.StructureBlock(position, material(item, "material", itemPath)));
+        }
+        List<MapPack.StructureCuboid> cuboids = new ArrayList<>();
+        JsonArray cuboidValues = array(value, "cuboids", path);
+        for (int index = 0; index < cuboidValues.size(); index++) {
+            String itemPath = path + ".cuboids[" + index + "]";
+            JsonObject item = requireObject(cuboidValues.get(index), itemPath);
+            rejectUnknown(item, itemPath, "bounds", "material");
+            MapPack.Bounds cuboid = bounds(object(item, "bounds", itemPath), itemPath + ".bounds");
+            requireBoundsInside(bounds, cuboid, itemPath + ".bounds");
+            cuboids.add(new MapPack.StructureCuboid(cuboid, material(item, "material", itemPath)));
+        }
+        List<MapPack.StructureSign> signs = new ArrayList<>();
+        JsonArray signValues = array(value, "signs", path);
+        for (int index = 0; index < signValues.size(); index++) {
+            String itemPath = path + ".signs[" + index + "]";
+            JsonObject item = requireObject(signValues.get(index), itemPath);
+            rejectUnknown(item, itemPath, "position", "facing", "lines");
+            MapPack.Position position = position(object(item, "position", itemPath), itemPath + ".position");
+            requireInBounds(bounds, position, itemPath + ".position");
+            String facing = text(item, "facing", itemPath).toUpperCase(Locale.ROOT);
+            if (!Set.of("NORTH", "SOUTH", "EAST", "WEST").contains(facing)) throw error(itemPath + ".facing", "invalid facing");
+            signs.add(new MapPack.StructureSign(position, facing,
+                    strings(array(item, "lines", itemPath), itemPath + ".lines", 1, 4, 80)));
+        }
+        return Optional.of(new MapPack.StructureBlueprint(blocks, cuboids, signs));
+    }
+
     private List<MapPack.MechanicDefinition> mechanics(JsonObject room, MapPack.Bounds bounds, String roomPath) throws MapPackLoadException {
         JsonArray values = array(room, "mechanics", roomPath);
         if (values.isEmpty()) throw error(roomPath + ".mechanics", "must not be empty");
@@ -194,6 +238,30 @@ public final class JsoncMapPackLoader {
             if (!SUPPORTED_MECHANICS.contains(type)) throw error(path + ".type", "unsupported mechanic " + type);
             result.add(parseMechanic(mechanic, type, bounds, path));
         }
+        Map<String, MapPack.MechanicDefinition> mechanicsById = result.stream().collect(
+                java.util.stream.Collectors.toMap(MapPack.MechanicDefinition::id, definition -> definition));
+        int completable = 0;
+        for (MapPack.MechanicDefinition definition : result) {
+            if (definition instanceof MapPack.LogicAnswer answer) {
+                Set<String> uniqueRequirements = new HashSet<>();
+                for (String required : answer.requires()) {
+                    MapPack.MechanicDefinition prerequisite = mechanicsById.get(required);
+                    if (prerequisite == null || required.equals(answer.id())) {
+                        throw error(roomPath + ".mechanics", "logic answer requires unknown mechanic " + required);
+                    }
+                    if (!uniqueRequirements.add(required)) {
+                        throw error(roomPath + ".mechanics", "logic answer repeats prerequisite " + required);
+                    }
+                    if (prerequisite instanceof MapPack.LogicAnswer) {
+                        throw error(roomPath + ".mechanics", "logic answer prerequisite must be an environmental mechanic");
+                    }
+                }
+                if (answer.chatSubmissionEnabled()) completable++;
+            } else {
+                completable++;
+            }
+        }
+        if (completable == 0) throw error(roomPath + ".mechanics", "room requires at least one completable mechanic");
         return result;
     }
 
@@ -248,9 +316,9 @@ public final class JsoncMapPackLoader {
             case "LOGIC_ANSWER" -> {
                 rejectUnknown(value, path, "id", "type", "question", "pages", "answerFormat", "answers",
                         "normalization", "cooldownSeconds", "difficulty", "inspiration", "solutionExplanation",
-                        "wrongAnswerSamples");
+                        "wrongAnswerSamples", "submissionMode", "requires");
                 exactText(value, "normalization", path, "LETTERS_AND_DIGITS");
-                List<String> pages = strings(array(value, "pages", path), path + ".pages", 1, 8, 240);
+                List<MapPack.BookPage> pages = bookPages(array(value, "pages", path), path + ".pages");
                 List<String> answers = strings(array(value, "answers", path), path + ".answers", 1, 8, 64);
                 Set<String> normalized = new HashSet<>();
                 for (String answer : answers) {
@@ -269,7 +337,85 @@ public final class JsoncMapPackLoader {
                         text(value, "answerFormat", path), answers,
                         integer(value, "cooldownSeconds", path, 3, 60),
                         integer(value, "difficulty", path, 1, 5), text(value, "inspiration", path),
-                        text(value, "solutionExplanation", path), wrongSamples);
+                        text(value, "solutionExplanation", path), wrongSamples,
+                        value.has("submissionMode") ? text(value, "submissionMode", path) : "CHAT",
+                        value.has("requires") ? strings(array(value, "requires", path), path + ".requires", 0, 8, 64) : List.of());
+            }
+            case "CLUE_REGIONS" -> {
+                rejectUnknown(value, path, "id", "type", "regions");
+                JsonArray regions = array(value, "regions", path);
+                if (regions.isEmpty()) throw error(path + ".regions", "must not be empty");
+                List<MapPack.ClueRegion> parsed = new ArrayList<>();
+                Set<String> regionIds = new HashSet<>();
+                for (int index = 0; index < regions.size(); index++) {
+                    String itemPath = path + ".regions[" + index + "]";
+                    JsonObject item = requireObject(regions.get(index), itemPath);
+                    rejectUnknown(item, itemPath, "id", "bounds", "message", "sound", "pitch");
+                    String regionId = text(item, "id", itemPath);
+                    if (!regionIds.add(regionId)) throw error(itemPath + ".id", "duplicate clue region");
+                    MapPack.Bounds regionBounds = bounds(object(item, "bounds", itemPath), itemPath + ".bounds");
+                    requireBoundsInside(bounds, regionBounds, itemPath + ".bounds");
+                    parsed.add(new MapPack.ClueRegion(regionId, regionBounds, text(item, "message", itemPath),
+                            item.has("sound") ? Optional.of(text(item, "sound", itemPath)) : Optional.empty(),
+                            (float) optionalNumber(item, "pitch", 1.0)));
+                }
+                yield new MapPack.ClueRegions(id, type, parsed);
+            }
+            case "ORDERED_INPUT" -> {
+                rejectUnknown(value, path, "id", "type", "controls", "expected", "groups", "operatorLockSeconds",
+                        "resultText", "clearButton");
+                List<MapPack.Control> controls = controls(array(value, "controls", path), bounds, path + ".controls");
+                Set<String> controlIds = controls.stream().map(MapPack.Control::id).collect(java.util.stream.Collectors.toSet());
+                JsonArray expectedValues = array(value, "expected", path);
+                if (expectedValues.isEmpty()) throw error(path + ".expected", "must not be empty");
+                List<MapPack.ExpectedStep> expected = new ArrayList<>();
+                for (int index = 0; index < expectedValues.size(); index++) {
+                    String itemPath = path + ".expected[" + index + "]";
+                    JsonObject item = requireObject(expectedValues.get(index), itemPath);
+                    rejectUnknown(item, itemPath, "control", "display");
+                    String control = text(item, "control", itemPath);
+                    if (!controlIds.contains(control)) throw error(itemPath + ".control", "unknown control " + control);
+                    expected.add(new MapPack.ExpectedStep(control, item.has("display") ? string(item, "display", itemPath) : control));
+                }
+                List<Integer> groups = value.has("groups") ? integers(array(value, "groups", path), path + ".groups", 1, 64) : List.of();
+                int visibleSteps = expected.stream().mapToInt(step -> step.display().isEmpty() ? 0 : 1).sum();
+                if (!groups.isEmpty() && groups.stream().mapToInt(Integer::intValue).sum() != visibleSteps) {
+                    throw error(path + ".groups", "group sizes must equal visible expected steps");
+                }
+                Optional<MapPack.Position> clear = Optional.empty();
+                if (value.has("clearButton")) {
+                    MapPack.Position clearPosition = position(object(value, "clearButton", path), path + ".clearButton");
+                    requireInBounds(bounds, clearPosition, path + ".clearButton");
+                    clear = Optional.of(clearPosition);
+                }
+                yield new MapPack.OrderedInput(id, type, controls, expected, groups,
+                        integer(value, "operatorLockSeconds", path, 1, 60), text(value, "resultText", path), clear);
+            }
+            case "CHOICE_INPUT" -> {
+                rejectUnknown(value, path, "id", "type", "controls", "correctControl", "operatorLockSeconds", "resultText");
+                List<MapPack.Control> controls = controls(array(value, "controls", path), bounds, path + ".controls");
+                String correct = text(value, "correctControl", path);
+                if (controls.stream().noneMatch(control -> control.id().equals(correct))) {
+                    throw error(path + ".correctControl", "unknown control " + correct);
+                }
+                yield new MapPack.ChoiceInput(id, type, controls, correct,
+                        integer(value, "operatorLockSeconds", path, 1, 60), text(value, "resultText", path));
+            }
+            case "TOGGLE_INPUT" -> {
+                rejectUnknown(value, path, "id", "type", "controls", "expectedActive", "maxSelections",
+                        "operatorLockSeconds", "submitButton", "clearButton", "resultText");
+                List<MapPack.Control> controls = controls(array(value, "controls", path), bounds, path + ".controls");
+                Set<String> controlIds = controls.stream().map(MapPack.Control::id).collect(java.util.stream.Collectors.toSet());
+                List<String> expected = strings(array(value, "expectedActive", path), path + ".expectedActive", 1, controls.size(), 64);
+                if (!controlIds.containsAll(expected)) throw error(path + ".expectedActive", "contains unknown control");
+                MapPack.Position submit = position(object(value, "submitButton", path), path + ".submitButton");
+                MapPack.Position clear = position(object(value, "clearButton", path), path + ".clearButton");
+                requireInBounds(bounds, submit, path + ".submitButton");
+                requireInBounds(bounds, clear, path + ".clearButton");
+                yield new MapPack.ToggleInput(id, type, controls, expected,
+                        integer(value, "maxSelections", path, expected.size(), controls.size()),
+                        integer(value, "operatorLockSeconds", path, 1, 60), submit, clear,
+                        text(value, "resultText", path));
             }
             case "PROXIMITY_ESCORT" -> {
                 rejectUnknown(value, path, "id", "type", "entity", "checkpoints", "destination", "proximityRadius",
@@ -361,6 +507,75 @@ public final class JsoncMapPackLoader {
         return result;
     }
 
+    private static List<MapPack.BookPage> bookPages(JsonArray values, String path) throws MapPackLoadException {
+        if (values.isEmpty() || values.size() > 8) throw error(path, "array size must be between 1 and 8");
+        List<MapPack.BookPage> result = new ArrayList<>();
+        for (int index = 0; index < values.size(); index++) {
+            JsonElement value = values.get(index);
+            if (value.isJsonPrimitive() && value.getAsJsonPrimitive().isString()) {
+                String text = value.getAsString().trim();
+                if (text.isEmpty() || text.codePointCount(0, text.length()) > 240) {
+                    throw error(path + "[" + index + "]", "non-blank page must be at most 240 characters");
+                }
+                result.add(new MapPack.BookPage(MapPack.PageLayout.PROSE, text));
+                continue;
+            }
+            String itemPath = path + "[" + index + "]";
+            JsonObject page = requireObject(value, itemPath);
+            rejectUnknown(page, itemPath, "layout", "text");
+            MapPack.PageLayout layout;
+            try { layout = MapPack.PageLayout.valueOf(text(page, "layout", itemPath)); }
+            catch (IllegalArgumentException failure) { throw error(itemPath + ".layout", "must be PROSE or GRID"); }
+            String text = text(page, "text", itemPath);
+            if (text.codePointCount(0, text.length()) > 240) throw error(itemPath + ".text", "must be at most 240 characters");
+            result.add(new MapPack.BookPage(layout, text));
+        }
+        return result;
+    }
+
+    private static List<MapPack.Control> controls(JsonArray values, MapPack.Bounds bounds, String path)
+            throws MapPackLoadException {
+        if (values.isEmpty()) throw error(path, "must not be empty");
+        List<MapPack.Control> result = new ArrayList<>();
+        Set<String> ids = new HashSet<>();
+        for (int index = 0; index < values.size(); index++) {
+            String itemPath = path + "[" + index + "]";
+            JsonObject item = requireObject(values.get(index), itemPath);
+            rejectUnknown(item, itemPath, "id", "token", "label", "activation", "position", "material", "indicator");
+            String id = text(item, "id", itemPath);
+            if (!ids.add(id)) throw error(itemPath + ".id", "duplicate control");
+            String activation = text(item, "activation", itemPath);
+            if (!Set.of("STEP", "CLICK").contains(activation)) throw error(itemPath + ".activation", "must be STEP or CLICK");
+            MapPack.Position position = position(object(item, "position", itemPath), itemPath + ".position");
+            requireInBounds(bounds, position, itemPath + ".position");
+            Optional<MapPack.Position> indicator = Optional.empty();
+            if (item.has("indicator")) {
+                MapPack.Position indicatorPosition = position(object(item, "indicator", itemPath), itemPath + ".indicator");
+                requireInBounds(bounds, indicatorPosition, itemPath + ".indicator");
+                indicator = Optional.of(indicatorPosition);
+            }
+            result.add(new MapPack.Control(id, string(item, "token", itemPath), text(item, "label", itemPath),
+                    activation, position, material(item, "material", itemPath), indicator));
+        }
+        return result;
+    }
+
+    private static List<Integer> integers(JsonArray values, String path, int min, int max)
+            throws MapPackLoadException {
+        List<Integer> result = new ArrayList<>();
+        for (int index = 0; index < values.size(); index++) {
+            JsonElement value = values.get(index);
+            try {
+                int number = value.getAsInt();
+                if (number < min || number > max || value.getAsDouble() != number) throw new NumberFormatException();
+                result.add(number);
+            } catch (RuntimeException failure) {
+                throw error(path + "[" + index + "]", "integer must be between " + min + " and " + max);
+            }
+        }
+        return result;
+    }
+
     private static List<String> strings(JsonArray values, String path, int minSize, int maxSize, int maxLength)
             throws MapPackLoadException {
         if (values.size() < minSize || values.size() > maxSize) {
@@ -418,6 +633,14 @@ public final class JsoncMapPackLoader {
         if (value == null || !value.isJsonPrimitive() || !value.getAsJsonPrimitive().isString()
                 || value.getAsString().trim().isEmpty()) throw error(path + "." + key, "non-blank string is required");
         return value.getAsString().trim();
+    }
+
+    private static String string(JsonObject owner, String key, String path) throws MapPackLoadException {
+        JsonElement value = owner.get(key);
+        if (value == null || !value.isJsonPrimitive() || !value.getAsJsonPrimitive().isString()) {
+            throw error(path + "." + key, "string is required");
+        }
+        return value.getAsString();
     }
 
     private static int integer(JsonObject owner, String key, String path, int min, int max) throws MapPackLoadException {

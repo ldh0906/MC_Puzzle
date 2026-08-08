@@ -24,12 +24,12 @@ class SaveAccessPolicyTest {
         UUID stranger = UUID.randomUUID();
         Instant start = Instant.parse("2026-08-05T00:00:00Z");
         MapVersion version = new MapVersion("1.0.0-mvp");
-        PuzzleSession session = PuzzleSession.create(SessionId.random(), "a-to-z-archive-20", version,
+        PuzzleSession session = PuzzleSession.create(SessionId.random(), "midnight-easy", version,
                 Party.of(leader, List.of(leader, owner)), 5);
         session.queue(leader); session.beginProvisioning(); session.activate(start);
         session.completeCurrentRoom(start.plusSeconds(1)); session.requestSuspend(leader, start.plusSeconds(2));
         var snapshot = session.snapshot(start.plusSeconds(3));
-        SaveGame save = new SaveGame(new SaveSlot(1, owner, "a-to-z-archive-20", version, snapshot.roster(),
+        SaveGame save = new SaveGame(new SaveSlot(1, owner, "midnight-easy", version, snapshot.roster(),
                 snapshot.checkpoint().orElseThrow(), snapshot.capturedAt()), snapshot);
 
         SaveAccessPolicy policy = new SaveAccessPolicy();
